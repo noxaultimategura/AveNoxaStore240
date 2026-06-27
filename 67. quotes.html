@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - Quotes</title>
+    <style>
+        /* ========== WARNA EMAS GELAP ========== */
+        /* #1a1408, #2d2410, #4a3a1a, #6b5528, #8c7040, #c4a050, #f0d060 */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #1a1408, #0d0a04);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Theme varian berdasarkan warna Emas Gelap */
+        body.theme-primary {
+            background: radial-gradient(circle at 30% 20%, #1a1408, #0d0a04);
+        }
+
+        body.theme-gold-dark {
+            background: radial-gradient(circle at 60% 40%, #2d2410, #1a1408);
+        }
+
+        body.theme-gold-medium {
+            background: radial-gradient(circle at 70% 30%, #4a3a1a, #1a1408);
+        }
+
+        body.theme-gold-soft {
+            background: radial-gradient(circle at 40% 70%, #8c7040, #2d2410);
+        }
+
+        body.theme-gold-light {
+            background: radial-gradient(circle at 80% 50%, #c4a050, #1a1408);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(74, 58, 26, 0.5);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(196, 160, 80, 0.4);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #f0d060, #c4a050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(196, 160, 80, 0.4);
+            animation: softPulse 2.5s infinite alternate;
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 4px #2d2410;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #f0d060;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #f0d060, #c4a050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #f0d060;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(74, 58, 26, 0.5);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: #f0d060;
+            background: rgba(74, 58, 26, 0.3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #f0d060;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(74, 58, 26, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #f0d060;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #f0d060;
+            box-shadow: 0 0 0 3px rgba(196, 160, 80, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #c4a050;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #f0d060;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .clear-btn:hover {
+            background: #4a3a1a;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(74, 58, 26, 0.3);
+            border: 1px solid rgba(74, 58, 26, 0.6);
+            color: #f0d060;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(74, 58, 26, 0.5);
+            transform: scale(1.02);
+            color: #f0d060;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(74, 58, 26, 0.5);
+        }
+
+        .shortcut-msg {
+            background: #1a1408;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #f0d060;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(196, 160, 80, 0.3);
+        }
+
+        #shortcutNotif {
+            font-size: 0.7rem;
+            color: #f0d060;
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid #4a3a1a;
+            border-right: 1px solid rgba(74, 58, 26, 0.3);
+            border-top: 1px solid rgba(74, 58, 26, 0.2);
+            border-bottom: 1px solid rgba(74, 58, 26, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(26, 20, 8, 0.85), rgba(13, 10, 4, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            position: relative;
+            animation: fadeInQuote 0.6s ease forwards;
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #f0d060;
+            box-shadow: 0 12px 30px -8px rgba(196, 160, 80, 0.4);
+            background: linear-gradient(135deg, rgba(74, 58, 26, 0.8), rgba(26, 20, 8, 0.75));
+        }
+
+        .materi-card:hover .card-quote {
+            color: #f0d060;
+        }
+
+        /* Gradien Card Emas Gelap */
+        .materi-card.gradien-0 {
+            background: linear-gradient(135deg, rgba(26, 20, 8, 0.85), rgba(13, 10, 4, 0.7));
+            border-left-color: #1a1408;
+        }
+
+        .materi-card.gradien-1 {
+            background: linear-gradient(135deg, rgba(45, 36, 16, 0.8), rgba(26, 20, 8, 0.7));
+            border-left-color: #2d2410;
+        }
+
+        .materi-card.gradien-2 {
+            background: linear-gradient(135deg, rgba(107, 85, 40, 0.7), rgba(45, 36, 16, 0.7));
+            border-left-color: #6b5528;
+        }
+
+        .card-quote {
+            color: #8c7040;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            font-style: italic;
+            padding: 0.8rem 0;
+            border-top: 1px solid rgba(196, 160, 80, 0.15);
+            border-bottom: 1px solid rgba(196, 160, 80, 0.15);
+            transition: color 0.3s ease;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-quote::before {
+            content: '"';
+            font-size: 1.6rem;
+            color: #f0d060;
+            margin-right: 0.4rem;
+            opacity: 0.6;
+            align-self: flex-start;
+        }
+
+        .card-quote::after {
+            content: '"';
+            font-size: 1.6rem;
+            color: #f0d060;
+            margin-left: 0.4rem;
+            opacity: 0.6;
+            align-self: flex-end;
+        }
+
+        .card-title {
+            color: #f0d060;
+            font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            width: 100%;
+        }
+
+        .btn-dapatkan {
+            display: block;
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            background: #4a3a1a;
+            color: #f0d060;
+            box-shadow: 0 2px 8px rgba(74, 58, 26, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            position: relative;
+            z-index: 2;
+            animation: glowPulse 2.5s infinite ease-in-out;
+        }
+
+        .btn-dapatkan:hover {
+            background: #6b5528;
+            transform: translateY(-2px);
+            color: #f0d060;
+        }
+
+        .materi-card:hover .btn-dapatkan {
+            background: #c4a050;
+            color: #1a1408;
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(196, 160, 80, 0.5);
+            animation: none;
+        }
+
+        /* TOMBOL TANPA LINK - NONAKTIF */
+        .btn-dapatkan[href=""] {
+            background: #2a2a1a;
+            color: #6a6a3a;
+            border: 1px solid #4a4a2a;
+            cursor: not-allowed;
+            opacity: 0.6;
+            animation: none;
+            pointer-events: none;
+        }
+
+        .btn-dapatkan[href=""]:hover {
+            background: #2a2a1a;
+            color: #6a6a3a;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #c4a050;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(74, 58, 26, 0.5);
+        }
+
+        .no-result span {
+            color: #f0d060;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(74, 58, 26, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d0a04;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4a3a1a;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f0d060;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInQuote {
+            0% {
+                opacity: 0;
+                transform: translateY(15px) scale(0.98);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 2px 8px rgba(74, 58, 26, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 2px 20px rgba(196, 160, 80, 0.3);
+            }
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(74, 58, 26, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-primary .footer {
+            border-color: rgba(26, 20, 8, 0.3);
+        }
+
+        body.theme-gold-dark .footer {
+            border-color: rgba(45, 36, 16, 0.3);
+        }
+
+        body.theme-gold-medium .footer {
+            border-color: rgba(74, 58, 26, 0.3);
+        }
+
+        body.theme-gold-soft .footer {
+            border-color: rgba(140, 112, 64, 0.3);
+        }
+
+        body.theme-gold-light .footer {
+            border-color: rgba(196, 160, 80, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #f0d060, #c4a050);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #f0d060;
+            padding: 0.15rem 0.7rem;
+            background: rgba(74, 58, 26, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 58, 26, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-gold-soft .footer-tagline {
+            color: #f0d060;
+            background: rgba(140, 112, 64, 0.2);
+            border-color: rgba(140, 112, 64, 0.2);
+        }
+
+        body.theme-gold-light .footer-tagline {
+            color: #1a1408;
+            background: rgba(196, 160, 80, 0.2);
+            border-color: rgba(196, 160, 80, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #f0d060;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-gold-light .footer-info {
+            color: #1a1408;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.3rem;
+            }
+
+            .materi-card {
+                padding: 1.6rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.4rem;
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.3rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                white-space: normal;
+                text-align: center;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .card-quote {
+                font-size: 0.8rem;
+                min-height: 60px;
+            }
+
+            .btn-dapatkan {
+                padding: 0.55rem;
+                font-size: 0.75rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>💬 Quotes</h1>
+                <p>Koleksi Kata Bijak & Motivasi</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Quotes:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari kata bijak..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="index.html" class="btn-refresh-neon" style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">💬 Menampilkan 0 quotes</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif"></span>
+        </div>
+
+        <!-- GRID QUOTES -->
+        <div class="materi-grid" id="materiContainer">
+            <!-- Quote 1 - Ada Link -->
+            <div class="materi-card gradien-card">
+                <div class="card-quote">Kebijaksanaan bukanlah tentang mengetahui segalanya, tetapi tentang menyadari
+                    apa yang tidak kita ketahui</div>
+                <a href="" class="btn-dapatkan" target="_blank">✨ Dapatkan</a>
+            </div>
+        </div>
+
+        <!-- NO RESULT -->
+        <div id="noResultMessage" style="display: none;" class="no-result">
+            💬 Quotes tidak ditemukan.<br>
+            <span style="font-size:0.8rem;">Coba kata kunci lain</span>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // ==================== THEME ROTATION EMAS ====================
+            const colorThemes = ['theme-primary', 'theme-gold-dark', 'theme-gold-medium', 'theme-gold-soft', 'theme-gold-light'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== GRADIENT ROTATION ====================
+            const gradienList = ['gradien-0', 'gradien-1', 'gradien-2'];
+            let gradienIndex = 0;
+            let gradientInterval = null;
+
+            function rotateGradient() {
+                const cards = document.querySelectorAll('.gradien-card, .materi-card');
+                if (cards.length === 0) return;
+                gradienIndex = (gradienIndex + 1) % gradienList.length;
+                cards.forEach(card => {
+                    gradienList.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(gradienList[gradienIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+            const noResultDiv = document.getElementById('noResultMessage');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card')).filter(card => {
+                    const link = card.querySelector('.btn-dapatkan');
+                    const href = link ? link.getAttribute('href') : '';
+                    return href && href !== '' && href !== '#';
+                });
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = document.querySelectorAll('.materi-card');
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const link = card.querySelector('.btn-dapatkan');
+                    const href = link ? link.getAttribute('href') : '';
+                    if (href && href !== '' && href !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = document.querySelectorAll('.materi-card');
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const quoteText = card.querySelector('.card-quote');
+                    const link = card.querySelector('.btn-dapatkan');
+                    const href = link ? link.getAttribute('href') : '';
+
+                    let quote = '';
+                    if (quoteText) quote = quoteText.innerText || '';
+                    quote = quote.toLowerCase();
+
+                    // CEK APAKAH ADA LINK YANG VALID
+                    const hasValidLink = href && href !== '' && href !== '#';
+
+                    const isMatch = searchTerm === '' || quote.includes(searchTerm);
+
+                    // TAMPILKAN HANYA JIKA ADA LINK VALID DAN MATCH PENCARIAN
+                    if (hasValidLink && isMatch) {
+                        card.style.display = '';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Update result counter
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Quotes tidak ditemukan';
+                            resultCounterSpan.style.color = '#c4a050';
+                        } else {
+                            resultCounterSpan.innerHTML = '💬 Belum ada quotes yang tersedia';
+                            resultCounterSpan.style.color = '#c4a050';
+                        }
+                    }
+                    if (noResultDiv) {
+                        noResultDiv.style.display = 'block';
+                        if (searchTerm !== '') {
+                            noResultDiv.innerHTML = '💬 Quotes tidak ditemukan.<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            noResultDiv.innerHTML = '💬 Belum ada quotes yang tersedia.<br><span style="font-size:0.8rem;">Quotes akan segera ditambahkan</span>';
+                        }
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} quotes` : `💬 ${visibleCount} quotes tersedia`;
+                        resultCounterSpan.style.color = '#f0d060';
+                    }
+                    if (noResultDiv) {
+                        noResultDiv.style.display = 'none';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    document.querySelectorAll('.materi-card').forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateStatistik();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initGradient() {
+                const cards = document.querySelectorAll('.gradien-card, .materi-card');
+                if (cards.length === 0) return;
+                cards.forEach(card => {
+                    gradienList.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(gradienList[0]);
+                });
+                gradienIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initGradient();
+                updateStatistik();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | Quotes - Emas Gelap (Tombol pakai <a href>)');
+            console.log('🎨 #1a1408, #2d2410, #4a3a1a, #6b5528, #8c7040, #c4a050, #f0d060');
+        })();
+    </script>
+</body>
+
+</html>

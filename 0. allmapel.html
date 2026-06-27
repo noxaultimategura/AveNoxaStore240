@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NOXA STORE · WEB PRODUK DIGITAL</title>
+    <style>
+        /* ================================================================ */
+        /*              KOMBO 7 WARNA HIJAU NATURAL                         */
+        /* ================================================================ */
+
+        :root {
+            --hijau-1: #0d2b0d;
+            /* Hijau hutan paling gelap */
+            --hijau-2: #1a4a1a;
+            /* Hijau hutan gelap */
+            --hijau-3: #2d6a2d;
+            /* Hijau daun gelap */
+            --hijau-4: #3d8b3d;
+            /* Hijau zamrud */
+            --hijau-5: #4caf50;
+            /* Hijau segar alami */
+            --hijau-6: #66bb6a;
+            /* Hijau neon natural */
+            --hijau-7: #81c784;
+            /* Hijau pucat segar */
+        }
+
+        /* ========= RESET ========= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========= BODY dengan 7 warna gradasi ========= */
+        body {
+            background: radial-gradient(circle at 20% 30%, var(--hijau-4), var(--hijau-1));
+            animation: bgSlideshow 14s ease-in-out infinite;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes bgSlideshow {
+            0% {
+                background: radial-gradient(circle at 20% 30%, var(--hijau-1), #050f05);
+            }
+
+            14% {
+                background: radial-gradient(circle at 30% 40%, var(--hijau-2), #0d2b0d);
+            }
+
+            28% {
+                background: radial-gradient(circle at 40% 30%, var(--hijau-3), #0d2b0d);
+            }
+
+            42% {
+                background: radial-gradient(circle at 50% 50%, var(--hijau-4), #0d2b0d);
+            }
+
+            57% {
+                background: radial-gradient(circle at 60% 40%, var(--hijau-5), #1a4a1a);
+            }
+
+            71% {
+                background: radial-gradient(circle at 70% 30%, var(--hijau-6), #1a4a1a);
+            }
+
+            85% {
+                background: radial-gradient(circle at 80% 50%, var(--hijau-7), #1a4a1a);
+            }
+
+            100% {
+                background: radial-gradient(circle at 20% 30%, var(--hijau-1), #050f05);
+            }
+        }
+
+        /* ========= APP CONTAINER ========= */
+        .app-container {
+            width: 98%;
+            max-width: 1800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, .65);
+            backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+            flex: 1;
+        }
+
+        /* ========= HEADER ========= */
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(76, 175, 80, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.3rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--hijau-6));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(76, 175, 80, 0.4);
+            animation: softPulse 2s infinite alternate;
+        }
+
+        .noxa-store a {
+            text-decoration: none;
+            color: inherit;
+            background: inherit;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 4px var(--hijau-6);
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 18px var(--hijau-6);
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(0.9rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, var(--hijau-6), var(--hijau-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        /* ========= STATS + SEARCH ========= */
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+        }
+
+        .total-stats-box span {
+            font-size: 0.75rem;
+            color: white;
+            background: rgba(76, 175, 80, 0.15);
+            padding: 0.2rem 0.7rem;
+            border-radius: 2rem;
+            white-space: nowrap;
+        }
+
+        .total-stats-box span strong {
+            color: var(--hijau-6);
+        }
+
+        .search-section {
+            max-width: 100%;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.7rem 2.2rem 0.7rem 2.8rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1.5px solid rgba(76, 175, 80, 0.5);
+            border-radius: 60px;
+            font-size: 0.85rem;
+            color: white;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #searchInput:focus {
+            border-color: var(--hijau-6);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
+        }
+
+        #searchInput::placeholder {
+            color: #889988;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.12);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .clear-btn:hover {
+            background: var(--hijau-6);
+            color: #000;
+        }
+
+        .btn-refresh-neon,
+        .btn-back-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+            color: var(--hijau-6);
+            padding: 0.6rem 1rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-refresh-neon:hover,
+        .btn-back-neon:hover {
+            background: rgba(76, 175, 80, 0.3);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        /* ========= STATS BAR ========= */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .shortcut-msg {
+            background: var(--hijau-6);
+            padding: 0.15rem 0.7rem;
+            border-radius: 30px;
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 0.65rem;
+            box-shadow: 0 0 6px rgba(76, 175, 80, 0.3);
+        }
+
+        #shortcutNotif {
+            font-size: 0.65rem;
+            color: var(--hijau-6);
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* ========= GRID MAPEL ========= */
+        .mapel-grid {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========= KOTAK MAPEL dengan 7 warna ========= */
+        .mapel-card {
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--hijau-4);
+            box-shadow: 0 8px 20px rgba(61, 139, 61, 0.35);
+            animation: cardRainbow 14s ease-in-out infinite;
+        }
+
+        @keyframes cardRainbow {
+            0% {
+                background: var(--hijau-1);
+                box-shadow: 0 8px 20px rgba(13, 43, 13, 0.4);
+            }
+
+            14% {
+                background: var(--hijau-2);
+                box-shadow: 0 8px 20px rgba(26, 74, 26, 0.4);
+            }
+
+            28% {
+                background: var(--hijau-3);
+                box-shadow: 0 8px 20px rgba(45, 106, 45, 0.4);
+            }
+
+            42% {
+                background: var(--hijau-4);
+                box-shadow: 0 8px 20px rgba(61, 139, 61, 0.4);
+            }
+
+            57% {
+                background: var(--hijau-5);
+                box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+            }
+
+            71% {
+                background: var(--hijau-6);
+                box-shadow: 0 8px 20px rgba(102, 187, 106, 0.4);
+            }
+
+            85% {
+                background: var(--hijau-7);
+                box-shadow: 0 8px 20px rgba(129, 199, 132, 0.4);
+            }
+
+            100% {
+                background: var(--hijau-1);
+                box-shadow: 0 8px 20px rgba(13, 43, 13, 0.4);
+            }
+        }
+
+        .mapel-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            filter: brightness(1.08);
+            border-color: var(--hijau-6);
+        }
+
+        .mapel-icon {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+        }
+
+        .mapel-title {
+            color: #fff;
+            font-size: clamp(0.85rem, 2.5vw, 1.2rem);
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ========= TOMBOL dengan 7 warna ========= */
+        .btn-masuk {
+            display: inline-block;
+            width: 100%;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, var(--hijau-3), var(--hijau-5));
+            animation: btnRainbow 14s ease-in-out infinite;
+        }
+
+        @keyframes btnRainbow {
+            0% {
+                background: linear-gradient(135deg, var(--hijau-1), var(--hijau-2));
+            }
+
+            14% {
+                background: linear-gradient(135deg, var(--hijau-2), var(--hijau-3));
+            }
+
+            28% {
+                background: linear-gradient(135deg, var(--hijau-3), var(--hijau-4));
+                color: #fff;
+            }
+
+            42% {
+                background: linear-gradient(135deg, var(--hijau-4), var(--hijau-5));
+                color: #fff;
+            }
+
+            57% {
+                background: linear-gradient(135deg, var(--hijau-5), var(--hijau-6));
+                color: #0d2b0d;
+                text-shadow: none;
+            }
+
+            71% {
+                background: linear-gradient(135deg, var(--hijau-6), var(--hijau-7));
+                color: #0d2b0d;
+                text-shadow: none;
+            }
+
+            85% {
+                background: linear-gradient(135deg, var(--hijau-7), var(--hijau-1));
+                color: #0d2b0d;
+                text-shadow: none;
+            }
+
+            100% {
+                background: linear-gradient(135deg, var(--hijau-1), var(--hijau-2));
+                color: #fff;
+            }
+        }
+
+        .mapel-card:hover .btn-masuk {
+            transform: scale(0.97);
+            filter: brightness(1.08);
+        }
+
+        /* ========= NO RESULT ========= */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: var(--hijau-6);
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ========= SCROLLBAR ========= */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--hijau-6);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--hijau-5);
+        }
+
+        /* ================================================================ */
+        /*                    FOOTER STYLE                                  */
+        /* ================================================================ */
+        .footer {
+            width: 98%;
+            max-width: 1800px;
+            margin: 1.2rem auto 0;
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(76, 175, 80, 0.15);
+        }
+
+        .footer p {
+            color: #889988;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer .footer-brand {
+            color: var(--hijau-6);
+            font-weight: 700;
+        }
+
+        .footer .footer-divider {
+            color: rgba(76, 175, 80, 0.25);
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 575px) {
+            .footer {
+                padding: 0.8rem 1rem;
+                margin-top: 0.8rem;
+            }
+
+            .footer p {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ================================================================ */
+        /*                    RESPONSIVE BREAKPOINT LENGKAP                  */
+        /* ================================================================ */
+
+        /* ========== 1. HP KECIL PORTRAIT (≤ 479px) ========== */
+        @media (max-width: 479px) and (orientation: portrait) {
+            .app-container {
+                padding: 0.6rem;
+                border-radius: 0;
+                width: 100%;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.3rem;
+            }
+
+            .judul-web-kanan h1 {
+                text-align: center;
+                font-size: 0.75rem;
+            }
+
+            .top-stats-search,
+            .search-row-flex {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-wrapper,
+            .search-section,
+            .btn-refresh-neon,
+            .btn-back-neon {
+                width: 100%;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 0.8rem;
+            }
+
+            .mapel-card {
+                padding: 0.9rem;
+            }
+
+            .mapel-icon {
+                font-size: 1.8rem;
+            }
+
+            .mapel-title {
+                font-size: 0.8rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                text-align: center;
+                padding: 0.6rem;
+            }
+
+            #shortcutNotif {
+                min-width: auto;
+            }
+
+            .footer {
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+
+        /* ========== 2. HP KECIL LANDSCAPE (≤ 479px landscape) ========== */
+        @media (max-width: 479px) and (orientation: landscape) {
+            .app-container {
+                padding: 0.8rem;
+                border-radius: 0.8rem;
+                width: 98%;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .noxa-store {
+                font-size: 1.2rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 0.7rem;
+                text-align: right;
+            }
+
+            .top-stats-search {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                min-width: 120px;
+            }
+
+            .btn-refresh-neon,
+            .btn-back-neon {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.7rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+
+            .mapel-card {
+                padding: 0.8rem;
+            }
+
+            .mapel-icon {
+                font-size: 1.6rem;
+            }
+
+            .mapel-title {
+                font-size: 0.7rem;
+            }
+
+            .btn-masuk {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ========== 3. HP UMUM PORTRAIT (480px - 767px) ========== */
+        @media (min-width: 480px) and (max-width: 767px) and (orientation: portrait) {
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1 {
+                text-align: center;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-row-flex {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .btn-refresh-neon,
+            .btn-back-neon {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .mapel-card {
+                padding: 1rem;
+            }
+
+            .mapel-icon {
+                font-size: 2.2rem;
+            }
+
+            .mapel-title {
+                font-size: 0.85rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ========== 4. HP UMUM LANDSCAPE (480px - 767px) ========== */
+        @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+            .app-container {
+                padding: 0.9rem;
+                border-radius: 1rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+                gap: 0.6rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 0.9rem;
+            }
+
+            .top-stats-search {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                min-width: 150px;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .mapel-card {
+                padding: 0.9rem;
+            }
+
+            .mapel-icon {
+                font-size: 1.8rem;
+            }
+
+            .mapel-title {
+                font-size: 0.75rem;
+            }
+
+            .btn-masuk {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ========== 5. TABLET PORTRAIT (768px - 991px) ========== */
+        @media (min-width: 768px) and (max-width: 991px) and (orientation: portrait) {
+            .app-container {
+                padding: 1.2rem;
+                border-radius: 1.5rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .mapel-card {
+                padding: 1.2rem;
+            }
+
+            .mapel-icon {
+                font-size: 2.5rem;
+            }
+
+            .mapel-title {
+                font-size: 0.95rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* ========== 6. TABLET LANDSCAPE (768px - 991px) ========== */
+        @media (min-width: 768px) and (max-width: 991px) and (orientation: landscape) {
+            .app-container {
+                padding: 1.2rem;
+                border-radius: 1.5rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+            }
+
+            .mapel-card {
+                padding: 1.1rem;
+            }
+
+            .mapel-icon {
+                font-size: 2.3rem;
+            }
+
+            .mapel-title {
+                font-size: 0.85rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* ========== 7. LAPTOP (992px - 1199px) ========== */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .app-container {
+                width: 98%;
+                padding: 1.4rem;
+                border-radius: 1.8rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.1rem;
+            }
+
+            .mapel-card {
+                padding: 1.3rem;
+            }
+
+            .mapel-icon {
+                font-size: 2.8rem;
+            }
+
+            .mapel-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* ========== 8. PC DESKTOP (1200px - 1699px) ========== */
+        @media (min-width: 1200px) and (max-width: 1699px) {
+            .app-container {
+                width: 98%;
+                max-width: 1800px;
+                padding: 1.5rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.2rem;
+            }
+
+            .mapel-card {
+                padding: 1.5rem;
+            }
+
+            .mapel-icon {
+                font-size: 3rem;
+            }
+
+            .mapel-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ========== 9. MONITOR BESAR (≥ 1700px) ========== */
+        @media (min-width: 1700px) {
+            .app-container {
+                width: 98%;
+                max-width: 1800px;
+                padding: 2rem;
+                border-radius: 2.5rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .mapel-card {
+                padding: 2rem;
+            }
+
+            .mapel-icon {
+                font-size: 3.8rem;
+            }
+
+            .mapel-title {
+                font-size: 1.3rem;
+            }
+
+            .btn-masuk {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ================================================================ */
+        /*              FALLBACK: Jika orientation tidak didukung            */
+        /* ================================================================ */
+
+        @media (max-width: 767px) {
+            .mapel-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 479px) {
+            .mapel-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .mapel-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ================================================================ */
+        /*              PERBAIKAN TAMBAHAN UNTUK KENYAMANAN                 */
+        /* ================================================================ */
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-back-neon,
+            .btn-masuk,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .mapel-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .mapel-card,
+            .btn-masuk,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>📚 Pilihan Mata Pelajaran</h1>
+            </div>
+        </div>
+
+        <!-- STATS + SEARCH -->
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Mapel:</strong> <span id="totalMateriCount">12</span></span>
+                <span>✅ <strong>Tersedia:</strong> <span id="materiSudahAda">12</span></span>
+                <span>⏳ <strong>Belum Tersedia:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari mata pelajaran..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <a href="index.html" class="btn-back-neon"><span>←</span> Kembali</a>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 12 mata pelajaran</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="mapel-grid" id="mapelGrid">
+            <!-- 12 MAPEL dengan href PERSIS seperti daftar Anda -->
+            <a href="1. BahasaArabdanPAI.html" class="mapel-card" data-title="Bahasa Arab & PAI">
+                <div class="mapel-icon">🕌</div>
+                <div class="mapel-title">Bahasa Arab & PAI</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="2. BahasaIndonesia.html" class="mapel-card" data-title="Bahasa Indonesia">
+                <div class="mapel-icon">📖</div>
+                <div class="mapel-title">Bahasa Indonesia</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="3. BahasaInggris.html" class="mapel-card" data-title="Bahasa Inggris">
+                <div class="mapel-icon">🇬🇧</div>
+                <div class="mapel-title">Bahasa Inggris</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="4. CodingProgrammer.html" class="mapel-card" data-title="Coding Programmer">
+                <div class="mapel-icon">💻</div>
+                <div class="mapel-title">Coding Programmer</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="5. IPA.html" class="mapel-card" data-title="IPA">
+                <div class="mapel-icon">🔬</div>
+                <div class="mapel-title">IPA</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="6. IPS.html" class="mapel-card" data-title="IPS">
+                <div class="mapel-icon">🌏</div>
+                <div class="mapel-title">IPS</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="7. Informatika.html" class="mapel-card" data-title="Informatika">
+                <div class="mapel-icon">🖥️</div>
+                <div class="mapel-title">Informatika</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="8. MTK.html" class="mapel-card" data-title="Matematika">
+                <div class="mapel-icon">📐</div>
+                <div class="mapel-title">Matematika</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="9. PJok.html" class="mapel-card" data-title="PJOK">
+                <div class="mapel-icon">⚽</div>
+                <div class="mapel-title">PJOK</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="10. ppkn.html" class="mapel-card" data-title="PPKn">
+                <div class="mapel-icon">🇮🇩</div>
+                <div class="mapel-title">PPKn</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="11. sejarah.html" class="mapel-card" data-title="Sejarah">
+                <div class="mapel-icon">📜</div>
+                <div class="mapel-title">Sejarah</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="12. seni.html" class="mapel-card" data-title="Seni">
+                <div class="mapel-icon">🎨</div>
+                <div class="mapel-title">Seni</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>
+            <span class="footer-brand">Noxa Store</span>
+            <span class="footer-divider">•</span>
+            <span>© 2026</span>
+            <span class="footer-divider">•</span>
+            <span>Dibangun untuk pembelajaran</span>
+            <span class="footer-divider">•</span>
+            <span>v1.0</span>
+        </p>
+    </footer>
+
+    <script>
+        (function () {
+            // ========== ELEMEN DOM ==========
+            const searchInput = document.getElementById('searchInput');
+            const resultCounter = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotif = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+            const allCards = Array.from(document.querySelectorAll('.mapel-card'));
+
+            // ========== UPDATE STATISTIK ==========
+            function updateStatistik() {
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudah = document.getElementById('materiSudahAda');
+                const materiBelum = document.getElementById('materiBelumAda');
+
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudah) materiSudah.innerText = allCards.length;
+                if (materiBelum) materiBelum.innerText = 0;
+            }
+
+            // ========== FILTER PENCARIAN ==========
+            function filterMateri() {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const title = card.getAttribute('data-title') || '';
+                    const isMatch = searchTerm === '' || title.toLowerCase().includes(searchTerm);
+                    card.style.display = isMatch ? '' : 'none';
+                    if (isMatch) visibleCount++;
+                });
+
+                // Update counter
+                if (resultCounter) {
+                    if (searchTerm !== '' && visibleCount === 0) {
+                        resultCounter.innerHTML = '❌ Mata pelajaran tidak ditemukan';
+                        resultCounter.style.color = '#f59e0b';
+                    } else {
+                        resultCounter.innerHTML = searchTerm !== ''
+                            ? `✨ Ditemukan ${visibleCount} mata pelajaran`
+                            : `📚 Menampilkan ${visibleCount} mata pelajaran`;
+                        resultCounter.style.color = '#66BB6A';
+                    }
+                }
+
+                // Tampilkan pesan "tidak ditemukan"
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (searchTerm !== '' && visibleCount === 0) {
+                    if (!noResultDiv) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        msgDiv.innerHTML = '📚 Mata pelajaran tidak tersedia<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        const grid = document.querySelector('.mapel-grid');
+                        if (grid && grid.parentNode) {
+                            grid.parentNode.insertBefore(msgDiv, grid.nextSibling);
+                        }
+                    } else {
+                        noResultDiv.style.display = 'block';
+                    }
+                } else {
+                    if (noResultDiv) noResultDiv.style.display = 'none';
+                }
+            }
+
+            // ========== DEBOUNCE SEARCH ==========
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(filterMateri, 200);
+            });
+
+            // ========== TOMBOL CLEAR ==========
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    filterMateri();
+                    searchInput.focus();
+                    showNotif('⌨️ Pencarian dihapus');
+                });
+            }
+
+            // ========== TOMBOL REFRESH ==========
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    filterMateri();
+                    showNotif('⟳ Halaman disegarkan');
+                });
+            }
+
+            // ========== NOTIFIKASI ==========
+            function showNotif(message) {
+                if (shortcutNotif) {
+                    shortcutNotif.innerText = message;
+                    clearTimeout(shortcutNotif._timer);
+                    shortcutNotif._timer = setTimeout(() => {
+                        shortcutNotif.innerText = '';
+                    }, 1500);
+                }
+            }
+
+            // ========== SHORTCUT KEYBOARD ==========
+            window.addEventListener('keydown', (e) => {
+                // Ctrl+K atau Ctrl+K
+                if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                    showNotif('🔎 Ctrl+K fokus pencarian');
+                }
+
+                // Shift+F
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                    showNotif('⚡ Shift+F fokus');
+                }
+
+                // ESC
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        showNotif('⌨️ Pencarian dibersihkan (ESC)');
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+
+                // Ctrl+Shift+R = Refresh (mirip browser)
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'r' || e.key === 'R')) {
+                    e.preventDefault();
+                    if (refreshBtn) refreshBtn.click();
+                }
+            });
+
+            // ========== INISIALISASI ==========
+            updateStatistik();
+            filterMateri();
+
+            console.log('✅ NOXA STORE | 🌿 Tema Hijau Natural | 7 warna hijau');
+            console.log(`📚 Total mapel: ${allCards.length}`);
+            console.log('⌨️ Shortcut: Ctrl+K, Shift+F, ESC, Ctrl+Shift+R');
+        })();
+    </script>
+</body>
+
+</html>

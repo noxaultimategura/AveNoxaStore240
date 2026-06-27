@@ -1,0 +1,3742 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - PJOK | Materi Pembelajaran</title>
+    <style>
+        /* ================================================================ */
+        /*              KOMBO 7 WARNA HITAM KE UNGU                         */
+        /* ================================================================ */
+
+        :root {
+            --hitam-ungu-1: #050508;
+            --hitam-ungu-2: #0a0818;
+            --hitam-ungu-3: #140a2a;
+            --hitam-ungu-4: #1e0e3a;
+            --hitam-ungu-5: #2a124a;
+            --hitam-ungu-6: #361a5a;
+            --hitam-ungu-7: #42226a;
+        }
+
+        /* ========= RESET ========= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========= BODY ========= */
+        body {
+            background: radial-gradient(circle at 30% 20%, var(--hitam-ungu-4), var(--hitam-ungu-1));
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* ========== THEME HITAM-KE-UNGU ========== */
+        body.theme-hu-1 {
+            background: radial-gradient(circle at 30% 20%, var(--hitam-ungu-1), #000000);
+        }
+
+        body.theme-hu-2 {
+            background: radial-gradient(circle at 50% 40%, var(--hitam-ungu-2), #050508);
+        }
+
+        body.theme-hu-3 {
+            background: radial-gradient(circle at 70% 30%, var(--hitam-ungu-3), #0a0818);
+        }
+
+        body.theme-hu-4 {
+            background: radial-gradient(circle at 40% 70%, var(--hitam-ungu-4), #050508);
+        }
+
+        body.theme-hu-5 {
+            background: radial-gradient(circle at 60% 50%, var(--hitam-ungu-5), #0a0818);
+        }
+
+        body.theme-hu-6 {
+            background: radial-gradient(circle at 30% 60%, var(--hitam-ungu-6), #140a2a);
+        }
+
+        body.theme-hu-7 {
+            background: radial-gradient(circle at 70% 50%, var(--hitam-ungu-7), #140a2a);
+        }
+
+        /* ========= APP CONTAINER ========= */
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(30, 14, 58, 0.4);
+            transition: border-color 0.8s ease;
+        }
+
+        body.theme-hu-1 .app-container {
+            border-color: rgba(5, 5, 8, 0.4);
+        }
+
+        body.theme-hu-2 .app-container {
+            border-color: rgba(10, 8, 24, 0.4);
+        }
+
+        body.theme-hu-3 .app-container {
+            border-color: rgba(20, 10, 42, 0.4);
+        }
+
+        body.theme-hu-4 .app-container {
+            border-color: rgba(30, 14, 58, 0.4);
+        }
+
+        body.theme-hu-5 .app-container {
+            border-color: rgba(42, 18, 74, 0.4);
+        }
+
+        body.theme-hu-6 .app-container {
+            border-color: rgba(54, 26, 90, 0.4);
+        }
+
+        body.theme-hu-7 .app-container {
+            border-color: rgba(66, 34, 106, 0.4);
+        }
+
+        /* ========= HEADER ========= */
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(42, 18, 74, 0.3);
+            padding-bottom: 1rem;
+            transition: border-color 0.8s ease;
+        }
+
+        body.theme-hu-1 .top-brand-bar {
+            border-bottom-color: rgba(5, 5, 8, 0.3);
+        }
+
+        body.theme-hu-2 .top-brand-bar {
+            border-bottom-color: rgba(10, 8, 24, 0.3);
+        }
+
+        body.theme-hu-3 .top-brand-bar {
+            border-bottom-color: rgba(20, 10, 42, 0.3);
+        }
+
+        body.theme-hu-4 .top-brand-bar {
+            border-bottom-color: rgba(30, 14, 58, 0.3);
+        }
+
+        body.theme-hu-5 .top-brand-bar {
+            border-bottom-color: rgba(42, 18, 74, 0.3);
+        }
+
+        body.theme-hu-6 .top-brand-bar {
+            border-bottom-color: rgba(54, 26, 90, 0.3);
+        }
+
+        body.theme-hu-7 .top-brand-bar {
+            border-bottom-color: rgba(66, 34, 106, 0.3);
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, var(--hitam-ungu-7));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(54, 26, 90, 0.3);
+            animation: softPulse 2.5s infinite alternate;
+            transition: all 0.8s ease;
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 4px var(--hitam-ungu-5);
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px var(--hitam-ungu-7);
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #ffffff, var(--hitam-ungu-7));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+            transition: all 0.8s ease;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: var(--hitam-ungu-6);
+            text-align: right;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-hu-1 .judul-web-kanan p {
+            color: var(--hitam-ungu-4);
+        }
+
+        body.theme-hu-7 .judul-web-kanan p {
+            color: var(--hitam-ungu-5);
+        }
+
+        /* ========= STATS + SEARCH ========= */
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(30, 14, 58, 0.3);
+            transition: border-color 0.8s ease;
+        }
+
+        body.theme-hu-1 .total-stats-box {
+            border-color: rgba(5, 5, 8, 0.3);
+        }
+
+        body.theme-hu-7 .total-stats-box {
+            border-color: rgba(66, 34, 106, 0.3);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: #d0c8d8;
+            background: rgba(30, 14, 58, 0.3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            transition: background 0.8s ease;
+        }
+
+        body.theme-hu-1 .total-stats-box span {
+            background: rgba(5, 5, 8, 0.3);
+        }
+
+        body.theme-hu-7 .total-stats-box span {
+            background: rgba(66, 34, 106, 0.2);
+        }
+
+        .total-stats-box span strong {
+            color: #c8a8e8;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-hu-1 .total-stats-box span strong {
+            color: var(--hitam-ungu-5);
+        }
+
+        body.theme-hu-7 .total-stats-box span strong {
+            color: #e8d0f8;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.6;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1.5px solid rgba(30, 14, 58, 0.4);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #ffffff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: var(--hitam-ungu-7);
+            box-shadow: 0 0 0 3px rgba(66, 34, 106, 0.2);
+        }
+
+        #searchInput::placeholder {
+            color: #5a4a7a;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #ffffff;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-btn:hover {
+            background: var(--hitam-ungu-6);
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(30, 14, 58, 0.25);
+            border: 1px solid rgba(30, 14, 58, 0.4);
+            color: var(--hitam-ungu-6);
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(66, 34, 106, 0.3);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        /* ========= STATS BAR ========= */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(30, 14, 58, 0.3);
+            transition: border-color 0.8s ease;
+        }
+
+        .shortcut-msg {
+            background: var(--hitam-ungu-3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: var(--hitam-ungu-7);
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(20, 10, 42, 0.3);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-hu-1 .shortcut-msg {
+            background: var(--hitam-ungu-1);
+            color: var(--hitam-ungu-5);
+        }
+
+        body.theme-hu-7 .shortcut-msg {
+            background: var(--hitam-ungu-5);
+            color: #ffffff;
+        }
+
+        /* ========= GRID MATERI ========= */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========= CARD STYLE ========= */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.5s ease;
+            border-left: 4px solid var(--hitam-ungu-4);
+            border-right: 1px solid rgba(30, 14, 58, 0.2);
+            border-top: 1px solid rgba(30, 14, 58, 0.2);
+            border-bottom: 1px solid rgba(30, 14, 58, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(5, 5, 8, 0.85), rgba(20, 10, 42, 0.7));
+            backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: var(--hitam-ungu-7);
+            box-shadow: 0 12px 25px -8px rgba(66, 34, 106, 0.3);
+            background: linear-gradient(135deg, rgba(30, 14, 58, 0.8), rgba(20, 10, 42, 0.7));
+        }
+
+        .materi-card.hu-gradien-0 {
+            background: linear-gradient(135deg, rgba(5, 5, 8, 0.85), rgba(20, 10, 42, 0.7));
+            border-left-color: var(--hitam-ungu-1);
+        }
+
+        .materi-card.hu-gradien-1 {
+            background: linear-gradient(135deg, rgba(10, 8, 24, 0.85), rgba(5, 5, 8, 0.7));
+            border-left-color: var(--hitam-ungu-2);
+        }
+
+        .materi-card.hu-gradien-2 {
+            background: linear-gradient(135deg, rgba(20, 10, 42, 0.8), rgba(10, 8, 24, 0.7));
+            border-left-color: var(--hitam-ungu-3);
+        }
+
+        .materi-card.hu-gradien-3 {
+            background: linear-gradient(135deg, rgba(30, 14, 58, 0.8), rgba(20, 10, 42, 0.7));
+            border-left-color: var(--hitam-ungu-4);
+        }
+
+        .materi-card.hu-gradien-4 {
+            background: linear-gradient(135deg, rgba(42, 18, 74, 0.8), rgba(30, 14, 58, 0.7));
+            border-left-color: var(--hitam-ungu-5);
+        }
+
+        .materi-card.hu-gradien-5 {
+            background: linear-gradient(135deg, rgba(54, 26, 90, 0.7), rgba(42, 18, 74, 0.7));
+            border-left-color: var(--hitam-ungu-6);
+        }
+
+        .materi-card.hu-gradien-6 {
+            background: linear-gradient(135deg, rgba(66, 34, 106, 0.7), rgba(54, 26, 90, 0.7));
+            border-left-color: var(--hitam-ungu-7);
+        }
+
+        .mapel-badge {
+            background: rgba(54, 26, 90, 0.3);
+            color: #b898d8;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #E8E0F0;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        /* ========= BUTTON GROUP ========= */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not([href=""]) .btn-dapatkan {
+            background: var(--hitam-ungu-4);
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(30, 14, 58, 0.4);
+        }
+
+        .materi-link:not([href=""]) .btn-dapatkan:hover {
+            background: var(--hitam-ungu-5);
+            transform: translateY(-2px);
+        }
+
+        .materi-link[href=""] .btn-dapatkan {
+            background: #0a0810;
+            color: #3a2a5a;
+            border: 1px solid #1a1040;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.6;
+        }
+
+        /* ========= NO RESULT ========= */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: var(--hitam-ungu-7);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(30, 14, 58, 0.3);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(30, 14, 58, 0.3);
+        }
+
+        /* ========= SCROLLBAR ========= */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050508;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--hitam-ungu-4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--hitam-ungu-6);
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(30, 14, 58, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-hu-1 .footer {
+            border-color: rgba(5, 5, 8, 0.3);
+        }
+
+        body.theme-hu-2 .footer {
+            border-color: rgba(10, 8, 24, 0.3);
+        }
+
+        body.theme-hu-3 .footer {
+            border-color: rgba(20, 10, 42, 0.3);
+        }
+
+        body.theme-hu-4 .footer {
+            border-color: rgba(30, 14, 58, 0.3);
+        }
+
+        body.theme-hu-5 .footer {
+            border-color: rgba(42, 18, 74, 0.3);
+        }
+
+        body.theme-hu-6 .footer {
+            border-color: rgba(54, 26, 90, 0.3);
+        }
+
+        body.theme-hu-7 .footer {
+            border-color: rgba(66, 34, 106, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ffffff, var(--hitam-ungu-7));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: var(--hitam-ungu-6);
+            padding: 0.15rem 0.7rem;
+            background: rgba(54, 26, 90, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(54, 26, 90, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-hu-1 .footer-tagline {
+            color: var(--hitam-ungu-4);
+            background: rgba(5, 5, 8, 0.2);
+            border-color: rgba(5, 5, 8, 0.2);
+        }
+
+        body.theme-hu-7 .footer-tagline {
+            color: #ffffff;
+            background: rgba(66, 34, 106, 0.15);
+            border-color: rgba(66, 34, 106, 0.15);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--hitam-ungu-6);
+            transition: color 0.8s ease;
+        }
+
+        body.theme-hu-1 .footer-info {
+            color: var(--hitam-ungu-4);
+        }
+
+        body.theme-hu-7 .footer-info {
+            color: #ffffff;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (max-width: 479px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .app-container {
+                padding: 0.6rem;
+                border-radius: 0;
+                width: 100%;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.3rem;
+            }
+
+            .judul-web-kanan h1 {
+                text-align: center;
+                font-size: 0.75rem;
+            }
+
+            .judul-web-kanan p {
+                text-align: center;
+                font-size: 0.6rem;
+            }
+
+            .top-stats-search,
+            .search-row-flex {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-wrapper,
+            .search-section,
+            .btn-refresh-neon {
+                width: 100%;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.4rem;
+            }
+
+            .total-stats-box span {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.5rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.5rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                text-align: center;
+                padding: 0.6rem;
+            }
+
+            #shortcutNotif {
+                min-width: auto;
+            }
+
+            .footer {
+                padding: 0.6rem 0.8rem;
+                width: 100%;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+
+            .footer-brand {
+                font-size: 0.9rem;
+            }
+
+            .footer-tagline {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.5rem;
+            }
+
+            .footer-info {
+                font-size: 0.6rem;
+                gap: 0.2rem;
+            }
+
+            .footer-dot {
+                margin: 0 0.1rem;
+            }
+        }
+
+        @media (max-width: 479px) and (orientation: landscape) {
+            .app-container {
+                padding: 0.8rem;
+                border-radius: 0.8rem;
+                width: 98%;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .noxa-store {
+                font-size: 1.2rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 0.7rem;
+                text-align: right;
+            }
+
+            .judul-web-kanan p {
+                font-size: 0.55rem;
+                text-align: right;
+            }
+
+            .top-stats-search {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                min-width: 120px;
+            }
+
+            .btn-refresh-neon {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.7rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+
+            .materi-card {
+                padding: 0.8rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.5rem;
+            }
+
+            .card-title {
+                font-size: 0.7rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 480px) and (max-width: 767px) and (orientation: portrait) {
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1 {
+                text-align: center;
+            }
+
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-row-flex {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .btn-refresh-neon {
+                flex: 1;
+                justify-content: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.6rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+            .app-container {
+                padding: 0.9rem;
+                border-radius: 1rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+                gap: 0.6rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 0.9rem;
+            }
+
+            .judul-web-kanan p {
+                font-size: 0.65rem;
+            }
+
+            .top-stats-search {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                min-width: 150px;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.55rem;
+            }
+
+            .card-title {
+                font-size: 0.75rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) and (orientation: portrait) {
+            .app-container {
+                padding: 1.2rem;
+                border-radius: 1.5rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.65rem;
+            }
+
+            .card-title {
+                font-size: 0.95rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) and (orientation: landscape) {
+            .app-container {
+                padding: 1.2rem;
+                border-radius: 1.5rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.1rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.6rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .app-container {
+                width: 98%;
+                padding: 1.4rem;
+                border-radius: 1.8rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.1rem;
+            }
+
+            .materi-card {
+                padding: 1.3rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.7rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1699px) {
+            .app-container {
+                width: 98%;
+                max-width: 1600px;
+                padding: 1.5rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.75rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1700px) {
+            .app-container {
+                width: 98%;
+                max-width: 1800px;
+                padding: 2rem;
+                border-radius: 2.5rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.85rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.9);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-green">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>⚽ Pendidikan Jasmani, Olahraga dan Kesehatan (PJOK)</h1>
+                <p>Pilih Materi, Kuasai Pelajaran!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi PJOK..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="0. allmapel.html"><button class="btn-refresh-neon">Kembali</button></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card pjok-card" data-title="Adaptasi Latihan pada Cuaca Dingin">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Adaptasi Latihan pada Cuaca Dingin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Adaptasi Latihan pada Cuaca Panas">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Adaptasi Latihan pada Cuaca Panas</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Air dan Renang">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Air dan Renang</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Alam Terbuka dan Survival">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Alam Terbuka dan Survival</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Atletik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Atletik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Bela Diri">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Bela Diri</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Fisik untuk Lansia">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Fisik untuk Lansia</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Fisik Melawan Perilaku Sedenter">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Fisik Melawan Perilaku Sedenter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Gerak Berirama">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Gerak Berirama</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Kebugaran Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Kebugaran Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Permainan Bola Besar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Permainan Bola Besar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Permainan Bola Kecil">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Permainan Bola Kecil</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Aktivitas Senam">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Aktivitas Senam</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Alergi Makanan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Alergi Makanan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Anatomi dan Fisiologi Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Anatomi dan Fisiologi Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Anemia dan Malnutrisi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Anemia dan Malnutrisi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Anti-Doping Education">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Anti-Doping Education</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Apresiasi Lingkungan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Apresiasi Lingkungan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Arung Jeram Mini">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Arung Jeram Mini</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Atletik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Atletik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Badminton Kompetisi Mini">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Badminton Kompetisi Mini</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bela Negara dalam Aktivitas Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bela Negara dalam Aktivitas Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Berkemah (Camping)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Berkemah (Camping)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Berkebun sebagai Aktivitas Fisik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Berkebun sebagai Aktivitas Fisik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bermain di Lapangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bermain di Lapangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bermain di Taman">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bermain di Taman</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bermain dengan Bola Besar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bermain dengan Bola Besar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bermain dengan Bola Kecil">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bermain dengan Bola Kecil</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Biliar/Snooker Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Biliar/Snooker Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Biomekanika Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Biomekanika Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="BMX Freestyle Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">BMX Freestyle Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Body Awareness">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Body Awareness</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bola Basket">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bola Basket</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bola Bowling">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bola Bowling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bola Tangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bola Tangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bola Voli">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bola Voli</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bouldering Basics">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bouldering Basics</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Boxing Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Boxing Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Brain Gym">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Brain Gym</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Brazilian Jiu-Jitsu Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Brazilian Jiu-Jitsu Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Breakdance Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Breakdance Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Bulu Tangkis">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Bulu Tangkis</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Calisthenics Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Calisthenics Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Canoeing Techniques">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Canoeing Techniques</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Cedera dan Rehabilitasi Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Cedera dan Rehabilitasi Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Cheerleading Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Cheerleading Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Circuit Training">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Circuit Training</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Core Strength Training">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Core Strength Training</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="CPR dan AED Training">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">CPR dan AED Training</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Cricket Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Cricket Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="CrossFit Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">CrossFit Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Daya Tahan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Daya Tahan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Dayung Perahu">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Dayung Perahu</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Decathlon/Heptathlon Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Decathlon/Heptathlon Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Doping dan Bahayanya">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Doping dan Bahayanya</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Drumband dan Color Guard">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Drumband dan Color Guard</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Eating Disorders in Athletes">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Eating Disorders in Athletes</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Edukasi Anti-Bullying dalam Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Edukasi Anti-Bullying dalam Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Emergency Action Plan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Emergency Action Plan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Ergogenic Aids dalam Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Ergogenic Aids dalam Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Ergonomi dan Kesehatan Kerja">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Ergonomi dan Kesehatan Kerja</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Etika Bertanding">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Etika Bertanding</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Etika dan Sportivitas dalam Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Etika dan Sportivitas dalam Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Evaluasi Kebugaran Diri Sendiri">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Evaluasi Kebugaran Diri Sendiri</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Evaluasi Kinerja Tim">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Evaluasi Kinerja Tim</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Evakuasi Darurat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Evakuasi Darurat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Fair Play and Sportsmanship">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Fair Play and Sportsmanship</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Festival Olahraga Tradisional">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Festival Olahraga Tradisional</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Filosofi Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Filosofi Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="First Aid Kit dan Penggunaannya">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">First Aid Kit dan Penggunaannya</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Fleksibilitas">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Fleksibilitas</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Formasi dan Posisi dalam Permainan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Formasi dan Posisi dalam Permainan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Functional Training">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Functional Training</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Futsal">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Futsal</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Gangguan Gizi pada Remaja">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Gangguan Gizi pada Remaja</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Gaya Hidup Sedenter dan Dampaknya pada Generasi Muda">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Gaya Hidup Sedenter dan Dampaknya pada Generasi Muda</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Gerak Dasar dan Pengembangan Motorik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Gerak Dasar dan Pengembangan Motorik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Gerakan Masyarakat Hidup Sehat (GERMAS)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Gerakan Masyarakat Hidup Sehat (GERMAS)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Gizi dan Nutrisi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Gizi dan Nutrisi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Gizi Seimbang">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Gizi Seimbang</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Golf Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Golf Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Hakikat Pendidikan Jasmani, Olahraga, dan Kesehatan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Hakikat Pendidikan Jasmani, Olahraga, dan Kesehatan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="High Intensity Interval Training (HIIT)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">High Intensity Interval Training (HIIT)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="HIV/AIDS dan Stigma">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">HIV/AIDS dan Stigma</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Hockey Lapangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Hockey Lapangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Imunisasi dan Vaksinasi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Imunisasi dan Vaksinasi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Isu-Isu Kontemporer dalam PJOK">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Isu-Isu Kontemporer dalam PJOK</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Istirahat dan Pemulihan (Recovery)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Istirahat dan Pemulihan (Recovery)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Jalan Cepat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Jalan Cepat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Jurnal Aktivitas Fisik dan Makanan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Jurnal Aktivitas Fisik dan Makanan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kalori dan Energi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kalori dan Energi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kano dan Kayak Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kano dan Kayak Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Karate Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Karate Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Karier di Bidang Olahraga dan Kesehatan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Karier di Bidang Olahraga dan Kesehatan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kasti/Rounders">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kasti/Rounders</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keamanan Pangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keamanan Pangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kebersihan Diri">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kebersihan Diri</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kebersihan Lingkungan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kebersihan Lingkungan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kebersihan Makanan dan Minuman">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kebersihan Makanan dan Minuman</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kebugaran Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kebugaran Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kecepatan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kecepatan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kegiatan Fisik di Luar Ruangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kegiatan Fisik di Luar Ruangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kebutuhan Gizi Remaja">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kebutuhan Gizi Remaja</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kekuatan Tubuh">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kekuatan Tubuh</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kelenturan Sendi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kelenturan Sendi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kelincahan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kelincahan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keseimbangan Tubuh">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keseimbangan Tubuh</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keselamatan di Air">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keselamatan di Air</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keselamatan di Jalan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keselamatan di Jalan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keselamatan di Rumah">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keselamatan di Rumah</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keselamatan di Sekolah">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keselamatan di Sekolah</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keselamatan dalam Aktivitas Fisik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keselamatan dalam Aktivitas Fisik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keselamatan Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keselamatan Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kesehatan Gigi dan Mulut">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kesehatan Gigi dan Mulut</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kesehatan Lingkungan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kesehatan Lingkungan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kesehatan Mata dan Telinga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kesehatan Mata dan Telinga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kesehatan Mental">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kesehatan Mental</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kesehatan Pribadi dan Reproduksi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kesehatan Pribadi dan Reproduksi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Keterampilan Sosial dalam Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Keterampilan Sosial dalam Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Ketepatan Gerak">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Ketepatan Gerak</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kinerja dan Motivasi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kinerja dan Motivasi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kitesurfing Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kitesurfing Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Klasifikasi Penyakit">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Klasifikasi Penyakit</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Koordinasi Gerak">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Koordinasi Gerak</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kombinasi Gerak Senam Irama">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kombinasi Gerak Senam Irama</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Komponen Kebugaran Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Komponen Kebugaran Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Konservasi Alam">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Konservasi Alam</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Koreografi Sederhana">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Koreografi Sederhana</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Kualitas Tidur">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Kualitas Tidur</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lari Estafet">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lari Estafet</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lari Gawang">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lari Gawang</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lari Jarak Jauh">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lari Jarak Jauh</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lari Jarak Menengah">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lari Jarak Menengah</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lari Jarak Pendek">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lari Jarak Pendek</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lempar Cakram">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lempar Cakram</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lempar Lembing">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lempar Lembing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lempar Martil">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lempar Martil</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lingkungan Sehat di Rumah dan Sekolah">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lingkungan Sehat di Rumah dan Sekolah</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lompat Galah">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lompat Galah</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lompat Jauh">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lompat Jauh</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lompat Jangkit">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lompat Jangkit</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Lompat Tinggi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Lompat Tinggi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Makanan Sehat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Makanan Sehat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Manajemen dan Bisnis Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Manajemen dan Bisnis Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Membangun Citra Tubuh Positif">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Membangun Citra Tubuh Positif</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Membangun Ketahanan Diri (Resiliensi)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Membangun Ketahanan Diri (Resiliensi)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Memancing sebagai Aktivitas Rekreasi Fisik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Memancing sebagai Aktivitas Rekreasi Fisik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Menangani Cedera Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Menangani Cedera Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Menghitung Tingkat Kebugaran dan Denyut Nadi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Menghitung Tingkat Kebugaran dan Denyut Nadi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Menjaga Kelestarian Alam Saat Beraktivitas">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Menjaga Kelestarian Alam Saat Beraktivitas</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Motivasi dalam Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Motivasi dalam Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Motor Planning">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Motor Planning</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Mountain Biking Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Mountain Biking Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Muay Thai Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Muay Thai Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="NAPZA (Narkotika, Psikotropika, dan Zat Adiktif)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">NAPZA (Narkotika, Psikotropika, dan Zat Adiktif)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Navigasi Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Navigasi Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Nutrisi untuk Atlet">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Nutrisi untuk Atlet</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Obesitas dan Underweight">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Obesitas dan Underweight</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Olahraga Adaptif untuk Peserta Didik Berkebutuhan Khusus">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Olahraga Adaptif untuk Peserta Didik Berkebutuhan Khusus</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Olahraga Alam dan Lingkungan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Olahraga Alam dan Lingkungan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Olahraga Ekstrem dan Petualangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Olahraga Ekstrem dan Petualangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Olahraga Inovatif dan Teknologi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Olahraga Inovatif dan Teknologi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Olahraga Prestasi dan Kompetisi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Olahraga Prestasi dan Kompetisi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Olahraga Tradisional">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Olahraga Tradisional</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Olahraga untuk Semua (Sport for All)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Olahraga untuk Semua (Sport for All)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Overtraining dan Recovery">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Overtraining dan Recovery</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Panahan Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Panahan Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Parkour Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Parkour Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Peak Performance Training">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Peak Performance Training</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pencak Silat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pencak Silat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pencegahan Burnout pada Atlet">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pencegahan Burnout pada Atlet</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pencegahan Cedera Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pencegahan Cedera Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pencegahan Penyakit Menular">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pencegahan Penyakit Menular</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pencegahan Penyakit Tidak Menular">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pencegahan Penyakit Tidak Menular</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pendidikan Karakter melalui Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pendidikan Karakter melalui Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengaruh Gadget terhadap Aktivitas Fisik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengaruh Gadget terhadap Aktivitas Fisik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengelolaan Emosi dalam Pertandingan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengelolaan Emosi dalam Pertandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengelolaan Sampah dan Limbah">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengelolaan Sampah dan Limbah</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengembangan Motorik Halus">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengembangan Motorik Halus</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian Aktivitas Air">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian Aktivitas Air</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian Aktivitas Gerak Berirama">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian Aktivitas Gerak Berirama</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Jenis Senam">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Jenis Senam</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Klasifikasi Permainan Bola Besar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Klasifikasi Permainan Bola Besar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Klasifikasi Permainan Bola Kecil">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Klasifikasi Permainan Bola Kecil</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Manfaat Aktivitas di Alam Terbuka">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Manfaat Aktivitas di Alam Terbuka</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Nilai Olahraga Tradisional">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Nilai Olahraga Tradisional</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Ruang Lingkup Atletik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Ruang Lingkup Atletik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Sejarah Bela Diri">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Sejarah Bela Diri</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian dan Tujuan P3K">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian dan Tujuan P3K</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengertian PJOK">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengertian PJOK</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengenalan Air">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengenalan Air</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengenalan Alam Sekitar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengenalan Alam Sekitar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengenalan Anggota Tubuh">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengenalan Anggota Tubuh</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengenalan Lingkungan Air">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengenalan Lingkungan Air</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengukuran dan Pencatatan Prestasi Atletik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengukuran dan Pencatatan Prestasi Atletik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengetahuan tentang Satwa Liar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengetahuan tentang Satwa Liar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pengetahuan tentang Tumbuhan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pengetahuan tentang Tumbuhan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penjelajahan (Hiking/Cross-country)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penjelajahan (Hiking/Cross-country)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penanganan Cedera Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penanganan Cedera Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penanganan Luka dan Pendarahan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penanganan Luka dan Pendarahan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penanganan Patah Tulang (Fraktur)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penanganan Patah Tulang (Fraktur)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penyakit Berbasis Lingkungan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penyakit Berbasis Lingkungan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penyakit Menular Seksual (PMS)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penyakit Menular Seksual (PMS)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penyakit Tidak Menular (PTM)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penyakit Tidak Menular (PTM)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Penyakit dan Pencegahannya">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Penyakit dan Pencegahannya</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Perawatan Perlengkapan Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Perawatan Perlengkapan Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Perencanaan dan Evaluasi Aktivitas Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Perencanaan dan Evaluasi Aktivitas Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Perkembangan Kurikulum PJOK">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Perkembangan Kurikulum PJOK</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Perlengkapan dan Fasilitas Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Perlengkapan dan Fasilitas Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Permainan Air Sederhana">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Permainan Air Sederhana</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Permainan Bola Tangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Permainan Bola Tangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Permainan Hoki Mini">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Permainan Hoki Mini</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Permainan Kooperatif">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Permainan Kooperatif</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Permainan Tim Sederhana">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Permainan Tim Sederhana</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Permainan Tradisional">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Permainan Tradisional</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Personal Hygiene dan Kesehatan Reproduksi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Personal Hygiene dan Kesehatan Reproduksi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pertolongan Pertama Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pertolongan Pertama Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pertolongan Pertama di Alam">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pertolongan Pertama di Alam</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pertolongan Pertama pada Kecelakaan (P3K)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pertolongan Pertama pada Kecelakaan (P3K)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pertumbuhan dan Perkembangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pertumbuhan dan Perkembangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pertumbuhan dan Perkembangan Fisik Remaja">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pertumbuhan dan Perkembangan Fisik Remaja</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pertunjukan Senam Sederhana">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pertunjukan Senam Sederhana</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pilates untuk Anak dan Remaja">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pilates untuk Anak dan Remaja</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="PJOK dan Profil Pelajar Pancasila">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">PJOK dan Profil Pelajar Pancasila</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pola Hidup Sehat dan Manajemen Stres">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pola Hidup Sehat dan Manajemen Stres</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pola Makan Sehat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pola Makan Sehat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Polo Air Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Polo Air Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Postur Tubuh yang Benar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Postur Tubuh yang Benar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Power dan Explosiveness">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Power dan Explosiveness</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Pramuka dan Olahraga Alam">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Pramuka dan Olahraga Alam</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Program Latihan Kebugaran Pribadi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Program Latihan Kebugaran Pribadi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Protein, Karbohidrat, dan Lemak">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Protein, Karbohidrat, dan Lemak</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Psikologi Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Psikologi Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Reaksi Cepat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Reaksi Cepat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Rehabilitasi Cedera Sederhana">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Rehabilitasi Cedera Sederhana</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Renang">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Renang</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Resusitasi Jantung Paru (RJP) Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Resusitasi Jantung Paru (RJP) Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Revitalisasi Permainan Tradisional di Era Digital">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Revitalisasi Permainan Tradisional di Era Digital</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Rock Climbing Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Rock Climbing Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Rollerblading/Inline Skating">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Rollerblading/Inline Skating</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Rounders/Kasti">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Rounders/Kasti</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Rugby">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Rugby</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sanitasi dan Air Bersih">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sanitasi dan Air Bersih</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Search and Rescue Basics">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Search and Rescue Basics</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sejarah Perkembangan Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sejarah Perkembangan Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Selam Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Selam Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Aerobik">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Aerobik</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Alat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Alat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Irama (Ritmik)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Irama (Ritmik)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Ketangkasan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Ketangkasan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Kreasi dan Senam Modern">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Kreasi dan Senam Modern</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Lantai">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Lantai</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Pagi">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Pagi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Pembentukan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Pembentukan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Senam Kesegaran Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Senam Kesegaran Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sepak Bola">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sepak Bola</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Siklus Hidup dan Kebugaran">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Siklus Hidup dan Kebugaran</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sistem Otot dan Tulang">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sistem Otot dan Tulang</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sistem Pencernaan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sistem Pencernaan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sistem Peredaran Darah">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sistem Peredaran Darah</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sistem Pernapasan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sistem Pernapasan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Skateboarding Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Skateboarding Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Skipping (Lompat Tali)">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Skipping (Lompat Tali)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sosiologi Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sosiologi Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sport Science">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sport Science</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sports Massage Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sports Massage Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sportivitas dalam Bermain">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sportivitas dalam Bermain</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Stand Up Paddleboarding">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Stand Up Paddleboarding</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Strategi Permainan Bola Voli">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Strategi Permainan Bola Voli</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Strategi Permainan Bulu Tangkis">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Strategi Permainan Bulu Tangkis</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Strategi Permainan Sepak Bola">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Strategi Permainan Sepak Bola</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Strategi Permainan Tenis Meja">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Strategi Permainan Tenis Meja</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Stress Management for Athletes">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Stress Management for Athletes</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Substance Abuse Prevention">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Substance Abuse Prevention</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Sumber Daya Alam untuk Aktivitas Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Sumber Daya Alam untuk Aktivitas Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Surfing Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Surfing Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Survival Skill Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Survival Skill Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Synchronized Swimming Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Synchronized Swimming Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Taekwondo Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Taekwondo Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Takraw">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Takraw</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Talent Identification">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Talent Identification</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tari Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tari Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tari Tradisional sebagai Aktivitas Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tari Tradisional sebagai Aktivitas Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Team Building dalam Olahraga">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Team Building dalam Olahraga</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Teknik Jatuh yang Aman">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Teknik Jatuh yang Aman</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Teknik Lari yang Benar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Teknik Lari yang Benar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Teknik Lempar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Teknik Lempar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Teknik Lompat">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Teknik Lompat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Teknik Mendarat yang Aman">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Teknik Mendarat yang Aman</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tenis Lapangan">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tenis Lapangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tenis Meja">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tenis Meja</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tes Kebugaran Jasmani">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tes Kebugaran Jasmani</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tidur yang Berkualitas">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tidur yang Berkualitas</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tolak Peluru">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tolak Peluru</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Tricking Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Tricking Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Turnamen dan Pertandingan Antar Kelas">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Turnamen dan Pertandingan Antar Kelas</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Turnamen Olahraga Mini">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Turnamen Olahraga Mini</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Unsur-unsur Gerak Berirama">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Unsur-unsur Gerak Berirama</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Variasi dan Kombinasi Keterampilan Permainan Bola">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Variasi dan Kombinasi Keterampilan Permainan Bola</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Vitamin dan Mineral">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Vitamin dan Mineral</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Voli Pantai Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Voli Pantai Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Wasit dan Peraturan Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Wasit dan Peraturan Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Weight Management">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Weight Management</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Wilderness First Aid">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Wilderness First Aid</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Windsurfing Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Windsurfing Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Wrestling Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Wrestling Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+            <div class="materi-card pjok-card" data-title="Wushu/Kungfu Dasar">
+                <span class="mapel-badge">🏃 PJOK</span>
+                <h3 class="card-title">Wushu/Kungfu Dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+
+        (function () {
+            'use strict';
+
+            // ========== 7 THEME HITAM-KE-UNGU ==========
+            const huThemes = [
+                'theme-hu-1', 'theme-hu-2', 'theme-hu-3',
+                'theme-hu-4', 'theme-hu-5', 'theme-hu-6', 'theme-hu-7'
+            ];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                huThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % huThemes.length;
+                bodyEl.classList.add(huThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ========== 7 GRADIEN CARD HITAM-KE-UNGU ==========
+            const huGradien = [
+                'hu-gradien-0', 'hu-gradien-1', 'hu-gradien-2',
+                'hu-gradien-3', 'hu-gradien-4', 'hu-gradien-5', 'hu-gradien-6'
+            ];
+            let huIndex = 0;
+            let gradientInterval = null;
+
+            function rotateHuGradient() {
+                const huCards = document.querySelectorAll('.materi-card');
+                if (huCards.length === 0) return;
+                huIndex = (huIndex + 1) % huGradien.length;
+                huCards.forEach(card => {
+                    huGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(huGradien[huIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateHuGradient, 3000);
+
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            function cardHasLink(card) {
+                const links = card.querySelectorAll('.button-group .materi-link');
+                let hasLink = false;
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && href !== '' && href !== '#' && href !== '#!') {
+                        hasLink = true;
+                    }
+                });
+                return hasLink;
+            }
+
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    if (cardHasLink(card)) {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+
+                let hasAnyLink = false;
+                allCards.forEach(card => {
+                    if (cardHasLink(card)) {
+                        hasAnyLink = true;
+                    }
+                });
+
+                const oldEmptyState = document.querySelector('.empty-state');
+                if (oldEmptyState) oldEmptyState.remove();
+                const oldNoResult = document.getElementById('customNoResultMsg');
+                if (oldNoResult) oldNoResult.remove();
+
+                if (!hasAnyLink) {
+                    allCards.forEach(card => {
+                        card.style.display = 'none';
+                    });
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = '📚 Belum ada materi tersedia';
+                        resultCounterSpan.style.color = '#42226a';
+                    }
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'empty-state';
+                    emptyDiv.innerHTML = '<div style="font-size: 3rem; margin-bottom: 1rem;">📭</div><div style="font-size: 1.2rem; font-weight: 700; color: #E8E0F0; margin-bottom: 0.5rem;">Materi belum tersedia</div><div style="font-size: 0.9rem; color: #5a4a7a;">Belum ada materi yang tersedia saat ini.<br>Silakan cek kembali nanti.</div>';
+                    materiContainer.appendChild(emptyDiv);
+                    return;
+                }
+
+                let visibleCount = 0;
+                allCards.forEach(card => {
+                    const hasLink = cardHasLink(card);
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+                    const shouldShow = hasLink && isMatch;
+                    card.style.display = shouldShow ? '' : 'none';
+                    if (shouldShow) visibleCount++;
+                });
+
+                if (searchTerm !== '' && visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                        resultCounterSpan.style.color = '#42226a';
+                    }
+                    const msgDiv = document.createElement('div');
+                    msgDiv.id = 'customNoResultMsg';
+                    msgDiv.className = 'no-result';
+                    msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                    materiContainer.appendChild(msgDiv);
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? '✨ Ditemukan ' + visibleCount + ' materi' : '📚 ' + visibleCount + ' materi PJOK';
+                        resultCounterSpan.style.color = '#42226a';
+                    }
+                }
+                updateStatistik();
+            }
+
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function () {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(function () { shortcutNotifSpan.innerText = ''; }, 1200);
+                    }
+                });
+            }
+
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(function (link) {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = function (e) {
+                        if (!href || href === '' || href === '#' || href === '#!') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#' || href === '#!') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.opacity = '0.5';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.opacity = '1';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            window.addEventListener('keydown', function (e) {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(function () { shortcutNotifSpan.innerText = ''; }, 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(function () { shortcutNotifSpan.innerText = ''; }, 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(function () { shortcutNotifSpan.innerText = ''; }, 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function () {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(function () {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(function () { shortcutNotifSpan.innerText = ''; }, 1200);
+                    }
+                    getAllCards().forEach(function (card) {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(function () {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
+                document.head.appendChild(spinStyle);
+            }
+
+            function initHuGradient() {
+                const huCards = document.querySelectorAll('.materi-card');
+                if (huCards.length === 0) return;
+                huCards.forEach(function (card) {
+                    huGradien.forEach(function (gc) { card.classList.remove(gc); });
+                    card.classList.add(huGradien[0]);
+                });
+                huIndex = 0;
+            }
+
+            setTimeout(function () {
+                initHuGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ NOXA STORE | ⚫🔮 Hitam-Ke-Ungu Theme | 7 warna elegan');
+        })();
+    </script>
+</body>
+
+</html>

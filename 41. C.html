@@ -1,0 +1,2931 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - C Programming | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA C - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #321484, #1a0a4a);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Theme varian berdasarkan warna C */
+        body.theme-c-primary {
+            background: radial-gradient(circle at 30% 20%, #4664A4, #321484);
+        }
+
+        body.theme-c-green {
+            background: radial-gradient(circle at 60% 40%, #9AE0A2, #321484);
+        }
+
+        body.theme-c-pink {
+            background: radial-gradient(circle at 70% 30%, #E43A96, #1a0a4a);
+        }
+
+        body.theme-c-purple {
+            background: radial-gradient(circle at 40% 70%, #4B29D3, #321484);
+        }
+
+        body.theme-c-dark {
+            background: radial-gradient(circle at 80% 50%, #4664A4, #1a0a4a);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(70, 100, 164, 0.4);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(70, 100, 164, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #9AE0A2, #4664A4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(70, 100, 164, 0.6);
+            animation: softPulseC 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseC {
+            0% {
+                text-shadow: 0 0 4px #4664A4;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #9AE0A2;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #E43A96, #9AE0A2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #B8D4FF;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(70, 100, 164, 0.4);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(70, 100, 164, 0.25);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #9AE0A2;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(70, 100, 164, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #9AE0A2;
+            box-shadow: 0 0 0 3px rgba(70, 100, 164, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #AAC8FF;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #E43A96;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(70, 100, 164, 0.25);
+            border: 1px solid rgba(70, 100, 164, 0.6);
+            color: #C8E0FF;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(70, 100, 164, 0.45);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(70, 100, 164, 0.45);
+        }
+
+        .shortcut-msg {
+            background: #E43A96;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #1a0a4a;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(228, 58, 150, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #4664A4;
+            border-right: 1px solid rgba(70, 100, 164, 0.3);
+            border-top: 1px solid rgba(70, 100, 164, 0.2);
+            border-bottom: 1px solid rgba(70, 100, 164, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(50, 20, 132, 0.85), rgba(26, 10, 74, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #9AE0A2;
+            box-shadow: 0 12px 25px -8px rgba(70, 100, 164, 0.5);
+            background: linear-gradient(135deg, rgba(70, 100, 164, 0.9), rgba(50, 20, 132, 0.75));
+        }
+
+        /* Gradien Card C-Theme */
+        .materi-card.c-gradien-0 {
+            background: linear-gradient(135deg, rgba(50, 20, 132, 0.85), rgba(26, 10, 74, 0.7));
+            border-left-color: #321484;
+        }
+
+        .materi-card.c-gradien-1 {
+            background: linear-gradient(135deg, rgba(70, 100, 164, 0.85), rgba(50, 20, 132, 0.7));
+            border-left-color: #4664A4;
+        }
+
+        .materi-card.c-gradien-2 {
+            background: linear-gradient(135deg, rgba(228, 58, 150, 0.8), rgba(70, 100, 164, 0.7));
+            border-left-color: #E43A96;
+        }
+
+        .mapel-badge {
+            background: rgba(228, 58, 150, 0.5);
+            color: #FFD0E8;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #E8F0FF;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #4664A4;
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(70, 100, 164, 0.5);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #5A7AB8;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a2a3a;
+            color: #6a6a8a;
+            border: 1px solid #4a4a6a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #9AE0A2;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(70, 100, 164, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(70, 100, 164, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a0a2a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4664A4;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9AE0A2;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(70, 100, 164, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-c-primary .footer {
+            border-color: rgba(70, 100, 164, 0.3);
+        }
+
+        body.theme-c-green .footer {
+            border-color: rgba(154, 224, 162, 0.3);
+        }
+
+        body.theme-c-pink .footer {
+            border-color: rgba(228, 58, 150, 0.3);
+        }
+
+        body.theme-c-purple .footer {
+            border-color: rgba(75, 41, 211, 0.3);
+        }
+
+        body.theme-c-dark .footer {
+            border-color: rgba(70, 100, 164, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #9AE0A2, #4664A4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #B8D4FF;
+            padding: 0.15rem 0.7rem;
+            background: rgba(70, 100, 164, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(70, 100, 164, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-c-green .footer-tagline {
+            color: #1a4a1a;
+            background: rgba(154, 224, 162, 0.2);
+            border-color: rgba(154, 224, 162, 0.2);
+        }
+
+        body.theme-c-pink .footer-tagline {
+            color: #ffd0e8;
+            background: rgba(228, 58, 150, 0.2);
+            border-color: rgba(228, 58, 150, 0.2);
+        }
+
+        body.theme-c-purple .footer-tagline {
+            color: #d8c8ff;
+            background: rgba(75, 41, 211, 0.2);
+            border-color: rgba(75, 41, 211, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #B8D4FF;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-c-green .footer-info {
+            color: #1a4a1a;
+        }
+
+        body.theme-c-pink .footer-info {
+            color: #ffd0e8;
+        }
+
+        body.theme-c-purple .footer-info {
+            color: #d8c8ff;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-c-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>⚙️ C Programming</h1>
+                <p>Pilih Materi, Kuasai Pemrograman Sistem!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi C Programming..."
+                            autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card c-card" data-title="AI dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">AI dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Arduino dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Arduino dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Array C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Array C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Assembly integration dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Assembly integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Assert dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Assert dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Audio programming dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Audio programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Automation project dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Automation project dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Automation testing dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Automation testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Automotive software dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Automotive software dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Basic syntax C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Basic syntax C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Best practices pemrograman C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Best practices pemrograman C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Binary file handling">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Binary file handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Binary search tree dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Binary search tree dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Bit manipulation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Bit manipulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Bitwise operator">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Bitwise operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Blockchain dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Blockchain dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Break dan continue">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Break dan continue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Buffer overflow defense">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Buffer overflow defense</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Bubble sort dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Bubble sort dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="C compiler">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">C compiler</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="C development environment">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">C development environment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="C project dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">C project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="C standard library">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">C standard library</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Calculator C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Calculator C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Call by value dan reference">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Call by value dan reference</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Career path embedded engineer">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Career path embedded engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Char data type">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Char data type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Chatbot dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Chatbot dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="CI/CD untuk project C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">CI/CD untuk project C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Clean code di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Clean code di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="CLI application dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">CLI application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Cloud integration dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Cloud integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Code optimization">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Code optimization</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Code refactoring di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Code refactoring di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Command line arguments">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Command line arguments</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Concurrency dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Concurrency dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Conditional compilation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Conditional compilation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Constant C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Constant C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Cryptography dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Cryptography dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Custom data type dengan typedef">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Custom data type dengan typedef</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Cybersecurity dasar untuk developer C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Cybersecurity dasar untuk developer C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Dashboard analytics dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Dashboard analytics dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Data compression dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Data compression dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Data encryption">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Data encryption</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Data structures dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Data structures dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Database connectivity dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Database connectivity dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Dangling pointer">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Dangling pointer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Data type conversion">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Data type conversion</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Deadlock di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Deadlock di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Debugging dengan GDB">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Debugging dengan GDB</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Design pattern di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Design pattern di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="DevOps untuk project C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">DevOps untuk project C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Digital signal processing dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Digital signal processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Do while loop">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Do while loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Double data type">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Double data type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Dynamic memory allocation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Dynamic memory allocation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="E-commerce backend dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">E-commerce backend dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Embedded systems programming">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Embedded systems programming</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Enum C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Enum C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Error handling">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Error handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Event driven programming dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Event driven programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Extern keyword">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Extern keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="File handling">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">File handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="File positioning (fseek, ftell)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">File positioning (fseek, ftell)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Financial system dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Financial system dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Float data type">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Float data type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="For loop">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">For loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Function C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Function C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Function parameters">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Function parameters</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Function pointer">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Function pointer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Function prototype">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Function prototype</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Functional programming dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Functional programming dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Game development dasar 2D">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Game development dasar 2D</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Game engine architecture dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Game engine architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Garbage collection manual (free)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Garbage collection manual (free)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Git dan version control">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Git dan version control</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Global variable">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Global variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Go to statement">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Go to statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Graph algorithm dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Graph algorithm dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Graphics programming dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Graphics programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="GUI programming dasar di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">GUI programming dasar di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Hardware abstraction layer">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Hardware abstraction layer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Hardware interfacing">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Hardware interfacing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Hash table dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Hash table dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Header file (.h)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Header file (.h)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Hello world program C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Hello world program C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Hexadecimal representation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Hexadecimal representation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="High performance computing dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">High performance computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="I/O multiplexing (select, poll)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">I/O multiplexing (select, poll)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Identifier C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Identifier C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="If else statement">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">If else statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Infinite loop">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Infinite loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Inline function">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Inline function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Input output function (scanf, printf)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Input output function (scanf, printf)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Insertion sort dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Insertion sort dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Int data type">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Int data type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Integrated development environment (IDE)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Integrated development environment (IDE)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Inter-process communication (IPC)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Inter-process communication (IPC)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Interrupt handling">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Interrupt handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Inventory system dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Inventory system dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="IoT engineering dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">IoT engineering dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Job scheduling system dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Job scheduling system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Keyword di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Keyword di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Komentar di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Komentar di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Library creation (.a, .so)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Library creation (.a, .so)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Linear search dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Linear search dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Linked list dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Linked list dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Linker dan loading process">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Linker dan loading process</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Linux system programming dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Linux system programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Local variable">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Local variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Logging framework dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Logging framework dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Logical operator">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Logical operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Low level programming">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Low level programming</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Machine learning dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Machine learning dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Macro expansion">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Macro expansion</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Main function">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Main function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Makefile dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Makefile dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Math library functions">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Math library functions</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Matrix multiplication">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Matrix multiplication</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Memory leak detection (Valgrind)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Memory leak detection (Valgrind)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Memory management">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Memory management</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Memory mapped I/O">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Memory mapped I/O</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Microcontroller coding dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Microcontroller coding dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Mobile development dengan C (NDK)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Mobile development dengan C (NDK)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Multi-dimensional array">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Multi-dimensional array</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Multi-file project">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Multi-file project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Multithreading (pthreads)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Multithreading (pthreads)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Mutex dan semaphore">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Mutex dan semaphore</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Nested loop">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Nested loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Network programming dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Network programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Null pointer">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Null pointer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Numerical analysis dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Numerical analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Object oriented programming simulation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Object oriented programming simulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Open source library integration">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Open source library integration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="OpenMP dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">OpenMP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Operating system development dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Operating system development dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Operator aritmatika">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Operator aritmatika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Operator precedence">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Operator precedence</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Operator perbandingan">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Operator perbandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Parallel computing dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Parallel computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pass by value">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pass by value</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pass by reference">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pass by reference</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Payroll system dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Payroll system dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Performance profiling">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Performance profiling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pointer arithmetic">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pointer arithmetic</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pointer dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pointer arithmetic</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pointer ke array">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pointer ke array</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pointer ke pointer">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pointer ke pointer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pointer ke structure">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pointer ke structure</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Polymorphism simulation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Polymorphism simulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Portfolio project pemrograman C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Portfolio project pemrograman C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Pre-processor directives">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Pre-processor directives</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Process creation (fork, exec)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Process creation (fork, exec)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Procurement system dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Procurement system dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Queue data structure dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Queue data structure dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Quick sort dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Quick sort dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Race condition di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Race condition di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Random number generation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Random number generation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Real-time operating system (RTOS) dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Real-time operating system (RTOS) dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Recursion">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Recursion</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Register storage class">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Register storage class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Regular expression dasar di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Regular expression dasar di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Reporting tool CLI">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Reporting tool CLI</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="REST API client dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">REST API client dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Return statement">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Return statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Robotics programming dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Robotics programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="RPA dasar dengan C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">RPA dasar dengan C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Runtime environment">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Runtime environment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Sales management system dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Sales management system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Scope of variable">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Scope of variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Secure coding practices">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Secure coding practices</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Segmentation fault analysis">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Segmentation fault analysis</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Selection sort dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Selection sort dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Serial communication (UART)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Serial communication (UART)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Shared memory dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Shared memory dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Short data type">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Short data type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Signal handling (SIGINT, SIGSEGV)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Signal handling (SIGINT, SIGSEGV)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Sizeof operator">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Sizeof operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Smart device engineering">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Smart device engineering</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Socket programming (TCP/UDP)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Socket programming (TCP/UDP)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Software engineering di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Software engineering di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="SOLID principles di procedural programming">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">SOLID principles di procedural programming</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Sorting algorithms dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Sorting algorithms dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Stack data structure dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Stack data structure dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Static keyword">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Static keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Static library creation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Static library creation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Static memory allocation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Static memory allocation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Storage classes (auto, extern, static, register)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Storage classes (auto, extern, static, register)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="String C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">String C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="String library functions (strcpy, strlen)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">String library functions (strcpy, strlen)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="String manipulation">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">String manipulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Structure C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Structure C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Structure padding dan alignment">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Structure padding dan alignment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Subquery simulation dengan struct data">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Subquery simulation dengan struct data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Supply chain software dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Supply chain software dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Switch case statement">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Switch case statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="System calls dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">System calls dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Ternary operator">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Ternary operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Text file handling">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Text file handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Thread synchronization">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Thread synchronization</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Time management functions (time.h)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Time management functions (time.h)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Token di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Token di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Tree data structure dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Tree data structure dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Type casting">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Type casting</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Typedef keyword">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Typedef keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Undefined behavior di C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Undefined behavior di C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Union C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Union C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Unit testing dengan CUnit">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Unit testing dengan CUnit</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Unsigned data types">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Unsigned data types</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="User management CLI system">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">User management CLI system</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Valgrind memcheck">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Valgrind memcheck</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Variable C">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Variable C</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Variable length array (VLA)">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Variable length array (VLA)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Void pointer">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Void pointer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Volatile keyword">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Volatile keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Web server dasar dari nol">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Web server dasar dari nol</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="Web service client dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">Web service client dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="While loop">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">While loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card c-card" data-title="XML processing dasar">
+                <span class="mapel-badge">💻 C</span>
+                <h3 class="card-title">XML processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION C ====================
+            const colorThemes = ['theme-c-primary', 'theme-c-green', 'theme-c-pink', 'theme-c-purple', 'theme-c-dark'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== C GRADIENT ROTATION ====================
+            const cGradien = ['c-gradien-0', 'c-gradien-1', 'c-gradien-2'];
+            let cIndex = 0;
+            let gradientInterval = null;
+
+            function rotateCGradient() {
+                const cCards = document.querySelectorAll('.c-card, .materi-card');
+                if (cCards.length === 0) return;
+                cIndex = (cIndex + 1) % cGradien.length;
+                cCards.forEach(card => {
+                    cGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(cGradien[cIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateCGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#E43A96';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#E43A96';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi C`;
+                        resultCounterSpan.style.color = '#9AE0A2';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initCGradient() {
+                const cCards = document.querySelectorAll('.c-card, .materi-card');
+                if (cCards.length === 0) return;
+                cCards.forEach(card => {
+                    cGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(cGradien[0]);
+                });
+                cIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initCGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | C Programming - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

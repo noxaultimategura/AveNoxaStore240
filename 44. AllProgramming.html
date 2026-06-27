@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NOXA STORE · Daftar Bahasa Pemrograman</title>
+    <style>
+        /* ================================================================ */
+        /*              KOMBO 7 WARNA UNGU-BIRU TUA                         */
+        /* ================================================================ */
+
+        :root {
+            --ungu-biru-1: #0a0a1a;
+            --ungu-biru-2: #14142e;
+            --ungu-biru-3: #1a1a4a;
+            --ungu-biru-4: #2a2a6a;
+            --ungu-biru-5: #3a3a8a;
+            --ungu-biru-6: #4a4aaa;
+            --ungu-biru-7: #5a5aca;
+            --ungu-biru-8: #7a7ae6;
+            --ungu-biru-9: #9a9af0;
+
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        /* ========= RESET ========= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========= BODY ========= */
+        body {
+            background: radial-gradient(circle at 30% 20%, var(--ungu-biru-4), var(--ungu-biru-1));
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* ========== THEME UNGU-BIRU TUA ========== */
+        body.theme-ub-1 {
+            background: radial-gradient(circle at 30% 20%, var(--ungu-biru-1), #050510);
+        }
+
+        body.theme-ub-2 {
+            background: radial-gradient(circle at 50% 40%, var(--ungu-biru-2), #0a0a1a);
+        }
+
+        body.theme-ub-3 {
+            background: radial-gradient(circle at 70% 30%, var(--ungu-biru-3), #0a0a1a);
+        }
+
+        body.theme-ub-4 {
+            background: radial-gradient(circle at 40% 70%, var(--ungu-biru-4), #0a0a1a);
+        }
+
+        body.theme-ub-5 {
+            background: radial-gradient(circle at 60% 50%, var(--ungu-biru-5), #14142e);
+        }
+
+        body.theme-ub-6 {
+            background: radial-gradient(circle at 30% 60%, var(--ungu-biru-6), #1a1a4a);
+        }
+
+        body.theme-ub-7 {
+            background: radial-gradient(circle at 70% 50%, var(--ungu-biru-7), #1a1a4a);
+        }
+
+        /* ========= APP CONTAINER ========= */
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(42, 42, 106, 0.4);
+            transition: border-color 0.8s ease;
+        }
+
+        body.theme-ub-1 .app-container {
+            border-color: rgba(10, 10, 26, 0.4);
+        }
+
+        body.theme-ub-2 .app-container {
+            border-color: rgba(20, 20, 46, 0.4);
+        }
+
+        body.theme-ub-3 .app-container {
+            border-color: rgba(26, 26, 74, 0.4);
+        }
+
+        body.theme-ub-4 .app-container {
+            border-color: rgba(42, 42, 106, 0.4);
+        }
+
+        body.theme-ub-5 .app-container {
+            border-color: rgba(58, 58, 138, 0.4);
+        }
+
+        body.theme-ub-6 .app-container {
+            border-color: rgba(74, 74, 170, 0.4);
+        }
+
+        body.theme-ub-7 .app-container {
+            border-color: rgba(90, 90, 202, 0.4);
+        }
+
+        /* ================================================================ */
+        /* HEADER - NOXA STORE AESTHETIC DENGAN WARNA UNGU-BIRU           */
+        /* ================================================================ */
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Decorative line glow - mengikuti warna tema */
+        .top-brand-bar::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 40%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    var(--ungu-biru-7) 0%,
+                    var(--ungu-biru-6) 30%,
+                    var(--ungu-biru-8) 60%,
+                    rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 2px;
+            transition: all 0.8s ease;
+            box-shadow: 0 0 20px rgba(74, 74, 170, 0.2);
+        }
+
+        .top-brand-bar:hover::after {
+            width: 70%;
+            box-shadow: 0 0 40px rgba(74, 74, 170, 0.4);
+        }
+
+        /* ===== NOXA STORE - Premium Ungu-Biru Gradient ===== */
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg,
+                    var(--ungu-biru-9) 0%,
+                    var(--ungu-biru-8) 15%,
+                    var(--ungu-biru-7) 30%,
+                    var(--ungu-biru-6) 45%,
+                    var(--ungu-biru-5) 60%,
+                    var(--ungu-biru-4) 75%,
+                    var(--ungu-biru-3) 90%,
+                    var(--ungu-biru-2) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow:
+                0 0 40px rgba(74, 74, 170, 0.15),
+                0 0 80px rgba(74, 74, 170, 0.08),
+                0 0 120px rgba(74, 74, 170, 0.04);
+            animation: glowPulse 3.5s infinite alternate ease-in-out;
+            transition: all 0.8s ease;
+            position: relative;
+        }
+
+        /* Glow effect di belakang NOXA STORE */
+        .noxa-store::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -10%;
+            width: 120%;
+            height: 160%;
+            background: radial-gradient(ellipse at center,
+                    rgba(90, 90, 202, 0.12) 0%,
+                    rgba(74, 74, 170, 0.06) 30%,
+                    transparent 70%);
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .noxa-store:hover::before {
+            opacity: 1;
+        }
+
+        /* Sparkle effect pada NOXA STORE */
+        .noxa-store::after {
+            content: '✦';
+            position: absolute;
+            top: -15%;
+            right: -5%;
+            font-size: 0.6rem;
+            background: linear-gradient(135deg,
+                    var(--ungu-biru-9),
+                    var(--ungu-biru-7));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            animation: sparkle 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes glowPulse {
+            0% {
+                text-shadow:
+                    0 0 20px rgba(90, 90, 202, 0.1),
+                    0 0 40px rgba(74, 74, 170, 0.05);
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.005);
+            }
+
+            100% {
+                text-shadow:
+                    0 0 40px rgba(90, 90, 202, 0.25),
+                    0 0 80px rgba(74, 74, 170, 0.12),
+                    0 0 120px rgba(58, 58, 138, 0.06);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            90% {
+                opacity: 0;
+                transform: scale(0.5) rotate(0deg);
+            }
+
+            95% {
+                opacity: 1;
+                transform: scale(1.2) rotate(20deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0.5) rotate(0deg);
+            }
+        }
+
+        /* ===== Subtitle / Tagline ===== */
+        .noxa-subtitle {
+            display: block;
+            font-size: 0.55rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg,
+                    var(--ungu-biru-7) 0%,
+                    var(--ungu-biru-9) 50%,
+                    var(--ungu-biru-6) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-top: -0.1rem;
+            opacity: 0.9;
+            animation: subtitleGlow 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes subtitleGlow {
+            0% {
+                opacity: 0.7;
+                letter-spacing: 0.2em;
+            }
+
+            100% {
+                opacity: 1;
+                letter-spacing: 0.25em;
+            }
+        }
+
+        /* ===== Icon di samping NOXA STORE ===== */
+        .noxa-icon {
+            display: inline-block;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            background: linear-gradient(135deg,
+                    var(--ungu-biru-9),
+                    var(--ungu-biru-5));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-right: 0.3rem;
+            animation: iconFloat 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes iconFloat {
+            0% {
+                transform: translateY(0px);
+            }
+
+            100% {
+                transform: translateY(-3px);
+            }
+        }
+
+        /* ===== Right side header - Judul ===== */
+        .judul-web-kanan h1 {
+            font-size: clamp(0.9rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg,
+                    var(--ungu-biru-9) 0%,
+                    var(--ungu-biru-8) 20%,
+                    var(--ungu-biru-7) 40%,
+                    var(--ungu-biru-6) 60%,
+                    var(--ungu-biru-5) 80%,
+                    var(--ungu-biru-4) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+            text-shadow: 0 0 30px rgba(74, 74, 170, 0.1);
+            transition: all 0.8s ease;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.25);
+            text-align: right;
+            margin-top: 0.1rem;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-ub-1 .judul-web-kanan p {
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        body.theme-ub-7 .judul-web-kanan p {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ========= STATS + SEARCH ========= */
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(42, 42, 106, 0.3);
+            transition: border-color 0.8s ease;
+        }
+
+        body.theme-ub-1 .total-stats-box {
+            border-color: rgba(10, 10, 26, 0.3);
+        }
+
+        body.theme-ub-7 .total-stats-box {
+            border-color: rgba(90, 90, 202, 0.3);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(42, 42, 106, 0.25);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            transition: background 0.8s ease;
+        }
+
+        body.theme-ub-1 .total-stats-box span {
+            background: rgba(10, 10, 26, 0.3);
+        }
+
+        body.theme-ub-7 .total-stats-box span {
+            background: rgba(90, 90, 202, 0.2);
+        }
+
+        .total-stats-box span strong {
+            color: var(--ungu-biru-7);
+            transition: color 0.8s ease;
+        }
+
+        body.theme-ub-1 .total-stats-box span strong {
+            color: var(--ungu-biru-5);
+        }
+
+        body.theme-ub-7 .total-stats-box span strong {
+            color: #ffffff;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.5;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1.5px solid rgba(42, 42, 106, 0.4);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #ffffff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: var(--ungu-biru-7);
+            box-shadow: 0 0 0 3px rgba(74, 74, 170, 0.2);
+        }
+
+        #searchInput::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: var(--ungu-biru-6);
+            color: #ffffff;
+        }
+
+        /* Tombol Kembali */
+        .btn-back-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(229, 31, 31, 0.12);
+            border: 1px solid rgba(229, 31, 31, 0.2);
+            color: #ff6b6b;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .btn-back-neon:hover {
+            background: rgba(229, 31, 31, 0.2);
+            transform: scale(1.02);
+            border-color: #e51f1f;
+            box-shadow: 0 0 20px rgba(229, 31, 31, 0.15);
+        }
+
+        /* Tombol Refresh */
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(42, 42, 106, 0.2);
+            border: 1px solid rgba(42, 42, 106, 0.3);
+            color: var(--ungu-biru-7);
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(74, 74, 170, 0.25);
+            transform: scale(1.02);
+            color: #ffffff;
+            border-color: var(--ungu-biru-6);
+            box-shadow: 0 0 25px rgba(74, 74, 170, 0.15);
+        }
+
+        /* ========= STATS BAR ========= */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(42, 42, 106, 0.3);
+            transition: border-color 0.8s ease;
+        }
+
+        .shortcut-msg {
+            background: var(--ungu-biru-3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: var(--ungu-biru-7);
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(26, 26, 74, 0.3);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-ub-1 .shortcut-msg {
+            background: var(--ungu-biru-1);
+            color: var(--ungu-biru-5);
+        }
+
+        body.theme-ub-7 .shortcut-msg {
+            background: var(--ungu-biru-5);
+            color: #ffffff;
+        }
+
+        /* ========= GRID MAPEL ========= */
+        .mapel-grid {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========= CARD STYLE ========= */
+        .mapel-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.5s ease;
+            border-left: 4px solid var(--ungu-biru-4);
+            border-right: 1px solid rgba(42, 42, 106, 0.2);
+            border-top: 1px solid rgba(42, 42, 106, 0.2);
+            border-bottom: 1px solid rgba(42, 42, 106, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.85), rgba(20, 20, 46, 0.7));
+            backdrop-filter: blur(4px);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .mapel-card:hover {
+            transform: translateY(-4px);
+            border-left-color: var(--ungu-biru-7);
+            box-shadow: 0 12px 25px -8px rgba(74, 74, 170, 0.3);
+            background: linear-gradient(135deg, rgba(42, 42, 106, 0.8), rgba(20, 20, 46, 0.7));
+        }
+
+        /* Gradient Classes untuk Card - SESUAI DENGAN JS */
+        .mapel-card.ub-gradien-0 {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.85), rgba(20, 20, 46, 0.7));
+            border-left-color: var(--ungu-biru-1);
+        }
+
+        .mapel-card.ub-gradien-1 {
+            background: linear-gradient(135deg, rgba(20, 20, 46, 0.85), rgba(10, 10, 26, 0.7));
+            border-left-color: var(--ungu-biru-2);
+        }
+
+        .mapel-card.ub-gradien-2 {
+            background: linear-gradient(135deg, rgba(26, 26, 74, 0.8), rgba(20, 20, 46, 0.7));
+            border-left-color: var(--ungu-biru-3);
+        }
+
+        .mapel-card.ub-gradien-3 {
+            background: linear-gradient(135deg, rgba(42, 42, 106, 0.8), rgba(26, 26, 74, 0.7));
+            border-left-color: var(--ungu-biru-4);
+        }
+
+        .mapel-card.ub-gradien-4 {
+            background: linear-gradient(135deg, rgba(58, 58, 138, 0.8), rgba(42, 42, 106, 0.7));
+            border-left-color: var(--ungu-biru-5);
+        }
+
+        .mapel-card.ub-gradien-5 {
+            background: linear-gradient(135deg, rgba(74, 74, 170, 0.7), rgba(58, 58, 138, 0.7));
+            border-left-color: var(--ungu-biru-6);
+        }
+
+        .mapel-card.ub-gradien-6 {
+            background: linear-gradient(135deg, rgba(90, 90, 202, 0.7), rgba(74, 74, 170, 0.7));
+            border-left-color: var(--ungu-biru-7);
+        }
+
+        .mapel-badge {
+            background: rgba(58, 58, 138, 0.3);
+            color: var(--ungu-biru-7);
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mapel-icon {
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+        }
+
+        .mapel-title {
+            color: #E8E8F0;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        /* ========= TOMBOL MASUK ========= */
+        .btn-masuk {
+            display: inline-block;
+            width: 100%;
+            padding: 0.65rem;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #ffffff;
+        }
+
+        /* Card dengan link valid */
+        .mapel-card:not([href=""]) .btn-masuk {
+            background: var(--ungu-biru-4);
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(42, 42, 106, 0.4);
+        }
+
+        .mapel-card:not([href=""]) .btn-masuk:hover {
+            background: var(--ungu-biru-5);
+            transform: translateY(-2px);
+        }
+
+        /* Card tanpa link (belum tersedia) */
+        .mapel-card[href=""] .btn-masuk,
+        .mapel-card[href="#"] .btn-masuk {
+            background: #0a0a1a;
+            color: #3a3a5a;
+            border: 1px solid #1a1a3a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.6;
+        }
+
+        .mapel-card[href=""]:hover,
+        .mapel-card[href="#"]:hover {
+            transform: none !important;
+            border-left-color: var(--ungu-biru-4) !important;
+            box-shadow: none !important;
+        }
+
+        .mapel-card[href=""] .btn-masuk:hover,
+        .mapel-card[href="#"] .btn-masuk:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ========= NO RESULT ========= */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: var(--ungu-biru-7);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(42, 42, 106, 0.3);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(42, 42, 106, 0.3);
+        }
+
+        /* ========= SCROLLBAR ========= */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ungu-biru-4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ungu-biru-6);
+        }
+
+        /* ========= FOOTER ========= */
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(42, 42, 106, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-ub-1 .footer {
+            border-color: rgba(10, 10, 26, 0.3);
+        }
+
+        body.theme-ub-2 .footer {
+            border-color: rgba(20, 20, 46, 0.3);
+        }
+
+        body.theme-ub-3 .footer {
+            border-color: rgba(26, 26, 74, 0.3);
+        }
+
+        body.theme-ub-4 .footer {
+            border-color: rgba(42, 42, 106, 0.3);
+        }
+
+        body.theme-ub-5 .footer {
+            border-color: rgba(58, 58, 138, 0.3);
+        }
+
+        body.theme-ub-6 .footer {
+            border-color: rgba(74, 74, 170, 0.3);
+        }
+
+        body.theme-ub-7 .footer {
+            border-color: rgba(90, 90, 202, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--ungu-biru-9), var(--ungu-biru-5));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: var(--ungu-biru-6);
+            padding: 0.15rem 0.7rem;
+            background: rgba(74, 74, 170, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 74, 170, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-ub-1 .footer-tagline {
+            color: var(--ungu-biru-4);
+            background: rgba(10, 10, 26, 0.2);
+            border-color: rgba(10, 10, 26, 0.2);
+        }
+
+        body.theme-ub-7 .footer-tagline {
+            color: #ffffff;
+            background: rgba(90, 90, 202, 0.15);
+            border-color: rgba(90, 90, 202, 0.15);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--ungu-biru-6);
+            transition: color 0.8s ease;
+        }
+
+        body.theme-ub-1 .footer-info {
+            color: var(--ungu-biru-4);
+        }
+
+        body.theme-ub-7 .footer-info {
+            color: #ffffff;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE - TETAP PERTAHANKAN STRUKTUR YANG ADA */
+        /* ================================================================ */
+
+        /* ===== Mobile Portrait (0-479px) ===== */
+        @media (max-width: 479px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .app-container {
+                padding: 0.6rem;
+                border-radius: 0;
+                width: 100%;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.3rem;
+            }
+
+            .judul-web-kanan h1 {
+                text-align: center;
+                font-size: 0.75rem;
+            }
+
+            .judul-web-kanan p {
+                text-align: center;
+                font-size: 0.6rem;
+            }
+
+            .top-stats-search,
+            .search-row-flex {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-wrapper,
+            .search-section,
+            .btn-refresh-neon,
+            .btn-back-neon {
+                width: 100%;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.4rem;
+            }
+
+            .total-stats-box span {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.5rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .mapel-card {
+                padding: 0.9rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.5rem;
+            }
+
+            .mapel-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-masuk {
+                padding: 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                text-align: center;
+                padding: 0.6rem;
+            }
+
+            #shortcutNotif {
+                min-width: auto;
+            }
+
+            .footer {
+                padding: 0.6rem 0.8rem;
+                width: 100%;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+
+            .footer-brand {
+                font-size: 0.9rem;
+            }
+
+            .footer-tagline {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.5rem;
+            }
+
+            .footer-info {
+                font-size: 0.6rem;
+                gap: 0.2rem;
+            }
+
+            .footer-dot {
+                margin: 0 0.1rem;
+            }
+        }
+
+        /* ===== Mobile Landscape (0-479px) ===== */
+        @media (max-width: 479px) and (orientation: landscape) {
+            .app-container {
+                padding: 0.8rem;
+                border-radius: 0.8rem;
+                width: 98%;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .noxa-store {
+                font-size: 1.2rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 0.7rem;
+                text-align: right;
+            }
+
+            .judul-web-kanan p {
+                font-size: 0.55rem;
+                text-align: right;
+            }
+
+            .top-stats-search {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                min-width: 120px;
+            }
+
+            .btn-refresh-neon,
+            .btn-back-neon {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.7rem;
+                width: auto;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+
+            .mapel-card {
+                padding: 0.8rem;
+                min-height: 100px;
+            }
+
+            .mapel-badge {
+                font-size: 0.5rem;
+            }
+
+            .mapel-title {
+                font-size: 0.7rem;
+            }
+
+            .btn-masuk {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ===== Tablet Portrait (480-767px) ===== */
+        @media (min-width: 480px) and (max-width: 767px) and (orientation: portrait) {
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1 {
+                text-align: center;
+            }
+
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-row-flex {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .btn-refresh-neon,
+            .btn-back-neon {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .mapel-card {
+                padding: 1rem;
+                min-height: 110px;
+            }
+
+            .mapel-badge {
+                font-size: 0.6rem;
+            }
+
+            .mapel-title {
+                font-size: 0.85rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        /* ===== Tablet Landscape (480-767px) ===== */
+        @media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+            .app-container {
+                padding: 0.9rem;
+                border-radius: 1rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+                gap: 0.6rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 0.9rem;
+            }
+
+            .judul-web-kanan p {
+                font-size: 0.65rem;
+            }
+
+            .top-stats-search {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                min-width: 150px;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .mapel-card {
+                padding: 0.9rem;
+                min-height: 100px;
+            }
+
+            .mapel-badge {
+                font-size: 0.55rem;
+            }
+
+            .mapel-title {
+                font-size: 0.75rem;
+            }
+
+            .btn-masuk {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ===== Tablet Besar (768-991px) ===== */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .app-container {
+                padding: 1.2rem;
+                border-radius: 1.5rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: row;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .mapel-card {
+                padding: 1.2rem;
+                min-height: 110px;
+            }
+
+            .mapel-badge {
+                font-size: 0.65rem;
+            }
+
+            .mapel-title {
+                font-size: 0.95rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) and (orientation: landscape) {
+            .mapel-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+            }
+
+            .mapel-card {
+                padding: 1.1rem;
+                min-height: 100px;
+            }
+
+            .mapel-badge {
+                font-size: 0.6rem;
+            }
+
+            .mapel-title {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== Desktop Kecil (992-1199px) ===== */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .app-container {
+                width: 98%;
+                padding: 1.4rem;
+                border-radius: 1.8rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.1rem;
+            }
+
+            .mapel-card {
+                padding: 1.3rem;
+                min-height: 110px;
+            }
+
+            .mapel-badge {
+                font-size: 0.7rem;
+            }
+
+            .mapel-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== Desktop Sedang (1200-1699px) ===== */
+        @media (min-width: 1200px) and (max-width: 1699px) {
+            .app-container {
+                width: 98%;
+                max-width: 1600px;
+                padding: 1.5rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .mapel-card {
+                padding: 1.5rem;
+                min-height: 110px;
+            }
+
+            .mapel-badge {
+                font-size: 0.75rem;
+            }
+
+            .mapel-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* ===== Desktop Besar (1700px+) ===== */
+        @media (min-width: 1700px) {
+            .app-container {
+                width: 98%;
+                max-width: 1800px;
+                padding: 2rem;
+                border-radius: 2.5rem;
+            }
+
+            .mapel-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .mapel-card {
+                padding: 2rem;
+                min-height: 120px;
+            }
+
+            .mapel-badge {
+                font-size: 0.85rem;
+            }
+
+            .mapel-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-masuk {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ===== TOUCH FRIENDLY ===== */
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-back-neon,
+            .btn-masuk,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .mapel-card {
+                min-height: 100px;
+            }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .mapel-card,
+            .btn-masuk,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        /* ===== DARK MODE PREFERENCE ===== */
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.85);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">
+                <span class="noxa-icon">💻</span> NOXA STORE
+            </div>
+            <div class="judul-web-kanan">
+                <h1>📚 DAFTAR BAHASA PEMROGRAMAN</h1>
+                <p>#BelajarKoding #ProgrammingHub</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Bahasa:</strong> <span id="totalMateriCount">24</span></span>
+                <span>✅ <strong>Tersedia:</strong> <span id="materiSudahAda">24</span></span>
+                <span>⏳ <strong>Belum Tersedia:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" placeholder="Cari bahasa pemrograman..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="backButton" class="btn-back-neon">← Kembali</button>
+                    <button id="refreshButton" class="btn-refresh-neon">⟳ Refresh</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 24 bahasa pemrograman</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem; color: rgba(255,255,255,0.3);"></span>
+        </div>
+
+        <div class="mapel-grid" id="mapelGrid">
+            <!-- 24 BAHASA PEMROGRAMAN YANG TERSEDIA -->
+            <a href="38. rust.html" class="mapel-card" data-title="Rust">
+                <div class="mapel-icon">🦀</div>
+                <div class="mapel-title">Rust</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="39. Abap.html" class="mapel-card" data-title="ABAP">
+                <div class="mapel-icon">💼</div>
+                <div class="mapel-title">ABAP</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="40. Assembly.html" class="mapel-card" data-title="Assembly">
+                <div class="mapel-icon">🔧</div>
+                <div class="mapel-title">Assembly</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="41. C.html" class="mapel-card" data-title="C">
+                <div class="mapel-icon">⚙️</div>
+                <div class="mapel-title">C</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="43. Mysql.html" class="mapel-card" data-title="MySQL">
+                <div class="mapel-icon">🐬</div>
+                <div class="mapel-title">MySQL</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="42. Lua.html" class="mapel-card" data-title="Lua">
+                <div class="mapel-icon">🌙</div>
+                <div class="mapel-title">Lua</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="20. Bash.html" class="mapel-card" data-title="Bash">
+                <div class="mapel-icon">🐚</div>
+                <div class="mapel-title">Bash</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="21. R.html" class="mapel-card" data-title="R">
+                <div class="mapel-icon">📊</div>
+                <div class="mapel-title">R</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="22. Dart.html" class="mapel-card" data-title="Dart">
+                <div class="mapel-icon">🎯</div>
+                <div class="mapel-title">Dart</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="23.Ruby.html" class="mapel-card" data-title="Ruby">
+                <div class="mapel-icon">💎</div>
+                <div class="mapel-title">Ruby</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="24. Swift.html" class="mapel-card" data-title="Swift">
+                <div class="mapel-icon">🐦</div>
+                <div class="mapel-title">Swift</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="25. Kotlin.html" class="mapel-card" data-title="Kotlin">
+                <div class="mapel-icon">📱</div>
+                <div class="mapel-title">Kotlin</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="26. Golang.html" class="mapel-card" data-title="Golang">
+                <div class="mapel-icon">🐹</div>
+                <div class="mapel-title">Golang</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="27. TypeScript.html" class="mapel-card" data-title="TypeScript">
+                <div class="mapel-icon">📘</div>
+                <div class="mapel-title">TypeScript</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="28. SQL.html" class="mapel-card" data-title="SQL">
+                <div class="mapel-icon">🗄️</div>
+                <div class="mapel-title">SQL</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="29. PHP.html" class="mapel-card" data-title="PHP">
+                <div class="mapel-icon">🐘</div>
+                <div class="mapel-title">PHP</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="30. Csharp.html" class="mapel-card" data-title="C#">
+                <div class="mapel-icon">🎮</div>
+                <div class="mapel-title">C#</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="31. C++.html" class="mapel-card" data-title="C++">
+                <div class="mapel-icon">⚡</div>
+                <div class="mapel-title">C++</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="32. Java.html" class="mapel-card" data-title="Java">
+                <div class="mapel-icon">☕</div>
+                <div class="mapel-title">Java</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="33. Python.html" class="mapel-card" data-title="Python">
+                <div class="mapel-icon">🐍</div>
+                <div class="mapel-title">Python</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="34. JavaScript.html" class="mapel-card" data-title="JavaScript">
+                <div class="mapel-icon">🟡</div>
+                <div class="mapel-title">JavaScript</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="35. Css.html" class="mapel-card" data-title="CSS">
+                <div class="mapel-icon">🎨</div>
+                <div class="mapel-title">CSS</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="36. Html.html" class="mapel-card" data-title="HTML">
+                <div class="mapel-icon">🌐</div>
+                <div class="mapel-title">HTML</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <a href="37. GD-Script.html" class="mapel-card" data-title="GDScript">
+                <div class="mapel-icon">🎮</div>
+                <div class="mapel-title">GDScript</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+            <!-- BAHASA PEMROGRAMAN YANG BELUM TERSEDIA -->
+            <a href="" class="mapel-card" data-title="MATLAB">
+                <div class="mapel-icon">🔢</div>
+                <div class="mapel-title">MATLAB</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Scala">
+                <div class="mapel-icon">🔄</div>
+                <div class="mapel-title">Scala</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Perl">
+                <div class="mapel-icon">🐪</div>
+                <div class="mapel-title">Perl</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Objective-C">
+                <div class="mapel-icon">🍎</div>
+                <div class="mapel-title">Objective-C</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Elixir">
+                <div class="mapel-icon">💧</div>
+                <div class="mapel-title">Elixir</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Haskell">
+                <div class="mapel-icon">λ</div>
+                <div class="mapel-title">Haskell</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Fortran">
+                <div class="mapel-icon">🧮</div>
+                <div class="mapel-title">Fortran</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="COBOL">
+                <div class="mapel-icon">🏦</div>
+                <div class="mapel-title">COBOL</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Pascal">
+                <div class="mapel-icon">📐</div>
+                <div class="mapel-title">Pascal</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Ada">
+                <div class="mapel-icon">🚀</div>
+                <div class="mapel-title">Ada</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Lisp">
+                <div class="mapel-icon">🧠</div>
+                <div class="mapel-title">Lisp</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Prolog">
+                <div class="mapel-icon">🔍</div>
+                <div class="mapel-title">Prolog</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Scheme">
+                <div class="mapel-icon">🎓</div>
+                <div class="mapel-title">Scheme</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Smalltalk">
+                <div class="mapel-icon">💬</div>
+                <div class="mapel-title">Smalltalk</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Visual Basic">
+                <div class="mapel-icon">🖥️</div>
+                <div class="mapel-title">Visual Basic</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="VB.NET">
+                <div class="mapel-icon">🔷</div>
+                <div class="mapel-title">VB.NET</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Delphi">
+                <div class="mapel-icon">🏛️</div>
+                <div class="mapel-title">Delphi</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="PowerShell">
+                <div class="mapel-icon">⚡</div>
+                <div class="mapel-title">PowerShell</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="PL/SQL">
+                <div class="mapel-icon">🗃️</div>
+                <div class="mapel-title">PL/SQL</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="T-SQL">
+                <div class="mapel-icon">📊</div>
+                <div class="mapel-title">T-SQL</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Apex">
+                <div class="mapel-icon">☁️</div>
+                <div class="mapel-title">Apex</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Groovy">
+                <div class="mapel-icon">🎸</div>
+                <div class="mapel-title">Groovy</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Crystal">
+                <div class="mapel-icon">💎</div>
+                <div class="mapel-title">Crystal</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Nim">
+                <div class="mapel-icon">⚔️</div>
+                <div class="mapel-title">Nim</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="OCaml">
+                <div class="mapel-icon">🐫</div>
+                <div class="mapel-title">OCaml</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="F#">
+                <div class="mapel-icon">🔷</div>
+                <div class="mapel-title">F#</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Erlang">
+                <div class="mapel-icon">📞</div>
+                <div class="mapel-title">Erlang</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Julia">
+                <div class="mapel-icon">🧪</div>
+                <div class="mapel-title">Julia</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Zig">
+                <div class="mapel-icon">⚡</div>
+                <div class="mapel-title">Zig</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Hack">
+                <div class="mapel-icon">🔨</div>
+                <div class="mapel-title">Hack</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Solidity">
+                <div class="mapel-icon">⛓️</div>
+                <div class="mapel-title">Solidity</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="VHDL">
+                <div class="mapel-icon">🔌</div>
+                <div class="mapel-title">VHDL</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Verilog">
+                <div class="mapel-icon">🔩</div>
+                <div class="mapel-title">Verilog</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="SystemVerilog">
+                <div class="mapel-icon">⚙️</div>
+                <div class="mapel-title">SystemVerilog</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Chisel">
+                <div class="mapel-icon">🪚</div>
+                <div class="mapel-title">Chisel</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Haxe">
+                <div class="mapel-icon">🎯</div>
+                <div class="mapel-title">Haxe</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Chapel">
+                <div class="mapel-icon">⛪</div>
+                <div class="mapel-title">Chapel</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Ring">
+                <div class="mapel-icon">💍</div>
+                <div class="mapel-title">Ring</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Q#">
+                <div class="mapel-icon">🔮</div>
+                <div class="mapel-title">Q#</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Liquid">
+                <div class="mapel-icon">💧</div>
+                <div class="mapel-title">Liquid</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Elm">
+                <div class="mapel-icon">🌳</div>
+                <div class="mapel-title">Elm</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Idris">
+                <div class="mapel-icon">🔱</div>
+                <div class="mapel-title">Idris</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="PureScript">
+                <div class="mapel-icon">📜</div>
+                <div class="mapel-title">PureScript</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Coq">
+                <div class="mapel-icon">🐓</div>
+                <div class="mapel-title">Coq</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Agda">
+                <div class="mapel-icon">📚</div>
+                <div class="mapel-title">Agda</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Lean">
+                <div class="mapel-icon">💪</div>
+                <div class="mapel-title">Lean</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Mercury">
+                <div class="mapel-icon">☿️</div>
+                <div class="mapel-title">Mercury</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Pony">
+                <div class="mapel-icon">🐴</div>
+                <div class="mapel-title">Pony</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Wolfram">
+                <div class="mapel-icon">🐺</div>
+                <div class="mapel-title">Wolfram</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Maple">
+                <div class="mapel-icon">🍁</div>
+                <div class="mapel-title">Maple</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="LabVIEW">
+                <div class="mapel-icon">🔬</div>
+                <div class="mapel-title">LabVIEW</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Pine Script">
+                <div class="mapel-icon">📈</div>
+                <div class="mapel-title">Pine Script</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="MQL4">
+                <div class="mapel-icon">💹</div>
+                <div class="mapel-title">MQL4</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="MQL5">
+                <div class="mapel-icon">📊</div>
+                <div class="mapel-title">MQL5</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="CoffeeScript">
+                <div class="mapel-icon">☕</div>
+                <div class="mapel-title">CoffeeScript</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="LiveCode">
+                <div class="mapel-icon">🎬</div>
+                <div class="mapel-title">LiveCode</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Logo">
+                <div class="mapel-icon">🐢</div>
+                <div class="mapel-title">Logo</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="PostScript">
+                <div class="mapel-icon">🖨️</div>
+                <div class="mapel-title">PostScript</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Racket">
+                <div class="mapel-icon">🏸</div>
+                <div class="mapel-title">Racket</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Makefile">
+                <div class="mapel-icon">🔨</div>
+                <div class="mapel-title">Makefile</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Dockerfile">
+                <div class="mapel-icon">🐳</div>
+                <div class="mapel-title">Dockerfile</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="SCSS">
+                <div class="mapel-icon">🎨</div>
+                <div class="mapel-title">SCSS</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="LESS">
+                <div class="mapel-icon">🎨</div>
+                <div class="mapel-title">LESS</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Shell Script">
+                <div class="mapel-icon">🐚</div>
+                <div class="mapel-title">Shell Script</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="AWK">
+                <div class="mapel-icon">🦅</div>
+                <div class="mapel-title">AWK</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="sed">
+                <div class="mapel-icon">✂️</div>
+                <div class="mapel-title">sed</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="YAML">
+                <div class="mapel-icon">📄</div>
+                <div class="mapel-title">YAML</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="HCL">
+                <div class="mapel-icon">🏗️</div>
+                <div class="mapel-title">HCL</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Nix">
+                <div class="mapel-icon">❄️</div>
+                <div class="mapel-title">Nix</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Clean">
+                <div class="mapel-icon">🧹</div>
+                <div class="mapel-title">Clean</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="D">
+                <div class="mapel-icon">🔷</div>
+                <div class="mapel-title">D</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="S">
+                <div class="mapel-icon">📊</div>
+                <div class="mapel-title">S</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="Red">
+                <div class="mapel-icon">🔴</div>
+                <div class="mapel-title">Red</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+            <a href="" class="mapel-card" data-title="ABC">
+                <div class="mapel-icon">🔤</div>
+                <div class="mapel-title">ABC</div>
+                <div class="btn-masuk">Segera Hadir</div>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // ==================== THEME ROTATION UNGU-BIRU ====================
+            const ubThemes = ['theme-ub-1', 'theme-ub-2', 'theme-ub-3', 'theme-ub-4', 'theme-ub-5', 'theme-ub-6', 'theme-ub-7'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                ubThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % ubThemes.length;
+                bodyEl.classList.add(ubThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== GRADIENT ROTATION ====================
+            const gradienList = ['ub-gradien-0', 'ub-gradien-1', 'ub-gradien-2', 'ub-gradien-3', 'ub-gradien-4', 'ub-gradien-5', 'ub-gradien-6'];
+            let gradienIndex = 0;
+            let gradientInterval = null;
+
+            function rotateGradient() {
+                const cards = document.querySelectorAll('.mapel-card');
+                if (cards.length === 0) return;
+                gradienIndex = (gradienIndex + 1) % gradienList.length;
+                cards.forEach(card => {
+                    gradienList.forEach(g => card.classList.remove(g));
+                    card.classList.add(gradienList[gradienIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+            const backBtn = document.getElementById('backButton');
+            const footerYear = document.getElementById('footerYear');
+
+            // ==================== SET FOOTER YEAR ====================
+            if (footerYear) {
+                footerYear.textContent = new Date().getFullYear();
+            }
+
+            // ==================== GET ALL CARDS ====================
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.mapel-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+
+                allCards.forEach(card => {
+                    const href = card.getAttribute('href');
+                    if (href && href !== '' && href !== '#' && href !== 'javascript:void(0)') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+
+                if (totalMateri) totalMateri.textContent = allCards.length;
+                if (materiSudahAda) materiSudahAda.textContent = sudahAda;
+                if (materiBelumAda) materiBelumAda.textContent = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const href = card.getAttribute('href');
+                    const hasValidLink = href && href !== '' && href !== '#' && href !== 'javascript:void(0)';
+                    const title = card.getAttribute('data-title') || '';
+
+                    // Jika tidak ada link, sembunyikan
+                    if (!hasValidLink) {
+                        card.style.display = 'none';
+                        return;
+                    }
+
+                    // Filter berdasarkan pencarian
+                    const isMatch = searchTerm === '' || title.toLowerCase().includes(searchTerm);
+                    card.style.display = isMatch ? '' : 'none';
+                    if (isMatch) visibleCount++;
+                });
+
+                // Hapus no-result message yang lama
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                // Tampilkan pesan jika tidak ada hasil
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Bahasa tidak ditemukan';
+                            resultCounterSpan.style.color = '#f2a134';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada bahasa yang tersedia';
+                            resultCounterSpan.style.color = '#f2a134';
+                        }
+                    }
+
+                    const msgDiv = document.createElement('div');
+                    msgDiv.id = 'customNoResultMsg';
+                    msgDiv.className = 'no-result';
+                    if (searchTerm !== '') {
+                        msgDiv.innerHTML = '📚 Bahasa pemrograman tidak ditemukan<br><span style="font-size:0.8rem; color: var(--ungu-biru-6);">Coba kata kunci lain</span>';
+                    } else {
+                        msgDiv.innerHTML = '📚 Belum ada bahasa pemrograman yang tersedia<br><span style="font-size:0.8rem; color: var(--ungu-biru-6);">Materi akan segera ditambahkan</span>';
+                    }
+                    const grid = document.querySelector('.mapel-grid');
+                    if (grid && grid.parentNode) {
+                        grid.parentNode.insertBefore(msgDiv, grid.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ?
+                            `✨ Ditemukan ${visibleCount} bahasa` :
+                            `📚 Menampilkan ${visibleCount} bahasa pemrograman`;
+                        resultCounterSpan.style.color = '#bbdb44';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function () {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.textContent = '⌨️ Pencarian dihapus';
+                        setTimeout(function () {
+                            shortcutNotifSpan.textContent = '';
+                        }, 1200);
+                    }
+                });
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', function (e) {
+                if (!searchInput) return;
+
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.textContent = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(function () {
+                            shortcutNotifSpan.textContent = '';
+                        }, 1500);
+                    }
+                }
+
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.textContent = '⚡ Shift+F fokus';
+                        setTimeout(function () {
+                            shortcutNotifSpan.textContent = '';
+                        }, 1500);
+                    }
+                }
+
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.textContent = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(function () {
+                                shortcutNotifSpan.textContent = '';
+                            }, 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== BACK BUTTON ====================
+            if (backBtn) {
+                backBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (document.referrer && document.referrer !== '' && !document.referrer.includes(window.location.host)) {
+                        window.location.href = document.referrer;
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function () {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+
+                    // Animasi card
+                    getAllCards().forEach(function (card) {
+                        const href = card.getAttribute('href');
+                        const hasValidLink = href && href !== '' && href !== '#' && href !== 'javascript:void(0)';
+                        if (hasValidLink) {
+                            card.style.transform = 'scale(0.97)';
+                            setTimeout(function () {
+                                card.style.transform = '';
+                            }, 200);
+                        }
+                    });
+
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.textContent = '⟳ Halaman disegarkan';
+                        setTimeout(function () {
+                            shortcutNotifSpan.textContent = '';
+                        }, 1200);
+                    }
+
+                    updateStatistik();
+                });
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initGradient() {
+                const cards = document.querySelectorAll('.mapel-card');
+                if (cards.length === 0) return;
+                cards.forEach(card => {
+                    gradienList.forEach(g => card.classList.remove(g));
+                    card.classList.add(gradienList[0]);
+                });
+                gradienIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(function () {
+                initGradient();
+                updateStatistik();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ NOXA STORE | Daftar Bahasa Pemrograman - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

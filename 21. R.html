@@ -1,0 +1,2809 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - R Programming | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA R - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #6848BF, #00001F);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Theme varian berdasarkan warna R */
+        body.theme-r-primary {
+            background: radial-gradient(circle at 30% 20%, #6848BF, #00001F);
+        }
+
+        body.theme-r-purple {
+            background: radial-gradient(circle at 60% 40%, #7A54DF, #1a0a3a);
+        }
+
+        body.theme-r-dark {
+            background: radial-gradient(circle at 70% 30%, #553A9B, #00001F);
+        }
+
+        body.theme-r-deep {
+            background: radial-gradient(circle at 40% 70%, #25154F, #00001F);
+        }
+
+        body.theme-r-violet {
+            background: radial-gradient(circle at 80% 50%, #7A54DF, #25154F);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(104, 72, 191, 0.4);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(122, 84, 223, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #7A54DF, #6848BF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(104, 72, 191, 0.6);
+            animation: softPulseR 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseR {
+            0% {
+                text-shadow: 0 0 4px #6848BF;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #7A54DF;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #7A54DF, #6848BF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #B8A0FF;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(104, 72, 191, 0.4);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(104, 72, 191, 0.25);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #7A54DF;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(104, 72, 191, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #7A54DF;
+            box-shadow: 0 0 0 3px rgba(104, 72, 191, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #B8A0FF;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #7A54DF;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(104, 72, 191, 0.25);
+            border: 1px solid rgba(104, 72, 191, 0.6);
+            color: #B8A0FF;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(104, 72, 191, 0.45);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(104, 72, 191, 0.45);
+        }
+
+        .shortcut-msg {
+            background: #553A9B;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #D0C0FF;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(85, 58, 155, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #6848BF;
+            border-right: 1px solid rgba(104, 72, 191, 0.3);
+            border-top: 1px solid rgba(104, 72, 191, 0.2);
+            border-bottom: 1px solid rgba(104, 72, 191, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(30, 20, 60, 0.85), rgba(15, 10, 35, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #7A54DF;
+            box-shadow: 0 12px 25px -8px rgba(104, 72, 191, 0.5);
+            background: linear-gradient(135deg, rgba(104, 72, 191, 0.9), rgba(30, 20, 60, 0.75));
+        }
+
+        /* Gradien Card R-Theme */
+        .materi-card.r-gradien-0 {
+            background: linear-gradient(135deg, rgba(30, 20, 60, 0.85), rgba(15, 10, 35, 0.7));
+            border-left-color: #553A9B;
+        }
+
+        .materi-card.r-gradien-1 {
+            background: linear-gradient(135deg, rgba(104, 72, 191, 0.85), rgba(30, 20, 60, 0.7));
+            border-left-color: #6848BF;
+        }
+
+        .materi-card.r-gradien-2 {
+            background: linear-gradient(135deg, rgba(122, 84, 223, 0.8), rgba(104, 72, 191, 0.7));
+            border-left-color: #7A54DF;
+        }
+
+        .mapel-badge {
+            background: rgba(122, 84, 223, 0.5);
+            color: #D8C8FF;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #E8E0FF;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #6848BF;
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(104, 72, 191, 0.5);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #7A54DF;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a2a3a;
+            color: #6a6a8a;
+            border: 1px solid #4a4a6a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #7A54DF;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(104, 72, 191, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(104, 72, 191, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a0a2a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #6848BF;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7A54DF;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(104, 72, 191, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-r-primary .footer {
+            border-color: rgba(104, 72, 191, 0.3);
+        }
+
+        body.theme-r-purple .footer {
+            border-color: rgba(122, 84, 223, 0.3);
+        }
+
+        body.theme-r-dark .footer {
+            border-color: rgba(85, 58, 155, 0.3);
+        }
+
+        body.theme-r-deep .footer {
+            border-color: rgba(37, 21, 79, 0.3);
+        }
+
+        body.theme-r-violet .footer {
+            border-color: rgba(122, 84, 223, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #7A54DF, #6848BF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #B8A0FF;
+            padding: 0.15rem 0.7rem;
+            background: rgba(104, 72, 191, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(104, 72, 191, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-r-deep .footer-tagline {
+            color: #8a6adf;
+            background: rgba(37, 21, 79, 0.2);
+            border-color: rgba(37, 21, 79, 0.2);
+        }
+
+        body.theme-r-violet .footer-tagline {
+            color: #ffffff;
+            background: rgba(122, 84, 223, 0.2);
+            border-color: rgba(122, 84, 223, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #B8A0FF;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-r-deep .footer-info {
+            color: #8a6adf;
+        }
+
+        body.theme-r-violet .footer-info {
+            color: #ffffff;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        /* Desktop Ultra Wide */
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Desktop Besar */
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* Laptop */
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Laptop Kecil */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        /* HP Landscape */
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* HP Portrait */
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        /* HP Kecil */
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ================================================================ */
+        /* FALLBACK TANPA ORIENTATION */
+        /* ================================================================ */
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        /* ================================================================ */
+        /* AKSESIBILITAS & KENYAMANAN */
+        /* ================================================================ */
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-r-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>📊 R Programming</h1>
+                <p>Pilih Materi, Kuasai Data Science!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi R Programming..."
+                            autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID DIKOSONGKAN -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card r-card" data-title="Academic research dengan R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Academic research dengan R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="AI dasar dengan R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">AI dasar dengan R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="AI engineer dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">AI engineer dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="AI project dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">AI project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Anonymous function">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Anonymous function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="ANOVA dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">ANOVA dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="API integration dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">API integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="API machine learning dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">API machine learning dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Array">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Array</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Automation R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Automation R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Bar chart">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Bar chart</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Best practices R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Best practices R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Big data dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Big data dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Bioinformatics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Bioinformatics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Blockchain analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Blockchain analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Boxplot">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Boxplot</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Break dan next">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Break dan next</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Business analyst dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Business analyst dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Business intelligence dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Business intelligence dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Career path data analyst">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Career path data analyst</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Career path data scientist">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Career path data scientist</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Character">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Character</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="CI/CD dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">CI/CD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Classification dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Classification dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Clean code R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Clean code R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Clustering dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Clustering dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Cloud computing dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Cloud computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Competitive programming R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Competitive programming R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Complex">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Complex</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Confusion matrix dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Confusion matrix dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="CRAN dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">CRAN dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Cross validation dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Cross validation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Customer analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Customer analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Cybersecurity analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Cybersecurity analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Dashboard analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Dashboard analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Dashboard bisnis dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Dashboard bisnis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data cleaning">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data cleaning</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data dashboard project">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data dashboard project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data engineering dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data engineering dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data frame">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data frame</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data manipulation R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data manipulation R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data mining dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data mining dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data preprocessing">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data preprocessing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data structure R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data structure R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data visualization R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data visualization R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Data warehouse dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Data warehouse dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Database R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Database R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Date dan time R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Date dan time R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Debugging R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Debugging R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Decision tree dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Decision tree dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Deep learning dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Deep learning dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Deployment model dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Deployment model dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Distribusi data">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Distribusi data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Docker dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Docker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Documentation R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Documentation R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="dplyr dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">dplyr dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="E-commerce analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">E-commerce analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Econometrics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Econometrics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="ETL dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">ETL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Exception handling dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Exception handling dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Factor">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Factor</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Feature engineering dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Feature engineering dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="File handling R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">File handling R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Financial analysis dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Financial analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Financial dashboard project">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Financial dashboard project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Filtering data">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Filtering data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="For loop">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">For loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Forecasting dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Forecasting dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Forecasting project dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Forecasting project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Fraud detection dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Fraud detection dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Function R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Function R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Functional programming R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Functional programming R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Generic function dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Generic function dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Geospatial analysis dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Geospatial analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="ggplot2 dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">ggplot2 dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="GIS dasar dengan R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">GIS dasar dengan R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Git dan GitHub dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Git dan GitHub dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Graph dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Graph dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Hadoop dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Hadoop dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Healthcare analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Healthcare analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Heatmap dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Heatmap dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Histogram">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Histogram</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Hypothesis testing dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Hypothesis testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="If else">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">If else</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Input dan output R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Input dan output R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Install package">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Install package</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Instalasi R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Instalasi R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Integer">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Integer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Interactive visualization dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Interactive visualization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="IoT analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">IoT analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="JSON processing dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">JSON processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Jupyter dengan R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Jupyter dengan R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Komentar R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Komentar R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Konstanta R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Konstanta R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Korelasi">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Korelasi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Library package">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Library package</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Line chart">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Line chart</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Linked list dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Linked list dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Linux untuk data science dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Linux untuk data science dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="List">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">List</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Logical">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Logical</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Logging dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Logging dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Machine learning engineer dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Machine learning engineer dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Machine learning R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Machine learning R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Marketing analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Marketing analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Matrix">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Matrix</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Mean">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Mean</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Median">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Median</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Membaca CSV">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Membaca CSV</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Membaca Excel">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Membaca Excel</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Memory management dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Memory management dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Menulis file">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Menulis file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Merging data">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Merging data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Missing value handling">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Missing value handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Model evaluation dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Model evaluation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Modern data science dengan R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Modern data science dengan R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Modus">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Modus</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="MongoDB dengan R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">MongoDB dengan R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Monte Carlo simulation dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Monte Carlo simulation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="MySQL dengan R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">MySQL dengan R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="NA handling">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">NA handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Neural network dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Neural network dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="NLP dasar dengan R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">NLP dasar dengan R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Notebook R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Notebook R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Numeric">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Numeric</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="OOP R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">OOP R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Open source R project">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Open source R project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Operator aritmatika">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Operator aritmatika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Operator logika">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Operator logika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Operator perbandingan">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Operator perbandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Optimization dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Optimization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Package R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Package R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Parallel computing dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Parallel computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Parameter function">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Parameter function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="PDF report dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">PDF report dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Percabangan">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Percabangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Performance optimization R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Performance optimization R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Perulangan">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Perulangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Pie chart">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Pie chart</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Plumber API dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Plumber API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Portfolio project R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Portfolio project R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="PostgreSQL dengan R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">PostgreSQL dengan R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Predictive analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Predictive analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Probability dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Probability dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Quantitative analysis dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Quantitative analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Quarto dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Quarto dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Queue">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Queue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Random forest dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Random forest dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="readr dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">readr dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Recommendation system dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Recommendation system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Reference class dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Reference class dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Refactoring code">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Refactoring code</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Regression model dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Regression model dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Regresi linear">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Regresi linear</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Repeat loop">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Repeat loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Reporting otomatis dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Reporting otomatis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Reshaping data">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Reshaping data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Research computing dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Research computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Return value">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Return value</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Risk analysis dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Risk analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="ROC curve dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">ROC curve dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Roxygen dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Roxygen dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="RStudio dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">RStudio dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="S3 class dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">S3 class dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="S4 class dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">S4 class dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Sales analytics project">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Sales analytics project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Scatter plot">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Scatter plot</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Scientific computing dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Scientific computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Scope variable">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Scope variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Searching algorithm dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Searching algorithm dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Sentiment analysis dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Sentiment analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Shiny dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Shiny dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Simulation dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Simulation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Social media analytics dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Social media analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Software engineering R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Software engineering R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Sorting algorithm dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Sorting algorithm dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Sorting data">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Sorting data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Spark dengan R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Spark dengan R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="SQL dengan R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">SQL dengan R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Stack">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Stack</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Standar deviasi">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Standar deviasi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Statistical analysis R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Statistical analysis R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Statistical modeling dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Statistical modeling dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Statistik deskriptif">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Statistik deskriptif</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="stringr dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">stringr dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="String manipulation">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">String manipulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Struktur dasar R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Struktur dasar R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Subsetting data">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Subsetting data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Switch dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Switch dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Syntax R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Syntax R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Text mining dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Text mining dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Tidyverse dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Tidyverse dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="tidyr dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">tidyr dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Time series dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Time series dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Tipe data R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Tipe data R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Tree dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Tree dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Unit testing dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Unit testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Variable R">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Variable R</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Varians">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Varians</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Vector">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Vector</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Version control dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="Web scraping R dasar">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">Web scraping R dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card r-card" data-title="While loop">
+                <span class="mapel-badge">💻 R</span>
+                <h3 class="card-title">While loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION R ====================
+            const colorThemes = ['theme-r-primary', 'theme-r-purple', 'theme-r-dark', 'theme-r-deep', 'theme-r-violet'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== R GRADIENT ROTATION ====================
+            const rGradien = ['r-gradien-0', 'r-gradien-1', 'r-gradien-2'];
+            let rIndex = 0;
+            let gradientInterval = null;
+
+            function rotateRGradient() {
+                const rCards = document.querySelectorAll('.r-card, .materi-card');
+                if (rCards.length === 0) return;
+                rIndex = (rIndex + 1) % rGradien.length;
+                rCards.forEach(card => {
+                    rGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(rGradien[rIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateRGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#7A54DF';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#7A54DF';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi R`;
+                        resultCounterSpan.style.color = '#B8A0FF';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initRGradient() {
+                const rCards = document.querySelectorAll('.r-card, .materi-card');
+                if (rCards.length === 0) return;
+                rCards.forEach(card => {
+                    rGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(rGradien[0]);
+                });
+                rIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initRGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | R Programming - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

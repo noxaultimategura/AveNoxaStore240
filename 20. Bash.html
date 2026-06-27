@@ -1,0 +1,2833 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - Bash Scripting | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA BASH SCRIPTING ========== */
+
+        :root {
+            --bash-1: #1a1a2e;
+            --bash-2: #2a2a4a;
+            --bash-3: #3a3a6a;
+            --bash-4: #4a4a8a;
+            --bash-5: #5a5aaa;
+            --bash-6: #6a6aba;
+            --bash-7: #8a8ada;
+        }
+
+        /* ========== RESET ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========== BODY ========== */
+        body {
+            background: radial-gradient(circle at 20% 30%, var(--bash-4), var(--bash-1));
+            animation: bgSlideshow 14s ease-in-out infinite;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            margin: 0;
+        }
+
+        @keyframes bgSlideshow {
+            0% {
+                background: radial-gradient(circle at 20% 30%, var(--bash-1), #0a0a14);
+            }
+
+            14% {
+                background: radial-gradient(circle at 30% 40%, var(--bash-2), #0a0a14);
+            }
+
+            28% {
+                background: radial-gradient(circle at 40% 30%, var(--bash-3), #0a0a14);
+            }
+
+            42% {
+                background: radial-gradient(circle at 50% 50%, var(--bash-4), #0a0a14);
+            }
+
+            57% {
+                background: radial-gradient(circle at 60% 40%, var(--bash-5), #0a0a14);
+            }
+
+            71% {
+                background: radial-gradient(circle at 70% 30%, var(--bash-6), #0a0a14);
+            }
+
+            85% {
+                background: radial-gradient(circle at 80% 50%, var(--bash-7), #0a0a14);
+            }
+
+            100% {
+                background: radial-gradient(circle at 20% 30%, var(--bash-1), #0a0a14);
+            }
+        }
+
+        body.theme-bash-1 {
+            background: radial-gradient(circle at 20% 30%, var(--bash-1), #0a0a14);
+        }
+
+        body.theme-bash-2 {
+            background: radial-gradient(circle at 30% 40%, var(--bash-2), #0a0a14);
+        }
+
+        body.theme-bash-3 {
+            background: radial-gradient(circle at 40% 30%, var(--bash-3), #0a0a14);
+        }
+
+        body.theme-bash-4 {
+            background: radial-gradient(circle at 50% 50%, var(--bash-4), #0a0a14);
+        }
+
+        body.theme-bash-5 {
+            background: radial-gradient(circle at 60% 40%, var(--bash-5), #0a0a14);
+        }
+
+        body.theme-bash-6 {
+            background: radial-gradient(circle at 70% 30%, var(--bash-6), #0a0a14);
+        }
+
+        body.theme-bash-7 {
+            background: radial-gradient(circle at 80% 50%, var(--bash-7), #0a0a14);
+        }
+
+        /* ========== APP CONTAINER ========== */
+        .app-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(74, 74, 138, 0.4);
+        }
+
+        /* ========== TOP BRAND BAR ========== */
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(74, 74, 138, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--bash-7), var(--bash-4));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(74, 74, 138, 0.6);
+            animation: softPulseBash 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseBash {
+            0% {
+                text-shadow: 0 0 4px var(--bash-7);
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px var(--bash-7);
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, var(--bash-7), var(--bash-4));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #B8A0FF;
+            text-align: right;
+        }
+
+        /* ========== TOP STATS & SEARCH ========== */
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(74, 74, 138, 0.4);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(74, 74, 138, 0.25);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: var(--bash-7);
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(74, 74, 138, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: var(--bash-7);
+            box-shadow: 0 0 0 3px rgba(74, 74, 138, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #8888bb;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: var(--bash-7);
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(74, 74, 138, 0.25);
+            border: 1px solid rgba(74, 74, 138, 0.6);
+            color: var(--bash-7);
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(74, 74, 138, 0.45);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        /* ========== STATS BAR ========== */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(74, 74, 138, 0.45);
+        }
+
+        .shortcut-msg {
+            background: var(--bash-4);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: var(--bash-7);
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(74, 74, 138, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== MAPEL CARD ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid var(--bash-4);
+            border-right: 1px solid rgba(74, 74, 138, 0.3);
+            border-top: 1px solid rgba(74, 74, 138, 0.2);
+            border-bottom: 1px solid rgba(74, 74, 138, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.85), rgba(10, 10, 20, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            text-decoration: none;
+            cursor: pointer;
+            animation: cardRainbow 14s ease-in-out infinite;
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: var(--bash-7);
+            box-shadow: 0 12px 25px -8px rgba(74, 74, 138, 0.5);
+            background: linear-gradient(135deg, rgba(74, 74, 138, 0.9), rgba(26, 26, 46, 0.75));
+        }
+
+        @keyframes cardRainbow {
+            0% {
+                background: var(--bash-1);
+                box-shadow: 0 8px 20px rgba(26, 26, 46, 0.5);
+            }
+
+            14% {
+                background: var(--bash-2);
+                box-shadow: 0 8px 20px rgba(42, 42, 74, 0.5);
+            }
+
+            28% {
+                background: var(--bash-3);
+                box-shadow: 0 8px 20px rgba(58, 58, 106, 0.5);
+            }
+
+            42% {
+                background: var(--bash-4);
+                box-shadow: 0 8px 20px rgba(74, 74, 138, 0.5);
+            }
+
+            57% {
+                background: var(--bash-5);
+                box-shadow: 0 8px 20px rgba(90, 90, 170, 0.5);
+            }
+
+            71% {
+                background: var(--bash-6);
+                box-shadow: 0 8px 20px rgba(106, 106, 186, 0.5);
+            }
+
+            85% {
+                background: var(--bash-7);
+                box-shadow: 0 8px 20px rgba(138, 138, 218, 0.5);
+            }
+
+            100% {
+                background: var(--bash-1);
+                box-shadow: 0 8px 20px rgba(26, 26, 46, 0.5);
+            }
+        }
+
+        .mapel-badge {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON ========== */
+        .button-group {
+            width: 100%;
+        }
+
+        .btn-dapatkan {
+            display: inline-block;
+            width: 100%;
+            padding: 0.65rem;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, var(--bash-4), var(--bash-6));
+            animation: btnRainbow 14s ease-in-out infinite;
+        }
+
+        @keyframes btnRainbow {
+            0% {
+                background: linear-gradient(135deg, var(--bash-1), var(--bash-2));
+            }
+
+            14% {
+                background: linear-gradient(135deg, var(--bash-2), var(--bash-3));
+            }
+
+            28% {
+                background: linear-gradient(135deg, var(--bash-3), var(--bash-4));
+                color: #fff;
+            }
+
+            42% {
+                background: linear-gradient(135deg, var(--bash-4), var(--bash-5));
+                color: #fff;
+            }
+
+            57% {
+                background: linear-gradient(135deg, var(--bash-5), var(--bash-6));
+                color: #e8e8ff;
+            }
+
+            71% {
+                background: linear-gradient(135deg, var(--bash-6), var(--bash-7));
+                color: #0a0a14;
+                text-shadow: none;
+            }
+
+            85% {
+                background: linear-gradient(135deg, var(--bash-7), var(--bash-1));
+                color: #0a0a14;
+                text-shadow: none;
+            }
+
+            100% {
+                background: linear-gradient(135deg, var(--bash-1), var(--bash-2));
+                color: #fff;
+            }
+        }
+
+        .materi-card:hover .btn-dapatkan {
+            transform: scale(0.97);
+            filter: brightness(1.1);
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: var(--bash-7);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(74, 74, 138, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(74, 74, 138, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bash-7);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--bash-5);
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1800px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(74, 74, 138, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-bash-1 .footer {
+            border-color: rgba(26, 26, 46, 0.3);
+        }
+
+        body.theme-bash-2 .footer {
+            border-color: rgba(42, 42, 74, 0.3);
+        }
+
+        body.theme-bash-3 .footer {
+            border-color: rgba(58, 58, 106, 0.3);
+        }
+
+        body.theme-bash-4 .footer {
+            border-color: rgba(74, 74, 138, 0.3);
+        }
+
+        body.theme-bash-5 .footer {
+            border-color: rgba(90, 90, 170, 0.3);
+        }
+
+        body.theme-bash-6 .footer {
+            border-color: rgba(106, 106, 186, 0.3);
+        }
+
+        body.theme-bash-7 .footer {
+            border-color: rgba(138, 138, 218, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--bash-7), var(--bash-4));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #B8A0FF;
+            padding: 0.15rem 0.7rem;
+            background: rgba(74, 74, 138, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 74, 138, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-bash-1 .footer-tagline {
+            color: var(--bash-5);
+            background: rgba(26, 26, 46, 0.2);
+            border-color: rgba(26, 26, 46, 0.2);
+        }
+
+        body.theme-bash-7 .footer-tagline {
+            color: #ffffff;
+            background: rgba(138, 138, 218, 0.2);
+            border-color: rgba(138, 138, 218, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #B8A0FF;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-bash-1 .footer-info {
+            color: var(--bash-5);
+        }
+
+        body.theme-bash-7 .footer-info {
+            color: #ffffff;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        /* Desktop Ultra Wide */
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Desktop Besar */
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* Laptop */
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Laptop Kecil */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        /* HP Landscape */
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* HP Portrait */
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        /* HP Kecil */
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ================================================================ */
+        /* FALLBACK TANPA ORIENTATION */
+        /* ================================================================ */
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        /* ================================================================ */
+        /* AKSESIBILITAS & KENYAMANAN */
+        /* ================================================================ */
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-bash-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>🐚 Bash Scripting</h1>
+                <p>Pilih Materi, Kuasai Command Line!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi Bash..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card bash-card" data-title="AI automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">AI automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Apache dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Apache dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Append file">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Append file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="apt dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">apt dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Argument command line">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Argument command line</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Arithmetic expansion">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Arithmetic expansion</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Array Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Array Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Automation Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Automation Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Automation project Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Automation project Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="awk dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">awk dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="AWS CLI dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">AWS CLI dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Azure CLI dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Azure CLI dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Backup automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Backup automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Backup database otomatis">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Backup database otomatis</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Backup tool Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Backup tool Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Bash debugging mode">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Bash debugging mode</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Bash dengan Docker dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Bash dengan Docker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Bash dengan Kubernetes dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Bash dengan Kubernetes dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Bash project dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Bash project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Best practices Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Best practices Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Boot script dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Boot script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Brace expansion">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Brace expansion</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Break dan continue">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Break dan continue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Calculator Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Calculator Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Career path Linux administrator">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Career path Linux administrator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Case statement">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Case statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="cat">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">cat</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="cd">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">cd</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="chmod dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">chmod dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="chown dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">chown dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="CI/CD dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">CI/CD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Clean script Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Clean script Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="CLI application Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">CLI application Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Cloud automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Cloud automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Cloud engineer">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Cloud engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Command line interface">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Command line interface</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Command Linux dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Command Linux dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Command substitution">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Command substitution</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="cp">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">cp</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Cron job dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Cron job dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="CSV processing dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">CSV processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Curl command dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Curl command dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="cut dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">cut dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Cybersecurity automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Cybersecurity automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Data engineering automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Data engineering automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Data parsing dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Data parsing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Database automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Database automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Debugging Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Debugging Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Deployment automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Deployment automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Deployment tool Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Deployment tool Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="DevOps dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">DevOps dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="DevOps engineer">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">DevOps engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Directory management">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Directory management</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Documentation Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Documentation Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Echo command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Echo command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Elif statement">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Elif statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Embedded Linux dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Embedded Linux dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Encryption dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Encryption dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Environment setup automation">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Environment setup automation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Environment variable">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Environment variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Error handling Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Error handling Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Ethical hacking dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Ethical hacking dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="ETL automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">ETL automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Exit status">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Exit status</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Export variable">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Export variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="File handling Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">File handling Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="File management Linux">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">File management Linux</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="File permission Linux">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">File permission Linux</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="find command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">find command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Firewall dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Firewall dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Fish shell dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Fish shell dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="For loop">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">For loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="FTP dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">FTP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Function Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Function Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Git dan GitHub dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Git dan GitHub dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Google Cloud CLI dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Google Cloud CLI dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="grep dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">grep dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Group management Linux">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Group management Linux</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="head dan tail">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">head dan tail</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Here document dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Here document dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Here string dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Here string dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="If else">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">If else</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Input dan output Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Input dan output Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Instalasi Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Instalasi Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Installer script dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Installer script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Integer Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Integer Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Interactive shell script">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Interactive shell script</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="IoT automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">IoT automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="jq dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">jq dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Job control dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Job control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="JSON processing Bash dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">JSON processing Bash dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="kill command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">kill command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Komentar Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Komentar Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Linux kernel dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Linux kernel dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Linux server dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Linux server dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="locate command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">locate command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Log analysis dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Log analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Logging Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Logging Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="ls">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">ls</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Machine learning automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Machine learning automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Malware analysis dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Malware analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Man page dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Man page dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Membaca file">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Membaca file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Menu script dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Menu script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Menulis file">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Menulis file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="mkdir">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">mkdir</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Modern Linux automation Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Modern Linux automation Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Monitoring script dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Monitoring script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Monitoring server dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Monitoring server dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Monitoring tool Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Monitoring tool Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="MySQL command line dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">MySQL command line dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="mv">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">mv</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="nano">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">nano</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Networking automation dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Networking automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Networking Linux dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Networking Linux dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Nginx dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Nginx dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Open source Bash project">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Open source Bash project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Operator aritmatika">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Operator aritmatika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Operator logika">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Operator logika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Operator perbandingan">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Operator perbandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Package management Linux">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Package management Linux</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="pacman dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">pacman dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Parameter function">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Parameter function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Pattern matching">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Pattern matching</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Penetration testing dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Penetration testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Percabangan Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Percabangan Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Performance monitoring dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Performance monitoring dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Performance optimization Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Performance optimization Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Permission security dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Permission security dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Perulangan Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Perulangan Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Ping command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Ping command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Pipe command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Pipe command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Portable shell script dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Portable shell script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Positional parameter">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Positional parameter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="POSIX shell dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">POSIX shell dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="PostgreSQL command line dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">PostgreSQL command line dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Process management">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Process management</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="ps command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">ps command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="pwd">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">pwd</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Raspberry Pi dengan Bash dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Raspberry Pi dengan Bash dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Read command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Read command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Redirect input">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Redirect input</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Redirect output">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Redirect output</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Refactoring script dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Refactoring script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Regex dasar Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Regex dasar Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Resource monitoring dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Resource monitoring dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Return value">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Return value</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Reverse shell dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Reverse shell dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="rm">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">rm</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Scheduling task">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Scheduling task</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="SCP dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">SCP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Scope variable">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Scope variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Secure shell scripting">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Secure shell scripting</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Security Bash dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Security Bash dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Security engineer dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Security engineer dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="sed dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">sed dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Service management dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Service management dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Shell environment dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Shell environment dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Shell expansion dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Shell expansion dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Shell scripting">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Shell scripting</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Signal handling dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Signal handling dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Site reliability engineer">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Site reliability engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="sort dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">sort dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="SSH dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">SSH dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Startup script dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Startup script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="String Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">String Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="String manipulation Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">String manipulation Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Struktur dasar Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Struktur dasar Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Subshell dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Subshell dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Syntax Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Syntax Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="System administration dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">System administration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="System administrator">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">System administrator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="systemd dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">systemd dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Terminal Linux dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Terminal Linux dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Text processing Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Text processing Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Tipe data dasar Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Tipe data dasar Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="top command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">top command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="touch">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">touch</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Trap command">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Trap command</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="uniq dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">uniq dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Until loop">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Until loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="User management Linux">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">User management Linux</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Variable Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Variable Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Version control dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="vim dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">vim dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Web scraping Bash dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Web scraping Bash dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Wget dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Wget dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="While loop">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">While loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Wildcard Bash">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Wildcard Bash</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="xargs dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">xargs dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="XML processing dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">XML processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="yum dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">yum dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card bash-card" data-title="Zsh dasar">
+                <span class="mapel-badge">💻 Bash</span>
+                <h3 class="card-title">Zsh dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION BASH ====================
+            const colorThemes = ['theme-bash-primary', 'theme-bash-bluegray', 'theme-bash-teal', 'theme-bash-green', 'theme-bash-light'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== BASH GRADIENT ROTATION ====================
+            const bashGradien = ['bash-gradien-0', 'bash-gradien-1', 'bash-gradien-2'];
+            let bashIndex = 0;
+            let gradientInterval = null;
+
+            function rotateBashGradient() {
+                const bashCards = document.querySelectorAll('.bash-card, .materi-card');
+                if (bashCards.length === 0) return;
+                bashIndex = (bashIndex + 1) % bashGradien.length;
+                bashCards.forEach(card => {
+                    bashGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(bashGradien[bashIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateBashGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#85B0A8';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#85B0A8';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi Bash`;
+                        resultCounterSpan.style.color = '#A8BFA7';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initBashGradient() {
+                const bashCards = document.querySelectorAll('.bash-card, .materi-card');
+                if (bashCards.length === 0) return;
+                bashCards.forEach(card => {
+                    bashGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(bashGradien[0]);
+                });
+                bashIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initBashGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | Bash Scripting - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,3561 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - Rust | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA RUST - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 30%, #0a0f1a, #03060c);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Theme Colors */
+        body.theme-green {
+            background: radial-gradient(circle at 30% 20%, #064e3b, #022c22);
+        }
+
+        body.theme-blue {
+            background: radial-gradient(circle at 70% 40%, #1e3a8a, #0f172a);
+        }
+
+        body.theme-cyan {
+            background: radial-gradient(circle at 50% 70%, #0e7490, #164e63);
+        }
+
+        body.theme-purple {
+            background: radial-gradient(circle at 60% 30%, #7e22ce, #4c1d95);
+        }
+
+        body.theme-pink {
+            background: radial-gradient(circle at 40% 60%, #be185d, #831843);
+        }
+
+        body.theme-orange {
+            background: radial-gradient(circle at 80% 50%, #c2410c, #7c2d12);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+            animation: softPulse 2s infinite alternate;
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 4px #10b981;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 18px #10b981;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #f9f3c1, #a7f3d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #ddd;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #10b981;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1.5px solid rgba(16, 185, 129, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #bbb;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #10b981;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: #a7f3d0;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(16, 185, 129, 0.35);
+            transform: scale(1.02);
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .shortcut-msg {
+            background: #10b981;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #022c22;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #10b981;
+            border-right: 1px solid rgba(16, 185, 129, 0.2);
+            border-top: 1px solid rgba(16, 185, 129, 0.15);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #f59e0b;
+            box-shadow: 0 10px 20px -8px black;
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        /* Rust Gradients */
+        .materi-card.rust-gradien-0 {
+            background: radial-gradient(circle farthest-corner at 10% 20%, #02254e 0%, #04387e 20%, #55f5dd 100%);
+        }
+
+        .materi-card.rust-gradien-1 {
+            background: linear-gradient(114deg, #79c2f3 23%, #ffb4ef 68%);
+        }
+
+        .materi-card.rust-gradien-2 {
+            background: linear-gradient(107deg, #fff2ef 11%, #ffdbb6 38%, #f7a5a5 54%, #1a2a4f 84%);
+        }
+
+        .mapel-badge {
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            background: rgba(16, 185, 129, 0.3);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            color: #a7f3d0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #CAFFBF;
+            color: #2d3748;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.95);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a3a35;
+            color: #7a9a8a;
+            border: 1px solid #3a5a4a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #f59e0b;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a1a15;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-green .footer {
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        body.theme-blue .footer {
+            border-color: rgba(30, 58, 138, 0.25);
+        }
+
+        body.theme-cyan .footer {
+            border-color: rgba(14, 116, 144, 0.25);
+        }
+
+        body.theme-purple .footer {
+            border-color: rgba(126, 34, 206, 0.25);
+        }
+
+        body.theme-pink .footer {
+            border-color: rgba(190, 24, 93, 0.25);
+        }
+
+        body.theme-orange .footer {
+            border-color: rgba(194, 65, 12, 0.25);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #fff, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #a7f3d0;
+            padding: 0.15rem 0.7rem;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-blue .footer-tagline {
+            color: #93c5fd;
+            background: rgba(30, 58, 138, 0.2);
+            border-color: rgba(30, 58, 138, 0.2);
+        }
+
+        body.theme-purple .footer-tagline {
+            color: #d8b4fe;
+            background: rgba(126, 34, 206, 0.2);
+            border-color: rgba(126, 34, 206, 0.2);
+        }
+
+        body.theme-pink .footer-tagline {
+            color: #fbcfe8;
+            background: rgba(190, 24, 93, 0.2);
+            border-color: rgba(190, 24, 93, 0.2);
+        }
+
+        body.theme-orange .footer-tagline {
+            color: #fdba74;
+            background: rgba(194, 65, 12, 0.2);
+            border-color: rgba(194, 65, 12, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #a7f3d0;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-blue .footer-info {
+            color: #93c5fd;
+        }
+
+        body.theme-purple .footer-info {
+            color: #d8b4fe;
+        }
+
+        body.theme-pink .footer-info {
+            color: #fbcfe8;
+        }
+
+        body.theme-orange .footer-info {
+            color: #fdba74;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.6);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-green">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>🦀 Rust Programming</h1>
+                <p>Pilih Materi, Kuasai Pemrograman!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi Rust..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card rust-card" data-title="Actix Web dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Actix Web dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="AI integration dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">AI integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="API integration">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">API integration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Arc">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Arc</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Argument parser dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Argument parser dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Array">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Array</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Async await">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Async await</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Async Rust dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Async Rust dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Audio programming dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Audio programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Authentication dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Authentication dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Authorization dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Authorization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Automation Rust dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Automation Rust dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Axum dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Axum dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Backend API Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Backend API Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Backend development Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Backend development Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Backend engineer Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Backend engineer Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Benchmark dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Benchmark dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Best practices Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Best practices Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Bevy engine dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Bevy engine dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Binary search">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Binary search</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Blockchain developer">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Blockchain developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Blockchain Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Blockchain Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Blockchain wallet dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Blockchain wallet dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Boolean">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Boolean</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Borrowing">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Borrowing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Box">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Box</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Break dan continue">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Break dan continue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Bubble sort">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Bubble sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Cargo package manager">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Cargo package manager</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Cargo workspace dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Cargo workspace dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Career path Rust developer">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Career path Rust developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Channel">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Channel</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Character">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Character</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Chat application Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Chat application Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="CI/CD dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">CI/CD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Clean architecture dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Clean architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Clean code Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Clean code Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="CLI application Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">CLI application Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="CLI tool Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">CLI tool Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Closure Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Closure Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Cloud computing dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Cloud computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Collection Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Collection Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Competitive programming Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Competitive programming Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Compiler development dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Compiler development dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Composition">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Composition</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Concurrency Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Concurrency Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Const dan static">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Const dan static</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Crate Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Crate Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Custom error">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Custom error</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Cybersecurity Rust dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Cybersecurity Rust dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Data structure Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Data structure Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Database Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Database Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Debugging Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Debugging Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Declarative macro">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Declarative macro</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Dependency Injection dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Dependency Injection dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Deployment aplikasi Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Deployment aplikasi Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Design pattern Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Design pattern Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Desktop application Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Desktop application Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Diesel ORM dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Diesel ORM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Dioxus dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Dioxus dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Distributed system dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Distributed system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Docker dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Docker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Documentation Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Documentation Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Dynamic programming dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Dynamic programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="ECS architecture dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">ECS architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Embedded engineer">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Embedded engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Embedded Rust dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Embedded Rust dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Encapsulation dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Encapsulation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Encryption dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Encryption dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Enum Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Enum Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Error handling Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Error handling Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Event driven architecture dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Event driven architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="File handling Rust">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">File handling Rust</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="File system utility dasar">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">File system utility dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card rust-card" data-title="Float">
+                <span class="mapel-badge">💻 Rust</span>
+                <h3 class="card-title">Float</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkanBerikut adalah lanjutan daftar materi **Rust** yang telah diubah sesuai dengan format HTML. Saya menggunakan badge `💻 Rust` agar sesuai dengan konteks mata pelajaran pemrograman.
+
+```html
+<div class=" materi-card rust-card" data-title="Actix Web dasar">
+                            <span class="mapel-badge">💻 Rust</span>
+                            <h3 class="card-title">Actix Web dasar</h3>
+                            <div class="button-group">
+                                <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                            </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="AI integration dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">AI integration dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="API integration">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">API integration</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Arc">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Arc</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Argument parser dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Argument parser dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Array">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Array</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Async await">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Async await</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Async Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Async Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Audio programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Audio programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Authentication dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Authentication dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Authorization dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Authorization dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Automation Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Automation Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Axum dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Axum dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Backend API Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Backend API Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Backend development Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Backend development Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Backend engineer Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Backend engineer Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Benchmark dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Benchmark dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Best practices Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Best practices Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Bevy engine dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Bevy engine dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Binary search">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Binary search</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Blockchain developer">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Blockchain developer</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Blockchain Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Blockchain Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Blockchain wallet dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Blockchain wallet dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Boolean">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Boolean</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Borrowing">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Borrowing</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Box">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Box</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Break dan continue">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Break dan continue</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Bubble sort">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Bubble sort</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Cargo package manager">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Cargo package manager</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Cargo workspace dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Cargo workspace dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Career path Rust developer">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Career path Rust developer</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Channel">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Channel</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Character">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Character</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Chat application Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Chat application Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="CI/CD dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">CI/CD dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Clean architecture dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Clean architecture dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Clean code Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Clean code Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="CLI application Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">CLI application Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="CLI tool Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">CLI tool Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Closure Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Closure Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Cloud computing dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Cloud computing dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Collection Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Collection Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Competitive programming Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Competitive programming Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Compiler development dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Compiler development dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Composition">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Composition</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Concurrency Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Concurrency Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Const dan static">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Const dan static</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Crate Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Crate Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Custom error">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Custom error</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Cybersecurity Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Cybersecurity Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Data structure Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Data structure Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Database Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Database Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Debugging Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Debugging Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Declarative macro">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Declarative macro</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Dependency Injection dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Dependency Injection dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Deployment aplikasi Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Deployment aplikasi Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Design pattern Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Design pattern Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Desktop application Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Desktop application Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Diesel ORM dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Diesel ORM dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Dioxus dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Dioxus dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Distributed system dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Distributed system dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Docker dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Docker dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Documentation Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Documentation Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Dynamic programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Dynamic programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="ECS architecture dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">ECS architecture dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Embedded engineer">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Embedded engineer</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Embedded Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Embedded Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Encapsulation dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Encapsulation dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Encryption dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Encryption dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Enum Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Enum Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Error handling Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Error handling Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Event driven architecture dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Event driven architecture dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="File handling Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">File handling Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="File system utility dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">File system utility dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Float">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Float</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="For loop">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">For loop</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Frontend Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Frontend Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Fullstack Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Fullstack Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Function Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Function Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Functional programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Functional programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Future Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Future Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Generic Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Generic Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Git dan GitHub dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Git dan GitHub dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Grafana dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Grafana dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Graph">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Graph</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Graphics programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Graphics programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="GUI Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">GUI Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="HashMap">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">HashMap</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Hashing dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Hashing dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Hexagonal architecture dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Hexagonal architecture dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="HTTP request dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">HTTP request dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Iced dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Iced dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="If else">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">If else</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Impl block">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Impl block</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Import module">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Import module</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Input dan output Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Input dan output Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Instalasi Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Instalasi Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Integer">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Integer</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Integration testing">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Integration testing</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="IoT dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">IoT dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Iterator Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Iterator Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="JWT dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">JWT dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Kafka dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Kafka dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Kernel programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Kernel programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Komentar Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Komentar Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Kubernetes dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Kubernetes dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Lifetimes dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Lifetimes dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Lifetime advanced dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Lifetime advanced dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Linked list">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Linked list</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Linux untuk Rust developer">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Linux untuk Rust developer</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Logging dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Logging dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Loop">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Loop</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Machine learning dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Machine learning dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Macro Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Macro Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Match expression">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Match expression</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Membaca file">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Membaca file</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Memory management">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Memory management</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Memory safety">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Memory safety</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Menulis file">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Menulis file</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Merge sort">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Merge sort</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Message queue dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Message queue dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Method Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Method Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Microservices Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Microservices Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Modern systems development Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Modern systems development Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Module Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Module Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="MongoDB dengan Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">MongoDB dengan Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Monitoring dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Monitoring dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Mutable dan immutable">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Mutable dan immutable</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Mutable reference">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Mutable reference</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Mutex">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Mutex</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="MySQL dengan Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">MySQL dengan Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Networking Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Networking Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="OOP Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">OOP Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Open source Rust project">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Open source Rust project</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="OpenGL dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">OpenGL dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Operating system development dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Operating system development dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Operator aritmatika">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Operator aritmatika</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Operator logika">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Operator logika</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Operator perbandingan">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Operator perbandingan</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Option enum">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Option enum</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="ORM dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">ORM dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Ownership Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Ownership Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Package Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Package Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Panic handling">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Panic handling</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Parallel programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Parallel programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Parameter function">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Parameter function</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Pattern matching">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Pattern matching</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Pattern oriented programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Pattern oriented programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Performance optimization Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Performance optimization Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Perulangan">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Perulangan</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Physics simulation dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Physics simulation dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Portfolio project Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Portfolio project Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="PostgreSQL dengan Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">PostgreSQL dengan Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Procedural macro dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Procedural macro dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Profiling dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Profiling dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Prometheus dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Prometheus dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Public dan private">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Public dan private</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Queue">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Queue</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Quick sort">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Quick sort</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="RabbitMQ dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">RabbitMQ dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Raw pointer dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Raw pointer dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Rc">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Rc</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="RefCell">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">RefCell</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Reference">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Reference</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Refactoring code">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Refactoring code</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Rekursi">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Rekursi</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Result enum">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Result enum</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="REST API Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">REST API Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Return value">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Return value</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Reverse engineering dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Reverse engineering dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Robotics dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Robotics dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Rocket framework dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Rocket framework dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Rustdoc dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Rustdoc dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Rustup dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Rustup dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="SaaS backend dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">SaaS backend dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Scope variable">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Scope variable</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Searching algorithm">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Searching algorithm</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Secure coding Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Secure coding Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Security engineer">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Security engineer</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Slice">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Slice</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Smart contract dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Smart contract dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Smart pointer Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Smart pointer Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Socket programming dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Socket programming dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Software architecture Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Software architecture Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Software engineering Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Software engineering Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Solana development dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Solana development dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Sorting algorithm">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Sorting algorithm</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="SQLite dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">SQLite dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="SQLx dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">SQLx dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Stack">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Stack</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Startup development Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Startup development Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="String">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">String</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="String manipulation">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">String manipulation</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Struct Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Struct Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Struktur dasar Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Struktur dasar Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Syntax Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Syntax Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Systems programmer">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Systems programmer</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Tauri dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Tauri dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Terminal command dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Terminal command dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Testing Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Testing Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Thread Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Thread Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Tipe data Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Tipe data Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="To-do list Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">To-do list Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Tokio dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Tokio dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Trait Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Trait Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Tree">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Tree</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Tuple">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Tuple</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Unit testing">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Unit testing</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Unsafe Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Unsafe Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Variable Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Variable Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Vector">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Vector</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Version control dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Version control dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Visibility dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Visibility dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Vulkan dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Vulkan dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Warp dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Warp dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Web development Rust">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Web development Rust</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Web scraping Rust dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Web scraping Rust dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="WebAssembly dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">WebAssembly dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="WebSocket dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">WebSocket dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="While loop">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">While loop</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Yew framework dasar">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Yew framework dasar</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+
+                <div class="materi-card rust-card" data-title="Zero cost abstraction">
+                    <span class="mapel-badge">💻 Rust</span>
+                    <h3 class="card-title">Zero cost abstraction</h3>
+                    <div class="button-group">
+                        <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="footer-container">
+                    <div class="footer-brand-section">
+                        <span class="footer-brand">🏬 Noxa Store</span>
+                        <span class="footer-tagline">Belajar Tanpa Batas</span>
+                    </div>
+                    <div class="footer-info">
+                        <span>© <span id="footerYear">2026</span></span>
+                        <span class="footer-dot">•</span>
+                        <span>Dibangun untuk pembelajaran</span>
+                        <span class="footer-dot">•</span>
+                        <span>v1.0</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script>
+            (function () {
+                // ==================== THEME ROTATION ====================
+                const colorThemes = ['theme-green', 'theme-blue', 'theme-cyan', 'theme-purple', 'theme-pink', 'theme-orange'];
+                let currentThemeIndex = 0;
+                const bodyEl = document.body;
+
+                function applyNextTheme() {
+                    if (!bodyEl) return;
+                    colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                    currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                    bodyEl.classList.add(colorThemes[currentThemeIndex]);
+                }
+                setInterval(applyNextTheme, 5000);
+
+                // ==================== RUST GRADIENT ROTATION ====================
+                const rustGradien = ['rust-gradien-0', 'rust-gradien-1', 'rust-gradien-2'];
+                let rustIndex = 0;
+                let gradientInterval = null;
+
+                function rotateRustGradient() {
+                    const rustCards = document.querySelectorAll('.rust-card');
+                    if (rustCards.length === 0) return;
+                    rustIndex = (rustIndex + 1) % rustGradien.length;
+                    rustCards.forEach(card => {
+                        rustGradien.forEach(gc => card.classList.remove(gc));
+                        card.classList.add(rustGradien[rustIndex]);
+                    });
+                }
+                gradientInterval = setInterval(rotateRustGradient, 3000);
+
+                // ==================== DOM ELEMENTS ====================
+                const searchInput = document.getElementById('searchInput');
+                const materiContainer = document.getElementById('materiContainer');
+                const resultCounterSpan = document.getElementById('resultCounter');
+                const clearBtn = document.getElementById('clearSearchBtn');
+                const shortcutNotifSpan = document.getElementById('shortcutNotif');
+                const refreshBtn = document.getElementById('refreshButton');
+
+                function getAllCards() {
+                    return Array.from(document.querySelectorAll('.materi-card'));
+                }
+
+                // ==================== UPDATE STATISTIK ====================
+                function updateStatistik() {
+                    const allCards = getAllCards();
+                    let sudahAda = 0;
+                    let belumAda = 0;
+                    allCards.forEach(card => {
+                        const teoriLink = card.querySelector('.button-group .materi-link:not(.latihan-link):not(.projek-link)');
+                        const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                        if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                            sudahAda++;
+                        } else {
+                            belumAda++;
+                        }
+                    });
+                    const totalMateri = document.getElementById('totalMateriCount');
+                    const materiSudahAda = document.getElementById('materiSudahAda');
+                    const materiBelumAda = document.getElementById('materiBelumAda');
+                    if (totalMateri) totalMateri.innerText = allCards.length;
+                    if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                    if (materiBelumAda) materiBelumAda.innerText = belumAda;
+                }
+
+                // ==================== FILTER MATERI ====================
+                function filterMateri() {
+                    const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                    const allCards = getAllCards();
+                    let visibleCount = 0;
+
+                    allCards.forEach(card => {
+                        const titleAttr = card.getAttribute('data-title');
+                        const titleH3 = card.querySelector('.card-title');
+                        let title = '';
+                        if (titleAttr) title = titleAttr;
+                        else if (titleH3) title = titleH3.innerText || '';
+                        title = title.toLowerCase();
+
+                        const teoriLink = card.querySelector('.button-group .materi-link:not(.latihan-link):not(.projek-link)');
+                        const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                        const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                        const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                        if (searchTerm === '') {
+                            card.style.display = hasLink ? '' : 'none';
+                            if (hasLink) visibleCount++;
+                        } else {
+                            if (isMatch && (hasLink || searchTerm !== '')) {
+                                card.style.display = '';
+                                visibleCount++;
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+
+                    let noResultDiv = document.getElementById('customNoResultMsg');
+                    if (noResultDiv) {
+                        noResultDiv.remove();
+                        noResultDiv = null;
+                    }
+
+                    if (visibleCount === 0) {
+                        if (resultCounterSpan) {
+                            if (searchTerm !== '') {
+                                resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                                resultCounterSpan.style.color = '#f59e0b';
+                            } else {
+                                resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                                resultCounterSpan.style.color = '#f59e0b';
+                            }
+                        }
+
+                        if (materiContainer && materiContainer.parentNode) {
+                            const msgDiv = document.createElement('div');
+                            msgDiv.id = 'customNoResultMsg';
+                            msgDiv.className = 'no-result';
+                            if (searchTerm !== '') {
+                                msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                            } else {
+                                msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                            }
+                            materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                        }
+                    } else {
+                        if (resultCounterSpan) {
+                            resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi Rust`;
+                            resultCounterSpan.style.color = '#a7f3d0';
+                        }
+                    }
+                }
+
+                // ==================== DEBOUNCE SEARCH ====================
+                let debounceTimer;
+                if (searchInput) {
+                    searchInput.addEventListener('input', () => {
+                        clearTimeout(debounceTimer);
+                        debounceTimer = setTimeout(filterMateri, 200);
+                    });
+                }
+
+                // ==================== CLEAR BUTTON ====================
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        if (searchInput) searchInput.value = '';
+                        filterMateri();
+                        if (searchInput) searchInput.focus();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    });
+                }
+
+                // ==================== UPDATE BUTTON STATES ====================
+                function updateButtonsState() {
+                    document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                        const href = link.getAttribute('href');
+                        const btn = link.querySelector('button');
+                        if (!btn) return;
+
+                        const preventInvalidClick = (e) => {
+                            if (!href || href === '' || href === '#') e.preventDefault();
+                        };
+
+                        if (!href || href === '' || href === '#') {
+                            btn.style.cursor = 'not-allowed';
+                            btn.style.animation = 'none';
+                            link.removeEventListener('click', preventInvalidClick);
+                            link.addEventListener('click', preventInvalidClick);
+                        } else {
+                            btn.style.cursor = 'pointer';
+                            btn.style.animation = '';
+                            if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                            link.removeEventListener('click', preventInvalidClick);
+                        }
+                    });
+                    updateStatistik();
+                }
+
+                // ==================== KEYBOARD SHORTCUTS ====================
+                window.addEventListener('keydown', (e) => {
+                    if (!searchInput) return;
+                    if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                        e.preventDefault();
+                        searchInput.focus();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                        }
+                    }
+                    if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                        e.preventDefault();
+                        searchInput.focus();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                        }
+                    }
+                    if (e.key === 'Escape') {
+                        if (searchInput.value !== '') {
+                            searchInput.value = '';
+                            filterMateri();
+                            if (shortcutNotifSpan) {
+                                shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                                setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                            }
+                        } else {
+                            searchInput.blur();
+                        }
+                    }
+                });
+
+                // ==================== REFRESH BUTTON ====================
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', () => {
+                        if (searchInput) searchInput.value = '';
+                        filterMateri();
+                        const refreshIcon = refreshBtn.querySelector('span');
+                        if (refreshIcon) {
+                            refreshIcon.style.animation = 'spin 0.5s ease';
+                            setTimeout(() => {
+                                refreshIcon.style.animation = '';
+                            }, 500);
+                        }
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                        getAllCards().forEach(card => {
+                            card.style.transform = 'scale(0.98)';
+                            setTimeout(() => {
+                                card.style.transform = '';
+                            }, 200);
+                        });
+                        updateButtonsState();
+                    });
+                }
+
+                // ==================== SPIN KEYFRAME ====================
+                if (!document.querySelector('#refreshSpinKeyframe')) {
+                    const spinStyle = document.createElement('style');
+                    spinStyle.id = 'refreshSpinKeyframe';
+                    spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                    document.head.appendChild(spinStyle);
+                }
+
+                // ==================== INIT GRADIENT ====================
+                function initRustGradient() {
+                    const rustCards = document.querySelectorAll('.rust-card');
+                    if (rustCards.length === 0) return;
+                    rustCards.forEach(card => {
+                        rustGradien.forEach(gc => card.classList.remove(gc));
+                        card.classList.add(rustGradien[0]);
+                    });
+                    rustIndex = 0;
+                }
+
+                // ==================== INITIALIZATION ====================
+                setTimeout(() => {
+                    initRustGradient();
+                    updateButtonsState();
+                    filterMateri();
+                }, 100);
+
+                console.log('✅ Noxa Store | Rust - Siap menerima materi grid');
+            })();
+        </script>
+</body>
+
+</html>

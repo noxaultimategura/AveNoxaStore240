@@ -1,0 +1,2921 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - JavaScript | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA JAVASCRIPT - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #56BDD0, #1a3a3a);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body.theme-js-primary {
+            background: radial-gradient(circle at 30% 20%, #56BDD0, #1a3a3a);
+        }
+
+        body.theme-js-light {
+            background: radial-gradient(circle at 60% 40%, #BDD3DA, #3a5a5a);
+        }
+
+        body.theme-js-mid {
+            background: radial-gradient(circle at 70% 30%, #7BC5D1, #2a4a4a);
+        }
+
+        body.theme-js-teal {
+            background: radial-gradient(circle at 40% 70%, #35B7CF, #1a3a3a);
+        }
+
+        body.theme-js-soft {
+            background: radial-gradient(circle at 80% 50%, #9CCBD4, #2a4a4a);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(86, 189, 208, 0.5);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(123, 197, 209, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #BDD3DA, #35B7CF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(86, 189, 208, 0.6);
+            animation: softPulseJS 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseJS {
+            0% {
+                text-shadow: 0 0 4px #56BDD0;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #BDD3DA;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #BDD3DA, #56BDD0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #BDD3DA;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(86, 189, 208, 0.5);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(86, 189, 208, 0.3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #BDD3DA;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(86, 189, 208, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #BDD3DA;
+            box-shadow: 0 0 0 3px rgba(86, 189, 208, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #BDD3DA;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #35B7CF;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(86, 189, 208, 0.3);
+            border: 1px solid rgba(86, 189, 208, 0.6);
+            color: #BDD3DA;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(86, 189, 208, 0.5);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(86, 189, 208, 0.5);
+        }
+
+        .shortcut-msg {
+            background: #7BC5D1;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #1a3a3a;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(123, 197, 209, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #56BDD0;
+            border-right: 1px solid rgba(86, 189, 208, 0.3);
+            border-top: 1px solid rgba(86, 189, 208, 0.2);
+            border-bottom: 1px solid rgba(86, 189, 208, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(30, 60, 65, 0.85), rgba(15, 40, 45, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #BDD3DA;
+            box-shadow: 0 12px 25px -8px rgba(86, 189, 208, 0.5);
+            background: linear-gradient(135deg, rgba(86, 189, 208, 0.9), rgba(30, 60, 65, 0.75));
+        }
+
+        /* Gradien Card JavaScript-Theme */
+        .materi-card.js-gradien-0 {
+            background: linear-gradient(135deg, rgba(30, 60, 65, 0.85), rgba(15, 40, 45, 0.7));
+            border-left-color: #2a4a4a;
+        }
+
+        .materi-card.js-gradien-1 {
+            background: linear-gradient(135deg, rgba(86, 189, 208, 0.85), rgba(30, 60, 65, 0.7));
+            border-left-color: #56BDD0;
+        }
+
+        .materi-card.js-gradien-2 {
+            background: linear-gradient(135deg, rgba(123, 197, 209, 0.8), rgba(86, 189, 208, 0.7));
+            border-left-color: #7BC5D1;
+        }
+
+        .mapel-badge {
+            background: rgba(123, 197, 209, 0.5);
+            color: #E0F0F5;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #F0F8FA;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #56BDD0;
+            color: #0a2a2a;
+            box-shadow: 0 2px 6px rgba(86, 189, 208, 0.5);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #74cdde;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a3a3a;
+            color: #6a8a8a;
+            border: 1px solid #4a6a6a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #BDD3DA;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(86, 189, 208, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(86, 189, 208, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a2a2a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #56BDD0;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #BDD3DA;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(86, 189, 208, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-js-primary .footer {
+            border-color: rgba(86, 189, 208, 0.3);
+        }
+
+        body.theme-js-light .footer {
+            border-color: rgba(189, 211, 218, 0.2);
+        }
+
+        body.theme-js-mid .footer {
+            border-color: rgba(123, 197, 209, 0.3);
+        }
+
+        body.theme-js-teal .footer {
+            border-color: rgba(53, 183, 207, 0.3);
+        }
+
+        body.theme-js-soft .footer {
+            border-color: rgba(156, 203, 212, 0.2);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #BDD3DA, #35B7CF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #BDD3DA;
+            padding: 0.15rem 0.7rem;
+            background: rgba(86, 189, 208, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(86, 189, 208, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-js-light .footer-tagline {
+            color: #1a3a3a;
+            background: rgba(189, 211, 218, 0.2);
+            border-color: rgba(189, 211, 218, 0.2);
+        }
+
+        body.theme-js-soft .footer-tagline {
+            color: #1a3a3a;
+            background: rgba(156, 203, 212, 0.2);
+            border-color: rgba(156, 203, 212, 0.2);
+        }
+
+        body.theme-js-teal .footer-tagline {
+            color: #e8f8fa;
+            background: rgba(53, 183, 207, 0.2);
+            border-color: rgba(53, 183, 207, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #BDD3DA;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-js-light .footer-info {
+            color: #1a3a3a;
+        }
+
+        body.theme-js-soft .footer-info {
+            color: #1a3a3a;
+        }
+
+        body.theme-js-teal .footer-info {
+            color: #e8f8fa;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-js-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>🟨 JavaScript</h1>
+                <p>Pilih Materi, Kuasai Bahasa Web!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi JavaScript..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID DIKOSONGKAN -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card javascript-card" data-title="Accordion">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Accordion</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Admin panel interaktif">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Admin panel interaktif</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="AJAX dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">AJAX dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Alert">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Alert</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Animasi JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Animasi JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Animation interaction">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Animation interaction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="API integration">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">API integration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Array">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Array</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Array method">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Array method</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Arrow function">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Arrow function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Async await">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Async await</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Async JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Async JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Audio dan video control">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Audio dan video control</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Authentication dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Authentication dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Authorization dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Authorization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Automation script dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Automation script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Backend dasar JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Backend dasar JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Best practices JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Best practices JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Boolean">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Boolean</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Break dan continue">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Break dan continue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Browser Object Model (BOM)">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Browser Object Model (BOM)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Browser compatibility">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Browser compatibility</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Build tools dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Build tools dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Bundler dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Bundler dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Calculator project">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Calculator project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Callback function">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Callback function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Callback hell">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Callback hell</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Canvas JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Canvas JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Carousel JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Carousel JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Chat application dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Chat application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Chart dan graph dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Chart dan graph dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Class">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Clean code JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Clean code JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Click event">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Click event</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Closure">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Closure</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Code splitting dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Code splitting dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Component based architecture">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Component based architecture</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Confirm">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Confirm</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Console debug">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Console debug</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Console log">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Console log</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Const dan let">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Const dan let</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Constructor">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Constructor</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Cookies dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Cookies dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Counter app">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Counter app</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="CRUD JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">CRUD JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Cross-browser testing">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Cross-browser testing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="CSRF dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">CSRF dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Dark mode toggle">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Dark mode toggle</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Database integration dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Database integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Date object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Date object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Debugging JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Debugging JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Deployment website dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Deployment website dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Design pattern dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Design pattern dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Destructuring">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Destructuring</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Developer tools">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Developer tools</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="DOM (Document Object Model)">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">DOM (Document Object Model)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="DOM selector">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">DOM selector</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Do while">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Do while</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Drag and drop">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Drag and drop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Dropdown menu">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Dropdown menu</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Dynamic website">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Dynamic website</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="E-commerce interaction">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">E-commerce interaction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Encapsulation">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Encapsulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Error handling">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Error handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="ES6">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">ES6</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Event bubbling">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Event bubbling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Event capturing">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Event capturing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Event JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Event JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Event listener">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Event listener</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Express.js dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Express.js dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Fetch API">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Fetch API</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="File reader API">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">File reader API</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="File upload">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">File upload</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Filter">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Filter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Find">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Find</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="For in">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">For in</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="For loop">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">For loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="For of">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">For of</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Form project">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Form project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Form validation">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Form validation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Frontend framework dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Frontend framework dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Frontend web development">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Frontend web development</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Fullstack JavaScript dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Fullstack JavaScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Function">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Function parameter">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Function parameter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Functional programming dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Functional programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Game development dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Game development dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Geolocation API">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Geolocation API</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="getElementById">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">getElementById</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Git dan GitHub dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Git dan GitHub dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Hamburger menu">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Hamburger menu</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Higher order function">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Higher order function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="History object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">History object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Hoisting">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Hoisting</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Hosting website dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Hosting website dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="HTTP request">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">HTTP request</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="If else">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">If else</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Image slider">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Image slider</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Import dan export">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Import dan export</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Infinite scroll">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Infinite scroll</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Inheritance">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Inheritance</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Input dan output data">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Input dan output data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Interactive dashboard">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Interactive dashboard</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Interactive website">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Interactive website</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="JSON">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">JSON</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="JWT dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">JWT dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Keyboard event">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Keyboard event</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Komentar JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Komentar JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Landing page interaktif">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Landing page interaktif</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Lazy loading dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Lazy loading dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Local storage">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Local storage</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Location object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Location object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Machine learning JavaScript dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Machine learning JavaScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Manipulasi DOM">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Manipulasi DOM</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Map">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Map</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Math object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Math object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Membuat elemen HTML">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Membuat elemen HTML</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Menghapus elemen HTML">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Menghapus elemen HTML</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Mengubah style CSS">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Mengubah style CSS</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Mengubah teks HTML">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Mengubah teks HTML</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Minify JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Minify JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Mobile web interaction">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Mobile web interaction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Modal popup">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Modal popup</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Modern web app development">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Modern web app development</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Modular JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Modular JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Mouse event">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Mouse event</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="MVC dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">MVC dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="MVVM dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">MVVM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Navigator object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Navigator object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Nested if">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Nested if</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Node.js dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Node.js dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Notes app">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Notes app</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Notification system">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Notification system</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="NPM dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">NPM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Null">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Null</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Number">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Number</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Object method">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Object method</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="OOP JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">OOP JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Operator aritmatika">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Operator aritmatika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Operator assignment">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Operator assignment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Operator logika">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Operator logika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Operator perbandingan">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Operator perbandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Operator ternary">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Operator ternary</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Package manager dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Package manager dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Percabangan">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Percabangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Performance optimization">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Performance optimization</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Perulangan">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Perulangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Polymorphism">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Polymorphism</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Portfolio website interaktif">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Portfolio website interaktif</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Progressive Web App dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Progressive Web App dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Promise">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Promise</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Prompt">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Prompt</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Prototype">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Prototype</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Push dan pop">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Push dan pop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Push notification dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Push notification dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="querySelector">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">querySelector</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Quiz app">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Quiz app</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="React dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">React dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Reactive programming dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Reactive programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Real-time application dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Real-time application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Reduce">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Reduce</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Refactoring code">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Refactoring code</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Regular expression dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Regular expression dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Rekursi">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Rekursi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Responsive interactivity">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Responsive interactivity</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Responsive web interaction">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Responsive web interaction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="REST API dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">REST API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Rest parameter">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Rest parameter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Return value">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Return value</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Scope variable">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Scope variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Screen object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Screen object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Search filter">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Search filter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Security JavaScript dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Security JavaScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Service worker dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Service worker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Session storage">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Session storage</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="setTimeout">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">setTimeout</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="setInterval">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">setInterval</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Shift dan unshift">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Shift dan unshift</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Single Page Application dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Single Page Application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Social media interaction">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Social media interaction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Sort">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Source map dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Source map dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Speech recognition dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Speech recognition dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Spread operator">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Spread operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="State management dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">State management dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Statement dan expression">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Statement dan expression</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Sticky navbar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Sticky navbar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Stopwatch project">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Stopwatch project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Strict mode">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Strict mode</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="String">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">String</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="String method">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">String method</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Struktur dasar JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Struktur dasar JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Switch case">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Switch case</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Syntax JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Syntax JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Tabs navigation">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Tabs navigation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Template literal">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Template literal</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="This keyword">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">This keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Timer JavaScript">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Timer JavaScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Tipe data">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Tipe data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="To-do list project">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">To-do list project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Try catch">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Try catch</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="TypeScript dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">TypeScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="UI interaction">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">UI interaction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Undefined">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Undefined</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="UX interaction">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">UX interaction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Validasi input">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Validasi input</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Variable">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Version control dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Vue dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Vue dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Weather app dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Weather app dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Web scraping dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Web scraping dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Web development modern">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Web development modern</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="WebSocket dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">WebSocket dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Webcam API dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Webcam API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="While loop">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">While loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="Window object">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">Window object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card javascript-card" data-title="XSS dasar">
+                <span class="mapel-badge">💻 JavaScript</span>
+                <h3 class="card-title">XSS dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION JAVASCRIPT ====================
+            const colorThemes = ['theme-js-primary', 'theme-js-light', 'theme-js-mid', 'theme-js-teal', 'theme-js-soft'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== JAVASCRIPT GRADIENT ROTATION ====================
+            const jsGradien = ['js-gradien-0', 'js-gradien-1', 'js-gradien-2'];
+            let jsIndex = 0;
+            let gradientInterval = null;
+
+            function rotateJSGradient() {
+                const jsCards = document.querySelectorAll('.js-card, .materi-card');
+                if (jsCards.length === 0) return;
+                jsIndex = (jsIndex + 1) % jsGradien.length;
+                jsCards.forEach(card => {
+                    jsGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(jsGradien[jsIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateJSGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#BDD3DA';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#BDD3DA';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi JavaScript`;
+                        resultCounterSpan.style.color = '#F0F8FA';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initJSGradient() {
+                const jsCards = document.querySelectorAll('.js-card, .materi-card');
+                if (jsCards.length === 0) return;
+                jsCards.forEach(card => {
+                    jsGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(jsGradien[0]);
+                });
+                jsIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initJSGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | JavaScript - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

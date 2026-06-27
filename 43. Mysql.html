@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - MySQL | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA MYSQL - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #668B7C, #3a4a42);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Theme varian berdasarkan warna MySQL */
+        body.theme-mysql-primary {
+            background: radial-gradient(circle at 30% 20%, #655959, #3a3333);
+        }
+
+        body.theme-mysql-green {
+            background: radial-gradient(circle at 60% 40%, #64A183, #2d4a3a);
+        }
+
+        body.theme-mysql-teal {
+            background: radial-gradient(circle at 70% 30%, #72C8A7, #2d5a4a);
+        }
+
+        body.theme-mysql-light {
+            background: radial-gradient(circle at 40% 70%, #C8D4D0, #5a6a65);
+        }
+
+        body.theme-mysql-dark {
+            background: radial-gradient(circle at 80% 50%, #668B7C, #2a3a32);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(100, 161, 131, 0.4);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(114, 200, 167, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #72C8A7, #64A183);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(100, 161, 131, 0.6);
+            animation: softPulseMySQL 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseMySQL {
+            0% {
+                text-shadow: 0 0 4px #64A183;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #72C8A7;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #C8D4D0, #72C8A7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #C8D4D0;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(100, 161, 131, 0.4);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(100, 161, 131, 0.25);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #72C8A7;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(100, 161, 131, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #72C8A7;
+            box-shadow: 0 0 0 3px rgba(100, 161, 131, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #C8D4D0;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #72C8A7;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(100, 161, 131, 0.25);
+            border: 1px solid rgba(100, 161, 131, 0.6);
+            color: #C8D4D0;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(100, 161, 131, 0.45);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(100, 161, 131, 0.45);
+        }
+
+        .shortcut-msg {
+            background: #64A183;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #1a2a22;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(100, 161, 131, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #64A183;
+            border-right: 1px solid rgba(100, 161, 131, 0.3);
+            border-top: 1px solid rgba(100, 161, 131, 0.2);
+            border-bottom: 1px solid rgba(100, 161, 131, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(50, 65, 58, 0.85), rgba(30, 40, 35, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #72C8A7;
+            box-shadow: 0 12px 25px -8px rgba(100, 161, 131, 0.5);
+            background: linear-gradient(135deg, rgba(100, 161, 131, 0.9), rgba(50, 65, 58, 0.75));
+        }
+
+        /* Gradien Card MySQL-Theme */
+        .materi-card.mysql-gradien-0 {
+            background: linear-gradient(135deg, rgba(50, 65, 58, 0.85), rgba(30, 40, 35, 0.7));
+            border-left-color: #3a4a42;
+        }
+
+        .materi-card.mysql-gradien-1 {
+            background: linear-gradient(135deg, rgba(100, 161, 131, 0.85), rgba(50, 65, 58, 0.7));
+            border-left-color: #64A183;
+        }
+
+        .materi-card.mysql-gradien-2 {
+            background: linear-gradient(135deg, rgba(114, 200, 167, 0.8), rgba(100, 161, 131, 0.7));
+            border-left-color: #72C8A7;
+        }
+
+        .mapel-badge {
+            background: rgba(114, 200, 167, 0.5);
+            color: #D0F0E5;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #E8F0EC;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #655959;
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(101, 89, 89, 0.5);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #7a6c6c;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a3a32;
+            color: #6a8a7a;
+            border: 1px solid #4a6a5a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #72C8A7;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(100, 161, 131, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(100, 161, 131, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a2a22;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #64A183;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #72C8A7;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(100, 161, 131, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-mysql-primary .footer {
+            border-color: rgba(101, 89, 89, 0.3);
+        }
+
+        body.theme-mysql-green .footer {
+            border-color: rgba(100, 161, 131, 0.3);
+        }
+
+        body.theme-mysql-teal .footer {
+            border-color: rgba(114, 200, 167, 0.3);
+        }
+
+        body.theme-mysql-light .footer {
+            border-color: rgba(200, 212, 208, 0.2);
+        }
+
+        body.theme-mysql-dark .footer {
+            border-color: rgba(102, 139, 124, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #72C8A7, #64A183);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #C8D4D0;
+            padding: 0.15rem 0.7rem;
+            background: rgba(100, 161, 131, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(100, 161, 131, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-mysql-primary .footer-tagline {
+            color: #d0c8c8;
+            background: rgba(101, 89, 89, 0.2);
+            border-color: rgba(101, 89, 89, 0.2);
+        }
+
+        body.theme-mysql-light .footer-tagline {
+            color: #1a2a22;
+            background: rgba(200, 212, 208, 0.2);
+            border-color: rgba(200, 212, 208, 0.2);
+        }
+
+        body.theme-mysql-teal .footer-tagline {
+            color: #e8fff5;
+            background: rgba(114, 200, 167, 0.2);
+            border-color: rgba(114, 200, 167, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #C8D4D0;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-mysql-primary .footer-info {
+            color: #d0c8c8;
+        }
+
+        body.theme-mysql-light .footer-info {
+            color: #1a2a22;
+        }
+
+        body.theme-mysql-teal .footer-info {
+            color: #e8fff5;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-mysql-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>🗄️ MySQL Database</h1>
+                <p>Pilih Materi, Kuasai Database SQL!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi MySQL..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card mysql-card" data-title="ACID properties">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">ACID properties</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Aggregate function">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Aggregate function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="AI analytics dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">AI analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Alias tabel dan kolom">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Alias tabel dan kolom</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="ALTER statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">ALTER statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Apache dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Apache dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Authentication database dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Authentication database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Authorization database dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Authorization database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="AUTO_INCREMENT">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">AUTO_INCREMENT</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Automation database dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Automation database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="AVG">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">AVG</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Backup automation dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Backup automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Backup database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Backup database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Banking database dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Banking database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="BETWEEN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">BETWEEN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Big data integration dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Big data integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Business intelligence dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Business intelligence dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Candidate key">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Candidate key</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Career path database administrator">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Career path database administrator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="CASE expression">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">CASE expression</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Character set dan collation">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Character set dan collation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Chatbot dengan database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Chatbot dengan database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="CI/CD untuk database script">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">CI/CD untuk database script</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Clean code SQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Clean code SQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Cloud database (RDS)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Cloud database (RDS)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Cluster database dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Cluster database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Code refactoring query">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Code refactoring query</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Command line interface MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Command line interface MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Composite key">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Composite key</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Concurrency control">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Concurrency control</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Constraint (NOT NULL, UNIQUE)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Constraint (NOT NULL, UNIQUE)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="COUNT">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">COUNT</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="CREATE DATABASE">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">CREATE DATABASE</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="CREATE TABLE">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">CREATE TABLE</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="CREATE VIEW">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">CREATE VIEW</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="CROSS JOIN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">CROSS JOIN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Cryptography di database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Cryptography di database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Cybersecurity dasar untuk admin database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Cybersecurity dasar untuk admin database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Dashboard analytics database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Dashboard analytics database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data analytical dengan SQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data analytical dengan SQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data compression di MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data compression di MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data definition language (DDL)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data definition language (DDL)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data dictionary">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data dictionary</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data encryption (TDE)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data encryption (TDE)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data integrity">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data integrity</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data manipulation language (DML)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data manipulation language (DML)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data modeling dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data modeling dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data science dengan SQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data science dengan SQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data types (Numeric, String, Date)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data types (Numeric, String, Date)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Data warehouse dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Data warehouse dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Database administration dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Database administration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Database architecture MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Database architecture MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Database design project">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Database design project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Database migration">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Database migration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Database tuning dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Database tuning dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Date function MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Date function MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Deadlock di MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Deadlock di MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="DELETE statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">DELETE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Denormalisasi database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Denormalisasi database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="DevOps untuk database administrator">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">DevOps untuk database administrator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="DISTINCT statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">DISTINCT statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="DROP DATABASE">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">DROP DATABASE</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="DROP TABLE">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">DROP TABLE</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="E-commerce database design">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">E-commerce database design</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Enterprise architecture database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Enterprise architecture database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Entity relationship diagram (ERD)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Entity relationship diagram (ERD)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Error handling di MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Error handling di MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Event scheduler MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Event scheduler MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="EXPLAIN statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">EXPLAIN statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Export dan import data">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Export dan import data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Failover database dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Failover database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Financial database design">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Financial database design</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Foreign key">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Foreign key</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Full-text search MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Full-text search MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Function MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Function MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Geospatial data MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Geospatial data MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Git untuk database versioning">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Git untuk database versioning</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="GRANT statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">GRANT statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="GROUP BY">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">GROUP BY</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="HAVING clause">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">HAVING clause</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="High availability MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">High availability MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="History database management">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">History database management</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="In-memory database concept">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">In-memory database concept</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Index MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Index MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Index tuning optimization">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Index tuning optimization</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="INNER JOIN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">INNER JOIN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="InnoDB storage engine">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">InnoDB storage engine</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="INSERT statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">INSERT statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Inventory database design">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Inventory database design</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="IoT database data logging">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">IoT database data logging</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Isolation level database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Isolation level database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="JOIN statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">JOIN statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="JSON data type MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">JSON data type MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="LEFT JOIN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">LEFT JOIN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="LIKE operator">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">LIKE operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="LIMIT statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">LIMIT statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Locking mechanism (Row, Table)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Locking mechanism (Row, Table)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Log files (Error, Slow, General)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Log files (Error, Slow, General)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Logical operator (AND, OR, NOT)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Logical operator (AND, OR, NOT)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Machine learning dengan database data">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Machine learning dengan database data</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Master-slave replication">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Master-slave replication</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MAX">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MAX</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MIN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MIN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Multi-tenant database architecture">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Multi-tenant database architecture</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MyISAM storage engine">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MyISAM storage engine</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MySQL configuration (my.cnf)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MySQL configuration (my.cnf)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MySQL dengan Docker">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MySQL dengan Docker</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MySQL dengan Kubernetes">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MySQL dengan Kubernetes</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MySQL project dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MySQL project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MySQL Shell">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MySQL Shell</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="MySQL Workbench">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">MySQL Workbench</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="NATURAL JOIN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">NATURAL JOIN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Nested query">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Nested query</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Network configuration database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Network configuration database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Normalisasi 1NF">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Normalisasi 1NF</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Normalisasi 2NF">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Normalisasi 2NF</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Normalisasi 3NF">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Normalisasi 3NF</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Null value handling">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Null value handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Online analytical processing (OLAP)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Online analytical processing (OLAP)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Online transaction processing (OLTP)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Online transaction processing (OLTP)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Open source database contribution">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Open source database contribution</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Optimization query">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Optimization query</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="ORDER BY">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">ORDER BY</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Partitioning tabel dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Partitioning tabel dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Performance monitoring">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Performance monitoring</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Performance schema MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Performance schema MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="PHP dengan MySQL dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">PHP dengan MySQL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Point-in-time recovery">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Point-in-time recovery</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Portfolio database admin">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Portfolio database admin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Prepared statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Prepared statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Primary key">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Primary key</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Privileges management">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Privileges management</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Procurement database design">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Procurement database design</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Query caching">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Query caching</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Query optimization analyzer">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Query optimization analyzer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Raw query vs ORM">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Raw query vs ORM</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Real-time data streaming database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Real-time data streaming database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Recursive query (CTE) dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Recursive query (CTE) dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Relational database management system (RDBMS)">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Relational database management system (RDBMS)</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Replication lag analysis">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Replication lag analysis</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Reporting system SQL query">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Reporting system SQL query</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="REST API database integration">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">REST API database integration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="REVOKE statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">REVOKE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="RIGHT JOIN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">RIGHT JOIN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Roles management database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Roles management database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="RPA data integration">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">RPA data integration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Sales database design">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Sales database design</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Scaling database dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Scaling database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Schema design project">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Schema design project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Search engine database integration">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Search engine database integration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Secure database design">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Secure database design</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Secure query">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Secure query</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Security MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Security MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="SELECT statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">SELECT statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="SELF JOIN">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">SELF JOIN</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Sequelize dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Sequelize dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Sharding dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Sharding dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Social media database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Social media database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Software engineering database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Software engineering database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="SQL syntax MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">SQL syntax MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="SQLAlchemy dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">SQLAlchemy dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="SQL Injection">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">SQL Injection</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Startup development database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Startup development database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Stored procedure">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Stored procedure</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="String function MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">String function MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Struktur database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Struktur database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Subquery MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Subquery MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="SUM">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">SUM</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Tabel database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Tabel database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Temporary table">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Temporary table</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Transaction database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Transaction database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Trigger database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Trigger database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="TRUNCATE statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">TRUNCATE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="UNION dan UNION ALL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">UNION dan UNION ALL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="UNIQUE">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">UNIQUE</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="UPDATE statement">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">UPDATE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="User management">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">User management</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="View database">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">View database</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Version control dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Web development dengan MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Web development dengan MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Wildcard MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Wildcard MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="Window function dasar">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">Window function dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card mysql-card" data-title="XML di MySQL">
+                <span class="mapel-badge">🗄️ MySQL</span>
+                <h3 class="card-title">XML di MySQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>(function () {
+            // ==================== THEME ROTATION MySQL ====================
+            const colorThemes = ['theme-mysql-primary', 'theme-mysql-green', 'theme-mysql-teal', 'theme-mysql-light', 'theme-mysql-dark'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== MySQL GRADIENT ROTATION ====================
+            const mysqlGradien = ['mysql-gradien-0', 'mysql-gradien-1', 'mysql-gradien-2'];
+            let mysqlIndex = 0;
+            let gradientInterval = null;
+
+            function rotateMySQLGradient() {
+                const mysqlCards = document.querySelectorAll('.mysql-card, .materi-card');
+                if (mysqlCards.length === 0) return;
+                mysqlIndex = (mysqlIndex + 1) % mysqlGradien.length;
+                mysqlCards.forEach(card => {
+                    mysqlGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(mysqlGradien[mysqlIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateMySQLGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#72C8A7';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#72C8A7';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi MySQL`;
+                        resultCounterSpan.style.color = '#C8D4D0';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initMySQLGradient() {
+                const mysqlCards = document.querySelectorAll('.mysql-card, .materi-card');
+                if (mysqlCards.length === 0) return;
+                mysqlCards.forEach(card => {
+                    mysqlGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(mysqlGradien[0]);
+                });
+                mysqlIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initMySQLGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | MySQL - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

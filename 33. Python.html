@@ -1,0 +1,3067 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - Python | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA PYTHON - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #33004D, #230032);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body.theme-python-primary {
+            background: radial-gradient(circle at 30% 20%, #33004D, #230032);
+        }
+
+        body.theme-python-purple {
+            background: radial-gradient(circle at 60% 40%, #4A006F, #230032);
+        }
+
+        body.theme-python-pink {
+            background: radial-gradient(circle at 70% 30%, #D958E5, #33004D);
+        }
+
+        body.theme-python-cyan {
+            background: radial-gradient(circle at 40% 70%, #4FCED9, #230032);
+        }
+
+        body.theme-python-light {
+            background: radial-gradient(circle at 80% 50%, #A120F0, #33004D);
+        }
+
+        body.theme-python-dark {
+            background: radial-gradient(circle at 50% 50%, #230032, #0a0015);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(74, 0, 111, 0.5);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(161, 32, 240, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #4FCED9, #A120F0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(74, 0, 111, 0.6);
+            animation: softPulsePython 2.5s infinite alternate;
+        }
+
+        @keyframes softPulsePython {
+            0% {
+                text-shadow: 0 0 4px #4A006F;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #D958E5;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #D958E5, #4FCED9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #D958E5;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(74, 0, 111, 0.5);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(74, 0, 111, 0.3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #D958E5;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(74, 0, 111, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #D958E5;
+            box-shadow: 0 0 0 3px rgba(74, 0, 111, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #D958E5;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #A120F0;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(74, 0, 111, 0.3);
+            border: 1px solid rgba(74, 0, 111, 0.6);
+            color: #D958E5;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(74, 0, 111, 0.5);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(74, 0, 111, 0.5);
+        }
+
+        .shortcut-msg {
+            background: #4A006F;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #D958E5;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(74, 0, 111, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #4A006F;
+            border-right: 1px solid rgba(74, 0, 111, 0.3);
+            border-top: 1px solid rgba(74, 0, 111, 0.2);
+            border-bottom: 1px solid rgba(74, 0, 111, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(40, 0, 60, 0.85), rgba(20, 0, 40, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #D958E5;
+            box-shadow: 0 12px 25px -8px rgba(74, 0, 111, 0.5);
+            background: linear-gradient(135deg, rgba(74, 0, 111, 0.9), rgba(40, 0, 60, 0.75));
+        }
+
+        /* Gradien Card Python-Theme */
+        .materi-card.python-gradien-0 {
+            background: linear-gradient(135deg, rgba(40, 0, 60, 0.85), rgba(20, 0, 40, 0.7));
+            border-left-color: #33004D;
+        }
+
+        .materi-card.python-gradien-1 {
+            background: linear-gradient(135deg, rgba(74, 0, 111, 0.85), rgba(40, 0, 60, 0.7));
+            border-left-color: #4A006F;
+        }
+
+        .materi-card.python-gradien-2 {
+            background: linear-gradient(135deg, rgba(161, 32, 240, 0.8), rgba(74, 0, 111, 0.7));
+            border-left-color: #A120F0;
+        }
+
+        .mapel-badge {
+            background: rgba(161, 32, 240, 0.5);
+            color: #E8D0F5;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #F0E8F5;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #33004D;
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(51, 0, 77, 0.5);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #4a006f;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a2a3a;
+            color: #6a6a8a;
+            border: 1px solid #4a4a6a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #D958E5;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(74, 0, 111, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(74, 0, 111, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a0a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4A006F;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D958E5;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(74, 0, 111, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-python-primary .footer {
+            border-color: rgba(51, 0, 77, 0.3);
+        }
+
+        body.theme-python-purple .footer {
+            border-color: rgba(74, 0, 111, 0.3);
+        }
+
+        body.theme-python-pink .footer {
+            border-color: rgba(217, 88, 229, 0.25);
+        }
+
+        body.theme-python-cyan .footer {
+            border-color: rgba(79, 206, 217, 0.25);
+        }
+
+        body.theme-python-light .footer {
+            border-color: rgba(161, 32, 240, 0.3);
+        }
+
+        body.theme-python-dark .footer {
+            border-color: rgba(35, 0, 50, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #4FCED9, #A120F0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #D958E5;
+            padding: 0.15rem 0.7rem;
+            background: rgba(74, 0, 111, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 0, 111, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-python-pink .footer-tagline {
+            color: #33004D;
+            background: rgba(217, 88, 229, 0.2);
+            border-color: rgba(217, 88, 229, 0.2);
+        }
+
+        body.theme-python-cyan .footer-tagline {
+            color: #230032;
+            background: rgba(79, 206, 217, 0.2);
+            border-color: rgba(79, 206, 217, 0.2);
+        }
+
+        body.theme-python-light .footer-tagline {
+            color: #e8d0f5;
+            background: rgba(161, 32, 240, 0.2);
+            border-color: rgba(161, 32, 240, 0.2);
+        }
+
+        body.theme-python-dark .footer-tagline {
+            color: #a060c8;
+            background: rgba(35, 0, 50, 0.2);
+            border-color: rgba(35, 0, 50, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #D958E5;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-python-pink .footer-info {
+            color: #33004D;
+        }
+
+        body.theme-python-cyan .footer-info {
+            color: #230032;
+        }
+
+        body.theme-python-light .footer-info {
+            color: #e8d0f5;
+        }
+
+        body.theme-python-dark .footer-info {
+            color: #a060c8;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-python-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>🐍 Python Programming</h1>
+                <p>Pilih Materi, Kuasai Bahasa Serba Guna!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi Python..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID DIKOSONGKAN -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card python-card" data-title="Abstraction">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Abstraction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="AI chatbot dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">AI chatbot dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="AI project dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">AI project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="API integration Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">API integration Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Arduino dengan Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Arduino dengan Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Artificial Intelligence Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Artificial Intelligence Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Async Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Async Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Authentication dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Authentication dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Automation bot dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Automation bot dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Automation project dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Automation project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Automation Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Automation Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Backend engineering Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Backend engineering Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="BeautifulSoup dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">BeautifulSoup dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="BeeWare dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">BeeWare dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Best practices Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Best practices Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Binary search">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Binary search</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Blockchain Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Blockchain Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Boolean">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Boolean</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Break dan continue">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Break dan continue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Bubble sort">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Bubble sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Calculator Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Calculator Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Career path Python developer">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Career path Python developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Chat application Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Chat application Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Chatbot Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Chatbot Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="CI/CD dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">CI/CD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Class">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Clean code Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Clean code Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Cloud computing dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Cloud computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Code refactoring">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Code refactoring</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Competitive programming Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Competitive programming Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Computer Vision dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Computer Vision dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Constructor">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Constructor</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Cross-platform application">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Cross-platform application</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="CRUD Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">CRUD Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="CSV file">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">CSV file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Custom exception">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Custom exception</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Cybersecurity Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Cybersecurity Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Dashboard analytics dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Dashboard analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Dashboard Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Dashboard Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Data analysis Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Data analysis Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Data cleaning">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Data cleaning</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Data structure Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Data structure Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Data visualization">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Data visualization</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Database Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Database Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Dataclass">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Dataclass</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Date dan time">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Date dan time</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Datetime module">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Datetime module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Debugging Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Debugging Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Decorator">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Decorator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Deep Learning dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Deep Learning dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Deployment aplikasi Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Deployment aplikasi Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Design pattern Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Design pattern Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Desktop application Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Desktop application Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Dictionary">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Dictionary</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Dictionary comprehension">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Dictionary comprehension</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Dictionary method">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Dictionary method</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Discord bot dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Discord bot dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Docker dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Docker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Documentation Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Documentation Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="E-commerce backend dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">E-commerce backend dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Email automation dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Email automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Encapsulation">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Encapsulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Encryption dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Encryption dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Ethical hacking dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Ethical hacking dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Event driven programming">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Event driven programming</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Excel automation dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Excel automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Exception handling">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Exception handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="FastAPI dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">FastAPI dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="File handling">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">File handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Finally">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Finally</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Flask dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Flask dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Float">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Float</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="For loop">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">For loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Freelance Python developer">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Freelance Python developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Fullstack Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Fullstack Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Function Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Function Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Functional programming Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Functional programming Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Game development Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Game development Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Generator">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Generator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Git dan GitHub dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Git dan GitHub dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Global dan local variable">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Global dan local variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Graph">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Graph</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="GUI modern Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">GUI modern Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="GUI Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">GUI Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Hashing dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Hashing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Hosting aplikasi Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Hosting aplikasi Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="IDE dan code editor Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">IDE dan code editor Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="If">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">If</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Import module">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Import module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Inheritance">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Inheritance</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Input dan output">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Input dan output</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Insertion sort">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Insertion sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Instalasi Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Instalasi Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Integer">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Integer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Inventory system Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Inventory system Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="IoT Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">IoT Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Iterable">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Iterable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Iterator">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Iterator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="JSON file">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">JSON file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="JSON module">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">JSON module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Jupyter Notebook">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Jupyter Notebook</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Kivy dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Kivy dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Komentar Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Komentar Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Lambda function">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Lambda function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Linked list">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Linked list</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Linux untuk Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Linux untuk Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="List">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">List</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="List comprehension">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">List comprehension</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="List method">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">List method</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Logging">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Logging</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Machine Learning Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Machine Learning Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Match case">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Match case</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Math module">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Math module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Matplotlib dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Matplotlib dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Memory management Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Memory management Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Membaca file">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Membaca file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Menulis file">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Menulis file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Method overloading">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Method overloading</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Method overriding">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Method overriding</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Microservices dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Microservices dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Mobile app Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Mobile app Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Modern Python development">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Modern Python development</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Module Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Module Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="MVC Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">MVC Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Multithreading">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Multithreading</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="MySQL dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">MySQL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Natural Language Processing dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Natural Language Processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Nested if">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Nested if</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Nested loop">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Nested loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Networking Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Networking Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Notes app Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Notes app Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="NumPy dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">NumPy dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Object">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="OCR dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">OCR dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="OOP Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">OOP Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Open source Python project">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Open source Python project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="OpenCV dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">OpenCV dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Operator aritmatika">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Operator aritmatika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Operator assignment">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Operator assignment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Operator identity">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Operator identity</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Operator logika">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Operator logika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Operator membership">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Operator membership</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Operator perbandingan">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Operator perbandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="ORM dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">ORM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="OS module">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">OS module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Package Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Package Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Pandas dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Pandas dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Parameter function">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Parameter function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="PDF processing dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">PDF processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Percabangan">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Percabangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Performance optimization Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Performance optimization Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Perulangan">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Perulangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="PIP package manager">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">PIP package manager</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Plotly dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Plotly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Polymorphism">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Polymorphism</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Portfolio project Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Portfolio project Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="PostgreSQL dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">PostgreSQL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Print function">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Print function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Pytest dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Pytest dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python project dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk AI generatif">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk AI generatif</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk bisnis">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk bisnis</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk data science">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk data science</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk edukasi">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk edukasi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk finansial">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk finansial</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk game">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk game</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk machine learning">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk machine learning</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Python untuk sains">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Python untuk sains</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Pythonic code">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Pythonic code</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Pygame dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Pygame dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="PyQt dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">PyQt dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="PyTorch dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">PyTorch dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Queue">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Queue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Random module">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Random module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Raspberry Pi dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Raspberry Pi dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Reactive programming dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Reactive programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Recursion algorithm">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Recursion algorithm</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Regular expression">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Regular expression</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Rekursi">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Rekursi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Requests library">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Requests library</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Responsive GUI Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Responsive GUI Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="REST API Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">REST API Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Return value">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Return value</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Scikit-learn dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Scikit-learn dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Scheduler automation dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Scheduler automation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Scope variable">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Scope variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Seaborn dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Seaborn dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Searching algorithm">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Searching algorithm</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Security best practices">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Security best practices</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Selection sort">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Selection sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Selenium dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Selenium dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Set">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Set</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Set method">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Set method</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Socket programming dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Socket programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Software architecture dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Software architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Software engineering Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Software engineering Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Sorting algorithm">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Sorting algorithm</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Space complexity">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Space complexity</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Speech recognition dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Speech recognition dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Sphinx dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Sphinx dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="SQLAlchemy dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">SQLAlchemy dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="SQLite dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">SQLite dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Stack">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Stack</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Startup development Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Startup development Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="String">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">String</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="String formatting">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">String formatting</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="String manipulation">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">String manipulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Struktur dasar Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Struktur dasar Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Syntax Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Syntax Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Sys module">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Sys module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Telegram bot dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Telegram bot dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="TensorFlow dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">TensorFlow dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Terminal command dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Terminal command dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Text to speech dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Text to speech dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Time complexity">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Time complexity</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Tipe data Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Tipe data Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Tkinter dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Tkinter dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="To-do list Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">To-do list Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Tree">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Tree</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Try except">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Try except</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Tuple">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Tuple</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Tuple operation">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Tuple operation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Type casting">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Type casting</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Type hinting">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Type hinting</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Unit testing">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Unit testing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="User input">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">User input</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Variable Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Variable Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Version control dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Virtual environment">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Virtual environment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Weather app Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Weather app Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Web development Python dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Web development Python dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Web scraping Python">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Web scraping Python</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="Websocket dasar">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">Websocket dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card python-card" data-title="While loop">
+                <span class="mapel-badge">💻 Python</span>
+                <h3 class="card-title">While loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION PYTHON ====================
+            const colorThemes = ['theme-python-primary', 'theme-python-purple', 'theme-python-pink', 'theme-python-cyan', 'theme-python-light', 'theme-python-dark'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== PYTHON GRADIENT ROTATION ====================
+            const pythonGradien = ['python-gradien-0', 'python-gradien-1', 'python-gradien-2'];
+            let pythonIndex = 0;
+            let gradientInterval = null;
+
+            function rotatePythonGradient() {
+                const pythonCards = document.querySelectorAll('.python-card, .materi-card');
+                if (pythonCards.length === 0) return;
+                pythonIndex = (pythonIndex + 1) % pythonGradien.length;
+                pythonCards.forEach(card => {
+                    pythonGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(pythonGradien[pythonIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotatePythonGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#D958E5';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#D958E5';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi Python`;
+                        resultCounterSpan.style.color = '#F0E8F5';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initPythonGradient() {
+                const pythonCards = document.querySelectorAll('.python-card, .materi-card');
+                if (pythonCards.length === 0) return;
+                pythonCards.forEach(card => {
+                    pythonGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(pythonGradien[0]);
+                });
+                pythonIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initPythonGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | Python - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

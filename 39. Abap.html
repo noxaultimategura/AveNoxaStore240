@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - ABAP | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA ABAP - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 30%, #0a0f1a, #03060c);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Theme Colors */
+        body.theme-green {
+            background: radial-gradient(circle at 30% 20%, #064e3b, #022c22);
+        }
+
+        body.theme-blue {
+            background: radial-gradient(circle at 70% 40%, #1e3a8a, #0f172a);
+        }
+
+        body.theme-cyan {
+            background: radial-gradient(circle at 50% 70%, #0e7490, #164e63);
+        }
+
+        body.theme-purple {
+            background: radial-gradient(circle at 60% 30%, #7e22ce, #4c1d95);
+        }
+
+        body.theme-pink {
+            background: radial-gradient(circle at 40% 60%, #be185d, #831843);
+        }
+
+        body.theme-orange {
+            background: radial-gradient(circle at 80% 50%, #c2410c, #7c2d12);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+            animation: softPulse 2s infinite alternate;
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 4px #10b981;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 18px #10b981;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #f9f3c1, #a7f3d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #ddd;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #10b981;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1.5px solid rgba(16, 185, 129, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #bbb;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #10b981;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: #a7f3d0;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(16, 185, 129, 0.35);
+            transform: scale(1.02);
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .shortcut-msg {
+            background: #10b981;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #022c22;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #10b981;
+            border-right: 1px solid rgba(16, 185, 129, 0.2);
+            border-top: 1px solid rgba(16, 185, 129, 0.15);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #f59e0b;
+            box-shadow: 0 10px 20px -8px black;
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        /* ABAP Gradients */
+        .materi-card.abap-gradien-0 {
+            background: linear-gradient(135deg, #FFADAD 0%, #FFD6A5 100%);
+        }
+
+        .materi-card.abap-gradien-1 {
+            background: linear-gradient(135deg, #FDFFB6 0%, #CAFFBF 100%);
+        }
+
+        .materi-card.abap-gradien-2 {
+            background: linear-gradient(135deg, #9BF6FF 0%, #BDB2FF 100%);
+        }
+
+        .materi-card.abap-gradien-3 {
+            background: linear-gradient(135deg, #BDB2FF 0%, #FFC6FF 100%);
+        }
+
+        .mapel-badge {
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            background: rgba(16, 185, 129, 0.3);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            color: #a7f3d0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #FFD6A5;
+            color: #5a3e00;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.95);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a3a35;
+            color: #7a9a8a;
+            border: 1px solid #3a5a4a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #f59e0b;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a1a15;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-green .footer {
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        body.theme-blue .footer {
+            border-color: rgba(30, 58, 138, 0.25);
+        }
+
+        body.theme-cyan .footer {
+            border-color: rgba(14, 116, 144, 0.25);
+        }
+
+        body.theme-purple .footer {
+            border-color: rgba(126, 34, 206, 0.25);
+        }
+
+        body.theme-pink .footer {
+            border-color: rgba(190, 24, 93, 0.25);
+        }
+
+        body.theme-orange .footer {
+            border-color: rgba(194, 65, 12, 0.25);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #fff, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #a7f3d0;
+            padding: 0.15rem 0.7rem;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-blue .footer-tagline {
+            color: #93c5fd;
+            background: rgba(30, 58, 138, 0.2);
+            border-color: rgba(30, 58, 138, 0.2);
+        }
+
+        body.theme-purple .footer-tagline {
+            color: #d8b4fe;
+            background: rgba(126, 34, 206, 0.2);
+            border-color: rgba(126, 34, 206, 0.2);
+        }
+
+        body.theme-pink .footer-tagline {
+            color: #fbcfe8;
+            background: rgba(190, 24, 93, 0.2);
+            border-color: rgba(190, 24, 93, 0.2);
+        }
+
+        body.theme-orange .footer-tagline {
+            color: #fdba74;
+            background: rgba(194, 65, 12, 0.2);
+            border-color: rgba(194, 65, 12, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #a7f3d0;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-blue .footer-info {
+            color: #93c5fd;
+        }
+
+        body.theme-purple .footer-info {
+            color: #d8b4fe;
+        }
+
+        body.theme-pink .footer-info {
+            color: #fbcfe8;
+        }
+
+        body.theme-orange .footer-info {
+            color: #fdba74;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.6);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-green">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>💼 ABAP Programming</h1>
+                <p>Pilih Materi, Kuasai Pemrograman SAP!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi ABAP..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID DIKOSONGKAN -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card abap-card" data-title="ABAP Dictionary">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ABAP Dictionary</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="ABAP on HANA dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ABAP on HANA dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="ABAP Workbench">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ABAP Workbench</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Abstraction">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Abstraction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Access modifier dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Access modifier dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Adobe Forms dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Adobe Forms dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Aggregate function dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Aggregate function dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="AI integration dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">AI integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="ALE dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ALE dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="ALV Report dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ALV Report dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="AMDP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">AMDP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="API integration SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">API integration SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Audit trail dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Audit trail dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Authorization dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Authorization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Automation SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Automation SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Automation testing dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Automation testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Background job dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Background job dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="BAPI dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">BAPI dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Batch input dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Batch input dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Batch processing dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Batch processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="BDC dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">BDC dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Best practices ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Best practices ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Blockchain integration dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Blockchain integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Breakpoint">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Breakpoint</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Business intelligence dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Business intelligence dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Business process dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Business process dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Career path ABAP developer">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Career path ABAP developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="CASE statement">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">CASE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="CDS View dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">CDS View dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Character">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Character</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Chatbot SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Chatbot SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="CI/CD dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">CI/CD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Class dan object">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Class dan object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Classical report dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Classical report dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Clean code ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Clean code ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Cloud SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Cloud SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Constructor">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Constructor</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="CRM dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">CRM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="CRUD ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">CRUD ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Dashboard analytics dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Dashboard analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Data dictionary ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Data dictionary ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Data migration SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Data migration SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Data warehouse dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Data warehouse dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Database performance dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Database performance dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Database table SAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Database table SAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Date">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Date</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Debugging ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Debugging ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="DELETE statement">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">DELETE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Design pattern ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Design pattern ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="DevOps SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">DevOps SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="DO loop">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">DO loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Domain dan data element">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Domain dan data element</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Dynpro dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Dynpro dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Encapsulation">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Encapsulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Encryption dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Encryption dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Enterprise application dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Enterprise application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Enterprise reporting project">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Enterprise reporting project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Enterprise software engineer">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Enterprise software engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="ERP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ERP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="ERP development dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ERP development dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="ETL dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">ETL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Event driven programming dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Event driven programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Event handling ABAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Event handling ABAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="EXIT dan CONTINUE">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">EXIT dan CONTINUE</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Exception handling ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Exception handling ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Field symbol">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Field symbol</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Finance dashboard SAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Finance dashboard SAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Financial module dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Financial module dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Float">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Float</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="FORM routine">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">FORM routine</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Fullstack SAP development dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Fullstack SAP development dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Function ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Function ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Function module">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Function module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Functional programming dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Functional programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Git dan version control dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Git dan version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="HR module dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">HR module dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="IDoc dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">IDoc dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="IF ELSE">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">IF ELSE</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Include program">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Include program</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Index database dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Index database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Inheritance">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Inheritance</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Input dan output ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Input dan output ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="INSERT statement">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">INSERT statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Instalasi ABAP environment">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Instalasi ABAP environment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Integer">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Integer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Interactive report dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Interactive report dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Interface ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Interface ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Internal table">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Internal table</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Internal table processing">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Internal table processing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Inventory management SAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Inventory management SAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="IoT integration dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">IoT integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Job scheduling dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Job scheduling dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="JOIN di ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">JOIN di ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Komentar ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Komentar ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Konstanta ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Konstanta ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Lock object">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Lock object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Logging dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Logging dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="LOOP AT">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">LOOP AT</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="LSMW dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">LSMW dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Machine learning SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Machine learning SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Memory optimization dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Memory optimization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Message handling">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Message handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Method ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Method ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Method overriding">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Method overriding</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="MM module dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">MM module dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Mobile SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Mobile SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Modularization techniques">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Modularization techniques</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Module pool dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Module pool dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Modern enterprise development ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Modern enterprise development ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Native SQL dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Native SQL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="OData dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">OData dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="OOP ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">OOP ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Open source SAP project dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Open source SAP project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Open SQL">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Open SQL</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Operator aritmatika">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Operator aritmatika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Operator logika">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Operator logika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Operator perbandingan">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Operator perbandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Parameter passing">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Parameter passing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Parameters dan select-options">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Parameters dan select-options</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Payroll system dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Payroll system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Percabangan ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Percabangan ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Performance optimization ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Performance optimization ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Perulangan ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Perulangan ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Polymorphism">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Polymorphism</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Portfolio project ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Portfolio project ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Procurement system dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Procurement system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Refactoring code">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Refactoring code</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Reporting SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Reporting SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="REST API dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">REST API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Return value">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Return value</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="RFC dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">RFC dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Role dan permission dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Role dan permission dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="RPA dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">RPA dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Runtime analysis dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Runtime analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Sales management SAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Sales management SAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP BTP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP BTP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP BW dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP BW dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP consultant">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP consultant</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP Fiori dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP Fiori dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP functional consultant">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP functional consultant</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP Gateway dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP Gateway dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP GUI dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP GUI dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP HANA dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP HANA dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP integration dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP NetWeaver dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP NetWeaver dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP Script dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP Script dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP security dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP security dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAP technical consultant">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAP technical consultant</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SAPUI5 dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SAPUI5 dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Scope variable">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Scope variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Screen programming dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Screen programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SD module dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SD module dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Search help">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Search help</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Secure coding ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Secure coding ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SELECT statement">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SELECT statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Selection screen">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Selection screen</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Smart Forms dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Smart Forms dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Software engineering ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Software engineering ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SOLID principles dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SOLID principles dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="SQL tuning dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">SQL tuning dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="String">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">String</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="String manipulation ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">String manipulation ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Structure">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Structure</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Struktur dasar program ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Struktur dasar program ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Subquery dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Subquery dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Supply chain dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Supply chain dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Syntax ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Syntax ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Testing ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Testing ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Time">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Time</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Tipe data ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Tipe data ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Transport request dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Transport request dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="TRY CATCH">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">TRY CATCH</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Unit testing dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Unit testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="UPDATE statement">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">UPDATE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="User management SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">User management SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Variable ABAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Variable ABAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Version management dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Version management dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="View SAP">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">View SAP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Web Dynpro dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Web Dynpro dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Web service dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Web service dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="WHILE loop">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">WHILE loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Work area">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Work area</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="Workflow SAP dasar">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">Workflow SAP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card abap-card" data-title="WRITE statement">
+                <span class="mapel-badge">💻 ABAP</span>
+                <h3 class="card-title">WRITE statement</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION ====================
+            const colorThemes = ['theme-green', 'theme-blue', 'theme-cyan', 'theme-purple', 'theme-pink', 'theme-orange'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== ABAP GRADIENT ROTATION ====================
+            const abapGradien = ['abap-gradien-0', 'abap-gradien-1', 'abap-gradien-2', 'abap-gradien-3'];
+            let abapIndex = 0;
+
+            function rotateAbapGradient() {
+                const abapCards = document.querySelectorAll('.abap-card');
+                if (abapCards.length === 0) return;
+                abapIndex = (abapIndex + 1) % abapGradien.length;
+                abapCards.forEach(card => {
+                    abapGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(abapGradien[abapIndex]);
+                });
+            }
+            setInterval(rotateAbapGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+
+                allCards.forEach(card => {
+                    const links = card.querySelectorAll('.button-group .materi-link');
+                    let hasValidLink = false;
+                    links.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && href !== '' && href !== '#') {
+                            hasValidLink = true;
+                        }
+                    });
+                    if (hasValidLink) {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    // CEK APAKAH ADA SETIDAKNYA 1 LINK YANG TERISI
+                    const links = card.querySelectorAll('.button-group .materi-link');
+                    let hasValidLink = false;
+                    links.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href && href !== '' && href !== '#') {
+                            hasValidLink = true;
+                        }
+                    });
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    // TAMPILKAN HANYA JIKA ADA LINK VALID DAN MATCH PENCARIAN
+                    if (hasValidLink && isMatch) {
+                        card.style.display = '';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Hapus no-result message jika ada
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#f59e0b';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#f59e0b';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ?
+                            `✨ Ditemukan ${visibleCount} materi` :
+                            `📚 ${visibleCount} materi ABAP`;
+                        resultCounterSpan.style.color = '#a7f3d0';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                });
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initAbapGradient() {
+                const abapCards = document.querySelectorAll('.abap-card');
+                if (abapCards.length === 0) return;
+                abapCards.forEach(card => {
+                    abapGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(abapGradien[0]);
+                });
+                abapIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initAbapGradient();
+                updateStatistik();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | ABAP - Siap menerima materi grid');
+        })();
+    </script>
+</body>
+
+</html>

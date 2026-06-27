@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>DEV HUB · Pilihan Cerita</title>
+    <style>
+        /* ========== WARNA HIJAU NATURAL ========== */
+        /* #1a3a2a, #2d5a3d, #4a7c5e, #6f9e7a, #a8c9a8, #d4e8d4 */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #1a3a2a, #0d1f15);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body.theme-primary {
+            background: radial-gradient(circle at 30% 20%, #1a3a2a, #0d1f15);
+        }
+
+        body.theme-forest {
+            background: radial-gradient(circle at 60% 40%, #2d5a3d, #1a3a2a);
+        }
+
+        body.theme-mint {
+            background: radial-gradient(circle at 70% 30%, #4a7c5e, #1a3a2a);
+        }
+
+        body.theme-sage {
+            background: radial-gradient(circle at 40% 70%, #a8c9a8, #2d5a3d);
+        }
+
+        body.theme-lightgreen {
+            background: radial-gradient(circle at 80% 50%, #6f9e7a, #1a3a2a);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(74, 124, 94, 0.4);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(74, 124, 94, 0.4);
+            padding-bottom: 1rem;
+        }
+
+        .dev-hub {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #6f9e7a, #2d5a3d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(45, 90, 61, 0.4);
+            animation: softPulse 2.5s infinite alternate;
+        }
+
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 4px #1a3a2a;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #6f9e7a;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #6f9e7a, #2d5a3d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #6f9e7a;
+            text-align: right;
+        }
+
+        .decorative-line {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .decorative-line span {
+            height: 3px;
+            border-radius: 10px;
+            flex: 1;
+            max-width: 80px;
+            background: linear-gradient(90deg, #1a3a2a, #6f9e7a, #a8c9a8, #6f9e7a, #1a3a2a);
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(74, 124, 94, 0.4);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: #d4e8d4;
+            background: rgba(74, 124, 94, 0.3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #6f9e7a;
+        }
+
+        .search-section {
+            max-width: 700px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(74, 124, 94, 0.5);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #d4e8d4;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #6f9e7a;
+            box-shadow: 0 0 0 3px rgba(74, 124, 94, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #6f9e7a;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #d4e8d4;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #2d5a3d;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(45, 90, 61, 0.3);
+            border: 1px solid rgba(74, 124, 94, 0.5);
+            color: #6f9e7a;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(74, 124, 94, 0.5);
+            transform: scale(1.02);
+            color: #d4e8d4;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(74, 124, 94, 0.4);
+        }
+
+        #resultCounter {
+            color: #d4e8d4;
+        }
+
+        .shortcut-msg {
+            background: #1a3a2a;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #6f9e7a;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(74, 124, 94, 0.3);
+        }
+
+        #shortcutNotif {
+            color: #a8c9a8;
+            font-size: 0.7rem;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #2d5a3d;
+            border-right: 1px solid rgba(74, 124, 94, 0.3);
+            border-top: 1px solid rgba(74, 124, 94, 0.2);
+            border-bottom: 1px solid rgba(74, 124, 94, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            text-decoration: none;
+            background: linear-gradient(135deg, rgba(26, 58, 42, 0.85), rgba(13, 31, 21, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #6f9e7a;
+            box-shadow: 0 12px 25px -8px rgba(74, 124, 94, 0.4);
+            background: linear-gradient(135deg, rgba(74, 124, 94, 0.8), rgba(26, 58, 42, 0.75));
+        }
+
+        /* Gradien Card Hijau Natural */
+        .materi-card.gradien-0 {
+            background: linear-gradient(135deg, rgba(26, 58, 42, 0.85), rgba(13, 31, 21, 0.7));
+            border-left-color: #1a3a2a;
+        }
+
+        .materi-card.gradien-1 {
+            background: linear-gradient(135deg, rgba(45, 90, 61, 0.8), rgba(26, 58, 42, 0.7));
+            border-left-color: #2d5a3d;
+        }
+
+        .materi-card.gradien-2 {
+            background: linear-gradient(135deg, rgba(111, 158, 122, 0.7), rgba(45, 90, 61, 0.7));
+            border-left-color: #6f9e7a;
+        }
+
+        .cerita-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .card-title {
+            color: #d4e8d4;
+            font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-desc {
+            color: #a8c9a8;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-dapatkan {
+            padding: 0.65rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            background: #2d5a3d;
+            color: #d4e8d4;
+            box-shadow: 0 2px 6px rgba(45, 90, 61, 0.4);
+            width: 100%;
+        }
+
+        .materi-card:hover .btn-dapatkan {
+            background: #4a7c5e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 124, 94, 0.5);
+        }
+
+        /* TOMBOL NONAKTIF */
+        .btn-dapatkan[href=""] {
+            background: #2a3a32;
+            color: #6a8a7a;
+            border: 1px solid #3a5a4a;
+            cursor: not-allowed;
+            opacity: 0.6;
+            animation: none;
+            pointer-events: none;
+        }
+
+        .btn-dapatkan[href=""]:hover {
+            background: #2a3a32;
+            color: #6a8a7a;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #6f9e7a;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(74, 124, 94, 0.4);
+        }
+
+        .no-result span {
+            color: #a8c9a8;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(74, 124, 94, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d1f15;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2d5a3d;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6f9e7a;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(74, 124, 94, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-primary .footer {
+            border-color: rgba(26, 58, 42, 0.3);
+        }
+
+        body.theme-forest .footer {
+            border-color: rgba(45, 90, 61, 0.3);
+        }
+
+        body.theme-mint .footer {
+            border-color: rgba(74, 124, 94, 0.3);
+        }
+
+        body.theme-sage .footer {
+            border-color: rgba(168, 201, 168, 0.2);
+        }
+
+        body.theme-lightgreen .footer {
+            border-color: rgba(111, 158, 122, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #6f9e7a, #2d5a3d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #6f9e7a;
+            padding: 0.15rem 0.7rem;
+            background: rgba(74, 124, 94, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 124, 94, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-sage .footer-tagline {
+            color: #1a3a2a;
+            background: rgba(168, 201, 168, 0.2);
+            border-color: rgba(168, 201, 168, 0.2);
+        }
+
+        body.theme-lightgreen .footer-tagline {
+            color: #d4e8d4;
+            background: rgba(111, 158, 122, 0.2);
+            border-color: rgba(111, 158, 122, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #6f9e7a;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-sage .footer-info {
+            color: #1a3a2a;
+        }
+
+        body.theme-lightgreen .footer-info {
+            color: #d4e8d4;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .dev-hub {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.3rem;
+            }
+
+            .materi-card {
+                padding: 1.6rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.4rem;
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.3rem;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .dev-hub {
+                white-space: normal;
+                text-align: center;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-row-flex {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .search-wrapper {
+                width: 100%;
+            }
+
+            .btn-refresh-neon {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .decorative-line {
+                gap: 0.3rem;
+            }
+
+            .decorative-line span {
+                max-width: 40px;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 0.3rem;
+                text-align: center;
+            }
+
+            #shortcutNotif {
+                min-width: auto;
+            }
+
+            #materiContainer {
+                grid-template-columns: 1fr;
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.55rem;
+                font-size: 0.75rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .dev-hub {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .dev-hub {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-primary">
+    <div class="app-container">
+        <!-- ===== TOP BRAND BAR ===== -->
+        <div class="top-brand-bar">
+            <div class="dev-hub">📖 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>📚 PILIH JENIS CERITA</h1>
+                <p>3 Jenis Cerita untuk Dibaca</p>
+            </div>
+        </div>
+
+        <!-- ===== DECORATIVE LINE ===== -->
+        <div class="decorative-line">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- ===== STATS & SEARCH ===== -->
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total:</strong> <span id="totalMateriCount">3</span></span>
+                <span>✅ <strong>Tersedia:</strong> <span id="materiSudahAda">3</span></span>
+                <span>⏳ <strong>Belum:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari jenis cerita..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="index.html" class="btn-refresh-neon" style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== STATS BAR ===== -->
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 3 jenis cerita</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif"></span>
+        </div>
+
+        <!-- ===== CERITA GRID ===== -->
+        <div class="cerita-grid" id="ceritaGrid">
+            <!-- 1. HIKAYAT -->
+            <a href="501. hikayat.html" class="cerita-card gradien-0" data-title="Hikayat">
+                <div class="cerita-icon">👑</div>
+                <div class="cerita-title">Hikayat</div>
+                <div class="cerita-desc">Cerita klasik Melayu penuh nilai</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+
+            <!-- 2. NOVEL -->
+            <a href="500. novel.html" class="cerita-card gradien-0" data-title="Novel">
+                <div class="cerita-icon">📕</div>
+                <div class="cerita-title">Novel</div>
+                <div class="cerita-desc">Kisah panjang dengan alur mendalam</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+
+            <!-- 3. FABEL -->
+            <a href="502. fabel.html" class="cerita-card gradien-0" data-title="Fabel">
+                <div class="cerita-icon">🦊</div>
+                <div class="cerita-title">Fabel</div>
+                <div class="cerita-desc">Cerita binatang penuh pesan moral</div>
+                <div class="btn-masuk">Masuk →</div>
+            </a>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // ==================== THEME ROTATION ====================
+            const colorThemes = ['theme-primary', 'theme-forest', 'theme-mint', 'theme-sage', 'theme-lightgreen'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== GRADIENT ROTATION ====================
+            const gradienList = ['gradien-0', 'gradien-1', 'gradien-2'];
+            let gradienIndex = 0;
+
+            function rotateGradient() {
+                const cards = document.querySelectorAll('.cerita-card');
+                if (cards.length === 0) return;
+                gradienIndex = (gradienIndex + 1) % gradienList.length;
+                cards.forEach(card => {
+                    gradienList.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(gradienList[gradienIndex]);
+                });
+            }
+            setInterval(rotateGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const refreshBtn = document.getElementById('refreshButton');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const allCards = Array.from(document.querySelectorAll('.cerita-card'));
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                document.getElementById('totalMateriCount').innerText = allCards.length;
+                document.getElementById('materiSudahAda').innerText = allCards.length;
+                document.getElementById('materiBelumAda').innerText = 0;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const title = card.getAttribute('data-title') || '';
+                    const isMatch = searchTerm === '' || title.toLowerCase().includes(searchTerm);
+                    card.style.display = isMatch ? '' : 'none';
+                    if (isMatch) visibleCount++;
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (searchTerm !== '' && visibleCount === 0) {
+                    resultCounterSpan.innerHTML = '❌ Tidak ditemukan';
+                    resultCounterSpan.style.color = '#6f9e7a';
+                    if (!noResultDiv) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        msgDiv.innerHTML = '📚 Jenis cerita tidak ditemukan<br><span>Coba kata kunci lain</span>';
+                        document.querySelector('.cerita-grid').parentNode.insertBefore(
+                            msgDiv,
+                            document.querySelector('.cerita-grid').nextSibling
+                        );
+                    } else {
+                        noResultDiv.style.display = 'block';
+                    }
+                } else {
+                    resultCounterSpan.innerHTML = searchTerm !== '' ?
+                        `✨ Ditemukan ${visibleCount} jenis` :
+                        `📚 Menampilkan ${visibleCount} jenis cerita`;
+                    resultCounterSpan.style.color = '#d4e8d4';
+                    if (noResultDiv) noResultDiv.style.display = 'none';
+                }
+            }
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function () {
+                    searchInput.value = '';
+                    filterMateri();
+                    const spinIcon = this.querySelector('span');
+                    if (spinIcon) {
+                        spinIcon.style.animation = 'spin 0.6s ease';
+                        setTimeout(() => {
+                            spinIcon.style.animation = '';
+                        }, 600);
+                    }
+                    allCards.forEach(card => {
+                        card.style.transform = 'scale(0.97)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== EVENT LISTENERS ====================
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(filterMateri, 200);
+            });
+
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                filterMateri();
+                searchInput.focus();
+                if (shortcutNotifSpan) {
+                    shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                    setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                }
+            });
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                // Ctrl+K = Fokus ke search
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                // Shift+F = Fokus ke search
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                // ESC = Hapus pencarian atau blur
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== INIT ====================
+            updateStatistik();
+            filterMateri();
+            console.log('✅ DEV HUB | 3 jenis cerita | Warna Hijau Natural');
+            console.log('🎨 #1a3a2a, #2d5a3d, #4a7c5e, #6f9e7a, #a8c9a8, #d4e8d4');
+        })();
+    </script>
+</body>
+
+</html>

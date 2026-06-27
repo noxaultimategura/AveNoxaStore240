@@ -1,0 +1,2937 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - TypeScript | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA TYPESCRIPT - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #363D46, #02070D);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body.theme-ts-primary {
+            background: radial-gradient(circle at 30% 20%, #363D46, #02070D);
+        }
+
+        body.theme-ts-gray {
+            background: radial-gradient(circle at 60% 40%, #59626C, #14191F);
+        }
+
+        body.theme-ts-dark {
+            background: radial-gradient(circle at 70% 30%, #252B33, #02070D);
+        }
+
+        body.theme-ts-medium {
+            background: radial-gradient(circle at 40% 70%, #48505A, #14191F);
+        }
+
+        body.theme-ts-light {
+            background: radial-gradient(circle at 80% 50%, #75808D, #252B33);
+        }
+
+        body.theme-ts-charcoal {
+            background: radial-gradient(circle at 50% 50%, #66707C, #02070D);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(54, 61, 70, 0.6);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(89, 98, 108, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #75808D, #363D46);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(54, 61, 70, 0.6);
+            animation: softPulseTS 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseTS {
+            0% {
+                text-shadow: 0 0 4px #363D46;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #75808D;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #75808D, #59626C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #75808D;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(54, 61, 70, 0.6);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(54, 61, 70, 0.4);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #75808D;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(54, 61, 70, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #75808D;
+            box-shadow: 0 0 0 3px rgba(54, 61, 70, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #75808D;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #59626C;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(54, 61, 70, 0.4);
+            border: 1px solid rgba(54, 61, 70, 0.6);
+            color: #75808D;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(54, 61, 70, 0.6);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(54, 61, 70, 0.6);
+        }
+
+        .shortcut-msg {
+            background: #252B33;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #75808D;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(37, 43, 51, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #48505A;
+            border-right: 1px solid rgba(72, 80, 90, 0.3);
+            border-top: 1px solid rgba(72, 80, 90, 0.2);
+            border-bottom: 1px solid rgba(72, 80, 90, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(30, 35, 42, 0.85), rgba(15, 18, 25, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #75808D;
+            box-shadow: 0 12px 25px -8px rgba(54, 61, 70, 0.5);
+            background: linear-gradient(135deg, rgba(54, 61, 70, 0.9), rgba(30, 35, 42, 0.75));
+        }
+
+        /* Gradien Card TypeScript-Theme */
+        .materi-card.ts-gradien-0 {
+            background: linear-gradient(135deg, rgba(30, 35, 42, 0.85), rgba(15, 18, 25, 0.7));
+            border-left-color: #252B33;
+        }
+
+        .materi-card.ts-gradien-1 {
+            background: linear-gradient(135deg, rgba(54, 61, 70, 0.85), rgba(30, 35, 42, 0.7));
+            border-left-color: #363D46;
+        }
+
+        .materi-card.ts-gradien-2 {
+            background: linear-gradient(135deg, rgba(89, 98, 108, 0.8), rgba(54, 61, 70, 0.7));
+            border-left-color: #59626C;
+        }
+
+        .mapel-badge {
+            background: rgba(89, 98, 108, 0.5);
+            color: #C8D0D8;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #E8ECF0;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #363D46;
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(54, 61, 70, 0.5);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #4a535e;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #1a1a22;
+            color: #5a5a6a;
+            border: 1px solid #3a3a4a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #75808D;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(54, 61, 70, 0.6);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(54, 61, 70, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a12;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #48505A;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #75808D;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(54, 61, 70, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-ts-primary .footer {
+            border-color: rgba(54, 61, 70, 0.4);
+        }
+
+        body.theme-ts-gray .footer {
+            border-color: rgba(89, 98, 108, 0.4);
+        }
+
+        body.theme-ts-dark .footer {
+            border-color: rgba(37, 43, 51, 0.4);
+        }
+
+        body.theme-ts-medium .footer {
+            border-color: rgba(72, 80, 90, 0.4);
+        }
+
+        body.theme-ts-light .footer {
+            border-color: rgba(117, 128, 141, 0.3);
+        }
+
+        body.theme-ts-charcoal .footer {
+            border-color: rgba(102, 112, 124, 0.4);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #75808D, #363D46);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #75808D;
+            padding: 0.15rem 0.7rem;
+            background: rgba(54, 61, 70, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(54, 61, 70, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-ts-light .footer-tagline {
+            color: #02070D;
+            background: rgba(117, 128, 141, 0.2);
+            border-color: rgba(117, 128, 141, 0.2);
+        }
+
+        body.theme-ts-gray .footer-tagline {
+            color: #02070D;
+            background: rgba(89, 98, 108, 0.2);
+            border-color: rgba(89, 98, 108, 0.2);
+        }
+
+        body.theme-ts-charcoal .footer-tagline {
+            color: #FFFFFF;
+            background: rgba(102, 112, 124, 0.2);
+            border-color: rgba(102, 112, 124, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #75808D;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-ts-light .footer-info {
+            color: #02070D;
+        }
+
+        body.theme-ts-gray .footer-info {
+            color: #02070D;
+        }
+
+        body.theme-ts-charcoal .footer-info {
+            color: #FFFFFF;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-ts-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>📘 TypeScript</h1>
+                <p>Pilih Materi, Kuasai JavaScript Bertipe!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi TypeScript..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID DIKOSONGKAN -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card typescript-card" data-title="Abstract class">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Abstract class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Abstraction">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Abstraction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Access modifier">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Access modifier</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Admin panel TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Admin panel TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="AI integration dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">AI integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Angular dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Angular dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Animation web dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Animation web dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Any">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Any</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="API client dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">API client dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Apollo Client dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Apollo Client dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Array">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Array</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Arrow function">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Arrow function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Async await">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Async await</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Async TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Async TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Authentication dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Authentication dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Authorization dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Authorization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Automation TypeScript dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Automation TypeScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Axios dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Axios dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Babel dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Babel dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Backend development TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Backend development TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Backend engineer">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Backend engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Boolean">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Boolean</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Browser API dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Browser API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Build tools TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Build tools TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Bundler dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Bundler dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Bun runtime dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Bun runtime dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Callback function">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Callback function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Career path TypeScript developer">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Career path TypeScript developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Chat application TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Chat application TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Chatbot dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Chatbot dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="CI/CD dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">CI/CD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Class dan object">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Class dan object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Clean architecture dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Clean architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="CLI application dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">CLI application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Cloud computing dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Cloud computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Code splitting dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Code splitting dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="CommonJS dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">CommonJS dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Component based architecture">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Component based architecture</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Const dan let">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Const dan let</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Constructor">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Constructor</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Context API dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Context API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="CSRF dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">CSRF dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Cypress dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Cypress dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="D3.js dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">D3.js dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Dashboard modern">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Dashboard modern</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Data visualization dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Data visualization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Database integration dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Database integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Debugging TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Debugging TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Decorator dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Decorator dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Default parameter">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Default parameter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Deno dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Deno dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Dependency Injection dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Dependency Injection dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Deployment aplikasi TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Deployment aplikasi TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Design pattern TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Design pattern TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Desktop app dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Desktop app dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Docker dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Docker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Documentation TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Documentation TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="DOM manipulation">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">DOM manipulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="E-commerce frontend dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">E-commerce frontend dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Electron dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Electron dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="End to end testing dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">End to end testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Enum">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Enum</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Error handling">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Error handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Error monitoring dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Error monitoring dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="ES Module">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">ES Module</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="ESLint dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">ESLint dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Event driven architecture dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Event driven architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Event handling">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Event handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Exception handling">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Exception handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Expo dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Expo dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Express.js dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Express.js dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Fetch API">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Fetch API</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="File system dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">File system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Firebase dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Firebase dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Form validation">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Form validation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Frontend development TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Frontend development TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Frontend engineer">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Frontend engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Fullstack engineer">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Fullstack engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Fullstack TypeScript dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Fullstack TypeScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Function overload">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Function overload</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Function TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Function TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Functional programming dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Functional programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Game development dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Game development dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Generic class">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Generic class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Generic function">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Generic function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Generic interface">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Generic interface</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Generics TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Generics TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Getter dan setter">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Getter dan setter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Git dan GitHub dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Git dan GitHub dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="GraphQL dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">GraphQL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Hooks TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Hooks TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Hosting web TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Hosting web TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Husky dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Husky dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Import dan export">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Import dan export</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Inheritance">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Inheritance</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Instalasi TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Instalasi TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Integration testing dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Integration testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Interface">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Interface</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Interface implementation">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Interface implementation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Jest dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Jest dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="JSON processing">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">JSON processing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="JWT dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">JWT dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Komentar TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Komentar TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Kubernetes dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Kubernetes dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Lazy loading dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Lazy loading dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Literal type">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Literal type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Local storage">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Local storage</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Logging dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Logging dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Machine learning web dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Machine learning web dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Microservices dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Microservices dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Middleware dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Middleware dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Mobile app TypeScript dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Mobile app TypeScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="MobX dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">MobX dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Modern web development TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Modern web development TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Module TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Module TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="MongoDB dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">MongoDB dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Monorepo dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Monorepo dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="MVC architecture">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">MVC architecture</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="MySQL dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">MySQL dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Namespace TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Namespace TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Narrowing type">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Narrowing type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Never">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Never</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Next.js dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Next.js dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Node.js dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Node.js dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Notes app TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Notes app TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Number">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Number</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Nx dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Nx dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="OAuth dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">OAuth dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Omit">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Omit</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="OOP TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">OOP TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Open source TypeScript project">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Open source TypeScript project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Optional parameter">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Optional parameter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Optional property">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Optional property</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="ORM dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">ORM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Parcel dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Parcel dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Parameter function">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Parameter function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Partial">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Partial</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Performance optimization">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Performance optimization</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Phaser dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Phaser dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Pick">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Pick</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Playwright dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Playwright dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Polymorphism">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Polymorphism</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Portfolio project TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Portfolio project TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="PostgreSQL dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">PostgreSQL dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Prettier dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Prettier dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Prisma dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Prisma dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Private">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Private</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Promise">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Promise</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Props typing">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Props typing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Protected">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Protected</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Public">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Public</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Reactive programming dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Reactive programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="React dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">React dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="React Native dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">React Native dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Readonly">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Readonly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Readonly property">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Readonly property</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Real-time application dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Real-time application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Record">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Record</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Redux dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Redux dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Required">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Required</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="REST API integration">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">REST API integration</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Rest parameter">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Rest parameter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Return type">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Return type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Routing dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Routing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="RxJS dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">RxJS dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="SaaS application dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">SaaS application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Scope variable">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Scope variable</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Secure coding">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Secure coding</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Security TypeScript dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Security TypeScript dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Serverless dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Serverless dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Session storage">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Session storage</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Social media app dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Social media app dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Software engineering TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Software engineering TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="SOLID principles">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">SOLID principles</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Source map dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Source map dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Startup development TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Startup development TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="State management dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">State management dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="State typing">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">State typing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Static keyword">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Static keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Stream dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Stream dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="String">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">String</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Struktur dasar TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Struktur dasar TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Supabase dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Supabase dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Svelte dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Svelte dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Syntax TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Syntax TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Testing TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Testing TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Three.js dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Three.js dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Tipe data TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Tipe data TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="To-do list TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">To-do list TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Transpiler dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Transpiler dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Try catch">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Try catch</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="TSDoc dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">TSDoc dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="tsconfig.json">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">tsconfig.json</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Tuple">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Tuple</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Turborepo dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Turborepo dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Type alias">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Type alias</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Type assertion">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Type assertion</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Type inference">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Type inference</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="TypeORM dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">TypeORM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="TypeScript Compiler">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">TypeScript Compiler</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="TypeScript dengan CSS">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">TypeScript dengan CSS</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="TypeScript dengan HTML">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">TypeScript dengan HTML</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Union type">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Union type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Unit testing">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Unit testing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Unknown">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Unknown</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Utility types">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Utility types</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Variable TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Variable TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Version control dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Vite dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Vite dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Vitest dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Vitest dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Void">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Void</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Vue dengan TypeScript">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Vue dengan TypeScript</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Webpack dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Webpack dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="WebSocket dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">WebSocket dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Worker thread dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Worker thread dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="XSS dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">XSS dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Yup dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Yup dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Zod dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Zod dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card typescript-card" data-title="Zustand dasar">
+                <span class="mapel-badge">💻 TypeScript</span>
+                <h3 class="card-title">Zustand dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION TYPESCRIPT ====================
+            const colorThemes = ['theme-ts-primary', 'theme-ts-gray', 'theme-ts-dark', 'theme-ts-medium', 'theme-ts-light', 'theme-ts-charcoal'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== TYPESCRIPT GRADIENT ROTATION ====================
+            const tsGradien = ['ts-gradien-0', 'ts-gradien-1', 'ts-gradien-2'];
+            let tsIndex = 0;
+            let gradientInterval = null;
+
+            function rotateTSGradient() {
+                const tsCards = document.querySelectorAll('.ts-card, .materi-card');
+                if (tsCards.length === 0) return;
+                tsIndex = (tsIndex + 1) % tsGradien.length;
+                tsCards.forEach(card => {
+                    tsGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(tsGradien[tsIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateTSGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#75808D';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#75808D';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi TypeScript`;
+                        resultCounterSpan.style.color = '#C8D0D8';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initTSGradient() {
+                const tsCards = document.querySelectorAll('.ts-card, .materi-card');
+                if (tsCards.length === 0) return;
+                tsCards.forEach(card => {
+                    tsGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(tsGradien[0]);
+                });
+                tsIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initTSGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | TypeScript - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

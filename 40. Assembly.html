@@ -1,0 +1,2465 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - Assembly | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA BLUE-PURPLE (ASSEMBLY) - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #2D2C5E, #1D0E2C);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body.theme-blue-dark {
+            background: radial-gradient(circle at 30% 20%, #3D4B91, #2D2C5E);
+        }
+
+        body.theme-indigo {
+            background: radial-gradient(circle at 60% 40%, #4E69C3, #2D2C5E);
+        }
+
+        body.theme-purple-dark {
+            background: radial-gradient(circle at 70% 30%, #5E87F5, #1D0E2C);
+        }
+
+        body.theme-deep-blue {
+            background: radial-gradient(circle at 40% 70%, #2D2C5E, #1D0E2C);
+        }
+
+        body.theme-lavender {
+            background: radial-gradient(circle at 80% 50%, #4E69C3, #2D2C5E);
+        }
+
+        body.theme-cobalt {
+            background: radial-gradient(circle at 20% 80%, #5E87F5, #1D0E2C);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(94, 135, 245, 0.3);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(94, 135, 245, 0.4);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #A5BBFF, #5E87F5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(94, 135, 245, 0.6);
+            animation: softPulseBlue 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseBlue {
+            0% {
+                text-shadow: 0 0 4px #5E87F5;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #8FABFF;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #C5D5FF, #8FABFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #B8CCFF;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(94, 135, 245, 0.3);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(94, 135, 245, 0.2);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #8FABFF;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(94, 135, 245, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #8FABFF;
+            box-shadow: 0 0 0 3px rgba(94, 135, 245, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #A5BBFF;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #5E87F5;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(94, 135, 245, 0.2);
+            border: 1px solid rgba(94, 135, 245, 0.6);
+            color: #C5D5FF;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(94, 135, 245, 0.4);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(94, 135, 245, 0.4);
+        }
+
+        .shortcut-msg {
+            background: #5E87F5;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #1D0E2C;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(94, 135, 245, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #5E87F5;
+            border-right: 1px solid rgba(94, 135, 245, 0.3);
+            border-top: 1px solid rgba(94, 135, 245, 0.2);
+            border-bottom: 1px solid rgba(94, 135, 245, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(45, 44, 94, 0.85), rgba(29, 14, 44, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #8FABFF;
+            box-shadow: 0 12px 25px -8px rgba(94, 135, 245, 0.4);
+            background: linear-gradient(135deg, rgba(61, 75, 145, 0.9), rgba(45, 44, 94, 0.75));
+        }
+
+        /* Gradien Card Assembly-Theme */
+        .materi-card.assembly-gradien-0 {
+            background: linear-gradient(135deg, rgba(45, 44, 94, 0.85), rgba(29, 14, 44, 0.7));
+            border-left-color: #2D2C5E;
+        }
+
+        .materi-card.assembly-gradien-1 {
+            background: linear-gradient(135deg, rgba(61, 75, 145, 0.85), rgba(45, 44, 94, 0.7));
+            border-left-color: #3D4B91;
+        }
+
+        .materi-card.assembly-gradien-2 {
+            background: linear-gradient(135deg, rgba(78, 105, 195, 0.8), rgba(61, 75, 145, 0.7));
+            border-left-color: #4E69C3;
+        }
+
+        .mapel-badge {
+            background: rgba(94, 135, 245, 0.5);
+            color: #D0E0FF;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #E5EDFF;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #5E87F5;
+            color: #1D0E2C;
+            box-shadow: 0 2px 6px rgba(94, 135, 245, 0.4);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #7A9DFF;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a2a3a;
+            color: #6a6a8a;
+            border: 1px solid #4a4a6a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #8FABFF;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(94, 135, 245, 0.4);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(94, 135, 245, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a0f2a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #5E87F5;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8FABFF;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(94, 135, 245, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-blue-dark .footer {
+            border-color: rgba(61, 75, 145, 0.3);
+        }
+
+        body.theme-indigo .footer {
+            border-color: rgba(78, 105, 195, 0.3);
+        }
+
+        body.theme-purple-dark .footer {
+            border-color: rgba(94, 135, 245, 0.3);
+        }
+
+        body.theme-deep-blue .footer {
+            border-color: rgba(45, 44, 94, 0.3);
+        }
+
+        body.theme-lavender .footer {
+            border-color: rgba(78, 105, 195, 0.3);
+        }
+
+        body.theme-cobalt .footer {
+            border-color: rgba(94, 135, 245, 0.3);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #A5BBFF, #5E87F5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #B8CCFF;
+            padding: 0.15rem 0.7rem;
+            background: rgba(94, 135, 245, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(94, 135, 245, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-blue-dark .footer-tagline {
+            color: #a0b8ff;
+            background: rgba(61, 75, 145, 0.2);
+            border-color: rgba(61, 75, 145, 0.2);
+        }
+
+        body.theme-purple-dark .footer-tagline {
+            color: #e8f0ff;
+            background: rgba(94, 135, 245, 0.2);
+            border-color: rgba(94, 135, 245, 0.2);
+        }
+
+        body.theme-cobalt .footer-tagline {
+            color: #e8f0ff;
+            background: rgba(94, 135, 245, 0.2);
+            border-color: rgba(94, 135, 245, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #B8CCFF;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-blue-dark .footer-info {
+            color: #a0b8ff;
+        }
+
+        body.theme-purple-dark .footer-info {
+            color: #e8f0ff;
+        }
+
+        body.theme-cobalt .footer-info {
+            color: #e8f0ff;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-green">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>🔧 Assembly Programming</h1>
+                <p>Pilih Materi, Kuasai Low Level Programming!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi Assembly..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID DIKOSONGKAN -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card assembly-card" data-title="C++ dengan Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">C++ dengan Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Cache memory dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Cache memory dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Calculator Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Calculator Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Calling convention dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Calling convention dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="CALL dan RET">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">CALL dan RET</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Career path low level programmer">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Career path low level programmer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Cheat engine dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Cheat engine dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="CMP instruction">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">CMP instruction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Code segment">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Code segment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Comparison instruction">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Comparison instruction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Competitive programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Competitive programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Compiler dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Compiler dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Concurrency dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Concurrency dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Conditional jump">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Conditional jump</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Console output dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Console output dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Context switching dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Context switching dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="CPU dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">CPU dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Cryptography dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Cryptography dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Cybersecurity Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Cybersecurity Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Data segment">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Data segment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Data structure dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Data structure dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Debugging Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Debugging Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Decompiler dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Decompiler dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Device driver dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Device driver dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Direct addressing">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Direct addressing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Disassembler dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Disassembler dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Documentation Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Documentation Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="DOS interrupt dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">DOS interrupt dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Embedded Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Embedded Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Embedded engineer">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Embedded engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Embedded project dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Embedded project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Encryption dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Encryption dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Ethical hacking dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Ethical hacking dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Exploit development dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Exploit development dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="File handling Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">File handling Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Firmware engineer">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Firmware engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Firmware programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Firmware programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Flag operation dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Flag operation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Flag register">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Flag register</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Floating point dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Floating point dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Function Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Function Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Function prologue dan epilogue">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Function prologue dan epilogue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Game hacking dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Game hacking dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="GAS dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">GAS dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="GDB dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">GDB dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="General purpose register">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">General purpose register</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Git dan GitHub dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Git dan GitHub dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="GPU programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">GPU programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Graphics programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Graphics programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Hashing dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Hashing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Hex editor dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Hex editor dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Immediate addressing">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Immediate addressing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="INC dan DEC">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">INC dan DEC</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Include file dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Include file dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Indexed addressing">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Indexed addressing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Indirect addressing">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Indirect addressing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Inline Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Inline Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Input dan output Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Input dan output Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Instalasi assembler">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Instalasi assembler</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Instruksi dasar Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Instruksi dasar Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Integer arithmetic">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Integer arithmetic</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Intel syntax">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Intel syntax</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Interrupt handling dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Interrupt handling dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Interrupt vector dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Interrupt vector dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="IoT dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">IoT dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="JMP instruction">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">JMP instruction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Kernel programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Kernel programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Keyboard input dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Keyboard input dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Komentar Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Komentar Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Linked list dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Linked list dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Linker dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Linker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Linux Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Linux Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Linux terminal dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Linux terminal dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Loader dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Loader dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Logical operation">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Logical operation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Loop instruction">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Loop instruction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Low level optimization dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Low level optimization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Machine code dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Machine code dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Macro Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Macro Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Makefile dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Makefile dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Malware analyst">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Malware analyst</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Malware analysis dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Malware analysis dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Malware analysis project dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Malware analysis project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="MASM dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">MASM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Memory addressing">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Memory addressing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Memory hacking dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Memory hacking dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Memory komputer">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Memory komputer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Memory management dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Memory management dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Memory optimization dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Memory optimization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Microcontroller Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Microcontroller Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Mini OS dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Mini OS dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Modern low level development Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Modern low level development Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="MOV instruction">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">MOV instruction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="MUL dan DIV">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">MUL dan DIV</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Multithreading dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Multithreading dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="NASM dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">NASM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Networking Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Networking Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="NOP instruction">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">NOP instruction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Opcode dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Opcode dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Open source Assembly project">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Open source Assembly project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="OpenGL dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">OpenGL dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Operating system dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Operating system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Paging dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Paging dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Parallel programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Parallel programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Parameter passing dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Parameter passing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Penetration testing dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Penetration testing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Percabangan Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Percabangan Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Performance optimization Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Performance optimization Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Pipeline processor dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Pipeline processor dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Pointer Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Pointer Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Portfolio project Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Portfolio project Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Procedure Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Procedure Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Process management dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Process management dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Profiling dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Profiling dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Program counter dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Program counter dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="PUSH dan POP">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">PUSH dan POP</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Queue">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Queue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Real-time system dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Real-time system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Register Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Register Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Register processor">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Register processor</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Reverse engineer">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Reverse engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Reverse engineering dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Reverse engineering dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Reverse engineering malware dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Reverse engineering malware dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Reverse engineering project dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Reverse engineering project dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Return value dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Return value dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="RISC dan CISC dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">RISC dan CISC dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Robotics dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Robotics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Scientific computing dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Scientific computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Searching algorithm dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Searching algorithm dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Secure coding dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Secure coding dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Security researcher">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Security researcher</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Segmentation dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Segmentation dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Segment register">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Segment register</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Shellcode dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Shellcode dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Shift dan rotate">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Shift dan rotate</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Signal processing dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Signal processing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="SIMD dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">SIMD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Socket programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Socket programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Software engineering Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Software engineering Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Sorting algorithm dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Sorting algorithm dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Stack">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Stack</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Stack Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Stack Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Stack frame dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Stack frame dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Stack pointer">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Stack pointer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Stack segment">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Stack segment</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="String instruction dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">String instruction dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Struktur dasar program Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Struktur dasar program Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="SUB instruction">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">SUB instruction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Syntax Assembly">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Syntax Assembly</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="System call dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">System call dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Systems programmer">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Systems programmer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="TCP/IP dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">TCP/IP dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Tree dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Tree dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="UEFI dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">UEFI dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Version control dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Virtual memory dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Virtual memory dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Virus programming dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Virus programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="Windows Assembly dasar">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">Windows Assembly dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="x86 architecture">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">x86 architecture</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card assembly-card" data-title="x86-64 architecture">
+                <span class="mapel-badge">💻 Assembly</span>
+                <h3 class="card-title">x86-64 architecture</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION (BLUE-PURPLE VARIAN) ====================
+            const colorThemes = ['theme-blue-dark', 'theme-indigo', 'theme-purple-dark', 'theme-deep-blue', 'theme-lavender', 'theme-cobalt'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== ASSEMBLY GRADIENT ROTATION ====================
+            const assemblyGradien = ['assembly-gradien-0', 'assembly-gradien-1', 'assembly-gradien-2'];
+            let assemblyIndex = 0;
+            let gradientInterval = null;
+
+            function rotateAssemblyGradient() {
+                const assemblyCards = document.querySelectorAll('.assembly-card, .materi-card');
+                if (assemblyCards.length === 0) return;
+                assemblyIndex = (assemblyIndex + 1) % assemblyGradien.length;
+                assemblyCards.forEach(card => {
+                    assemblyGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(assemblyGradien[assemblyIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateAssemblyGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#8FABFF';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#8FABFF';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi Assembly`;
+                        resultCounterSpan.style.color = '#C5D5FF';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initAssemblyGradient() {
+                const assemblyCards = document.querySelectorAll('.assembly-card, .materi-card');
+                if (assemblyCards.length === 0) return;
+                assemblyCards.forEach(card => {
+                    assemblyGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(assemblyGradien[0]);
+                });
+                assemblyIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initAssemblyGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | Assembly - Blue-Purple Theme Active');
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2978 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Noxa Store - Kotlin | Materi Pembelajaran</title>
+    <style>
+        /* ========== WARNA UTAMA KOTLIN - THEME ========== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 30% 20%, #B23737, #240000);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            transition: background 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Theme varian berdasarkan warna Kotlin */
+        body.theme-kotlin-primary {
+            background: radial-gradient(circle at 30% 20%, #B23737, #240000);
+        }
+
+        body.theme-kotlin-red {
+            background: radial-gradient(circle at 60% 40%, #D16A6A, #3a0a0a);
+        }
+
+        body.theme-kotlin-dark {
+            background: radial-gradient(circle at 70% 30%, #890000, #1a0000);
+        }
+
+        body.theme-kotlin-light {
+            background: radial-gradient(circle at 40% 70%, #EEA0A0, #4a1a1a);
+        }
+
+        body.theme-kotlin-soft {
+            background: radial-gradient(circle at 80% 50%, #F9E5E5, #5a2a2a);
+        }
+
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(178, 55, 55, 0.5);
+        }
+
+        .top-brand-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(209, 106, 106, 0.5);
+            padding-bottom: 1rem;
+        }
+
+        .noxa-store {
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #EEA0A0, #D16A6A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(178, 55, 55, 0.6);
+            animation: softPulseKotlin 2.5s infinite alternate;
+        }
+
+        @keyframes softPulseKotlin {
+            0% {
+                text-shadow: 0 0 4px #B23737;
+                opacity: 0.95;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #EEA0A0;
+                opacity: 1;
+            }
+        }
+
+        .judul-web-kanan h1 {
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            background: linear-gradient(120deg, #EEA0A0, #D16A6A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: right;
+        }
+
+        .judul-web-kanan p {
+            font-size: 0.65rem;
+            color: #F9E5E5;
+            text-align: right;
+        }
+
+        .top-stats-search {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .total-stats-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(178, 55, 55, 0.5);
+        }
+
+        .total-stats-box span {
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(178, 55, 55, 0.3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+        }
+
+        .total-stats-box span strong {
+            color: #EEA0A0;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0;
+        }
+
+        .search-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 0.8rem 2.5rem 0.8rem 3rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1.5px solid rgba(178, 55, 55, 0.6);
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #EEA0A0;
+            box-shadow: 0 0 0 3px rgba(178, 55, 55, 0.3);
+        }
+
+        #searchInput::placeholder {
+            color: #F9E5E5;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-btn:hover {
+            background: #D16A6A;
+        }
+
+        .btn-refresh-neon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(178, 55, 55, 0.3);
+            border: 1px solid rgba(178, 55, 55, 0.6);
+            color: #F9E5E5;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-refresh-neon:hover {
+            background: rgba(178, 55, 55, 0.5);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border: 1px solid rgba(178, 55, 55, 0.5);
+        }
+
+        .shortcut-msg {
+            background: #890000;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #F9E5E5;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(137, 0, 0, 0.5);
+        }
+
+        /* ========== GRID MATERI ========== */
+        #materiContainer {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* ========== CARD STYLE ========== */
+        .materi-card {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.25s ease;
+            border-left: 4px solid #B23737;
+            border-right: 1px solid rgba(178, 55, 55, 0.3);
+            border-top: 1px solid rgba(178, 55, 55, 0.2);
+            border-bottom: 1px solid rgba(178, 55, 55, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            min-width: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(60, 20, 20, 0.85), rgba(30, 10, 10, 0.7));
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .materi-card:hover {
+            transform: translateY(-4px);
+            border-left-color: #EEA0A0;
+            box-shadow: 0 12px 25px -8px rgba(178, 55, 55, 0.5);
+            background: linear-gradient(135deg, rgba(178, 55, 55, 0.9), rgba(60, 20, 20, 0.75));
+        }
+
+        /* Gradien Card Kotlin-Theme */
+        .materi-card.kotlin-gradien-0 {
+            background: linear-gradient(135deg, rgba(60, 20, 20, 0.85), rgba(30, 10, 10, 0.7));
+            border-left-color: #890000;
+        }
+
+        .materi-card.kotlin-gradien-1 {
+            background: linear-gradient(135deg, rgba(178, 55, 55, 0.85), rgba(60, 20, 20, 0.7));
+            border-left-color: #B23737;
+        }
+
+        .materi-card.kotlin-gradien-2 {
+            background: linear-gradient(135deg, rgba(209, 106, 106, 0.8), rgba(178, 55, 55, 0.7));
+            border-left-color: #D16A6A;
+        }
+
+        .mapel-badge {
+            background: rgba(209, 106, 106, 0.5);
+            color: #F9E5E5;
+            display: inline-block;
+            font-size: clamp(0.55rem, 2vw, 0.7rem);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            width: fit-content;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            color: #F9E5E5;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            line-height: 1.4;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ========== BUTTON GROUP ========== */
+        .button-group {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+            width: 100%;
+        }
+
+        .button-group .materi-link {
+            flex: 1;
+            min-width: 0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-dapatkan {
+            width: 100%;
+            padding: 0.65rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            text-align: center;
+            transition: all 0.25s ease;
+            display: inline-block;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan {
+            background: #B23737;
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(178, 55, 55, 0.5);
+        }
+
+        .materi-link:not(.disabled) .btn-dapatkan:hover {
+            background: #cc4a4a;
+            transform: translateY(-2px);
+        }
+
+        .materi-link.disabled .btn-dapatkan {
+            background: #2a2a2a;
+            color: #6a6a6a;
+            border: 1px solid #4a4a4a;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+            opacity: 0.7;
+        }
+
+        /* ========== NO RESULT ========== */
+        .no-result {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #EEA0A0;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(178, 55, 55, 0.5);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(178, 55, 55, 0.3);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #B23737;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #EEA0A0;
+        }
+
+        /* ================================================================ */
+        /* FOOTER */
+        /* ================================================================ */
+
+        .footer {
+            width: 98%;
+            max-width: 1600px;
+            margin: 1.2rem auto 0;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(178, 55, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.theme-kotlin-primary .footer {
+            border-color: rgba(178, 55, 55, 0.3);
+        }
+
+        body.theme-kotlin-red .footer {
+            border-color: rgba(209, 106, 106, 0.3);
+        }
+
+        body.theme-kotlin-dark .footer {
+            border-color: rgba(137, 0, 0, 0.3);
+        }
+
+        body.theme-kotlin-light .footer {
+            border-color: rgba(238, 160, 160, 0.2);
+        }
+
+        body.theme-kotlin-soft .footer {
+            border-color: rgba(249, 229, 229, 0.2);
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .footer-brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #EEA0A0, #D16A6A);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-tagline {
+            font-size: 0.7rem;
+            color: #F9E5E5;
+            padding: 0.15rem 0.7rem;
+            background: rgba(178, 55, 55, 0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(178, 55, 55, 0.15);
+            transition: all 0.8s ease;
+        }
+
+        body.theme-kotlin-light .footer-tagline {
+            color: #4a1a1a;
+            background: rgba(238, 160, 160, 0.2);
+            border-color: rgba(238, 160, 160, 0.2);
+        }
+
+        body.theme-kotlin-soft .footer-tagline {
+            color: #3a0a0a;
+            background: rgba(249, 229, 229, 0.2);
+            border-color: rgba(249, 229, 229, 0.2);
+        }
+
+        body.theme-kotlin-dark .footer-tagline {
+            color: #ee8888;
+            background: rgba(137, 0, 0, 0.2);
+            border-color: rgba(137, 0, 0, 0.2);
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #F9E5E5;
+            transition: color 0.8s ease;
+        }
+
+        body.theme-kotlin-light .footer-info {
+            color: #4a1a1a;
+        }
+
+        body.theme-kotlin-soft .footer-info {
+            color: #3a0a0a;
+        }
+
+        body.theme-kotlin-dark .footer-info {
+            color: #ee8888;
+        }
+
+        .footer-info span {
+            white-space: nowrap;
+        }
+
+        .footer-dot {
+            font-size: 0.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            margin: 0 0.2rem;
+        }
+
+        /* ================================================================ */
+        /* RESPONSIVE */
+        /* ================================================================ */
+
+        /* Desktop Ultra Wide */
+        @media (min-width: 1700px) {
+            body {
+                padding: 2rem;
+            }
+
+            .app-container {
+                max-width: 1800px;
+                padding: 2rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.5rem;
+            }
+
+            .materi-card {
+                padding: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .btn-dapatkan {
+                font-size: 1rem;
+                padding: 0.9rem;
+            }
+
+            .noxa-store {
+                font-size: 3rem;
+            }
+
+            .judul-web-kanan h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Desktop Besar */
+        @media (min-width: 1400px) and (max-width: 1699px) {
+            #materiContainer {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.2rem;
+            }
+
+            .materi-card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.05rem;
+            }
+        }
+
+        /* Laptop */
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Laptop Kecil */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            #materiContainer {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+
+            .top-brand-bar {
+                gap: 1rem;
+            }
+        }
+
+        /* HP Landscape */
+        @media (min-width: 576px) and (max-width: 767px) and (orientation: landscape) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* HP Portrait */
+        @media (max-width: 767px) {
+            body {
+                padding: 0.8rem;
+            }
+
+            .app-container {
+                padding: 1rem;
+                border-radius: 1.2rem;
+            }
+
+            .top-brand-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .judul-web-kanan h1,
+            .judul-web-kanan p {
+                text-align: center;
+            }
+
+            .noxa-store {
+                text-align: center;
+                white-space: normal;
+            }
+
+            .top-stats-search {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-section {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .search-wrapper {
+                min-width: unset;
+            }
+
+            .total-stats-box {
+                justify-content: center;
+            }
+
+            .stats-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.9rem;
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .card-title {
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 0;
+                margin-top: 0.8rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .footer-brand-section {
+                justify-content: center;
+            }
+
+            .footer-brand {
+                font-size: 1rem;
+            }
+
+            .footer-info {
+                font-size: 0.7rem;
+                justify-content: center;
+            }
+        }
+
+        /* HP Kecil */
+        @media (max-width: 575px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+
+            .card-title {
+                font-size: 0.85rem;
+            }
+
+            .btn-dapatkan {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .noxa-store {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ================================================================ */
+        /* FALLBACK TANPA ORIENTATION */
+        /* ================================================================ */
+
+        @media (max-width: 479px) {
+            #materiContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .materi-card {
+                padding: 0.9rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #materiContainer {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .materi-card {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .footer {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #materiContainer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .materi-card {
+                padding: 1.2rem;
+            }
+        }
+
+        /* ================================================================ */
+        /* AKSESIBILITAS & KENYAMANAN */
+        /* ================================================================ */
+
+        @media (max-width: 767px) {
+
+            .btn-refresh-neon,
+            .btn-dapatkan,
+            .clear-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+            }
+
+            .materi-card {
+                min-height: 120px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            body,
+            .materi-card,
+            .btn-dapatkan,
+            .noxa-store {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                background: rgba(0, 0, 0, 0.7);
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-kotlin-primary">
+    <div class="app-container">
+        <div class="top-brand-bar">
+            <div class="noxa-store">🏬 NOXA STORE</div>
+            <div class="judul-web-kanan">
+                <h1>📱 Kotlin Programming</h1>
+                <p>Pilih Materi, Kuasai Android Development!</p>
+            </div>
+        </div>
+
+        <div class="top-stats-search">
+            <div class="total-stats-box">
+                <span>📊 <strong>Total Materi:</strong> <span id="totalMateriCount">0</span></span>
+                <span>✅ <strong>Materi Sudah Ada:</strong> <span id="materiSudahAda">0</span></span>
+                <span>⏳ <strong>Materi Belum Ada:</strong> <span id="materiBelumAda">0</span></span>
+            </div>
+            <div class="search-section">
+                <div class="search-row-flex">
+                    <div class="search-wrapper">
+                        <div class="search-icon">🔍</div>
+                        <input type="text" id="searchInput" placeholder="Cari materi Kotlin..." autocomplete="off">
+                        <button id="clearSearchBtn" class="clear-btn">✖</button>
+                    </div>
+                    <button id="refreshButton" class="btn-refresh-neon"><span>⟳</span> Refresh</button>
+                    <a href="44. AllProgramming.html" class="btn-refresh-neon"
+                        style="text-decoration: none;">Kembali</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="resultCounter">📚 Menampilkan 0 materi</span>
+            <span class="shortcut-msg">⌨️ Ctrl+K / Shift+F / ESC</span>
+            <span id="shortcutNotif" style="font-size:0.7rem;"></span>
+        </div>
+
+        <!-- MATERI GRID DIKOSONGKAN -->
+        <div class="materi-grid" id="materiContainer">
+            <div class="materi-card kotlin-card" data-title="Abstract class">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Abstract class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Abstraction">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Abstraction</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Access modifier">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Access modifier</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Activity Android">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Activity Android</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="AI integration dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">AI integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="also">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">also</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Android development Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Android development Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Android developer">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Android developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Android lifecycle">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Android lifecycle</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Android Studio dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Android Studio dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Animation Android dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Animation Android dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="apply">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">apply</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Array">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Array</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Async programming">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Async programming</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Authentication dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Authentication dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Authorization dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Authorization dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Automation Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Automation Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Backend development Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Backend development Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Backend engineer Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Backend engineer Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Banking app dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Banking app dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Best practices Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Best practices Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Binary search">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Binary search</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Blockchain dasar Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Blockchain dasar Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Boolean">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Boolean</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Break dan continue">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Break dan continue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Bubble sort">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Bubble sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Calculator Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Calculator Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Camera API dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Camera API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Career path Kotlin developer">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Career path Kotlin developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Character">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Character</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Chat application Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Chat application Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Chatbot dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Chatbot dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="CI/CD dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">CI/CD dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Class dan object">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Class dan object</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Clean architecture dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Clean architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Clean code Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Clean code Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="CLI application Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">CLI application Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Cloud computing dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Cloud computing dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Collection Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Collection Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Competitive programming Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Competitive programming Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Concurrency dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Concurrency dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="ConstraintLayout dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">ConstraintLayout dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Constructor">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Constructor</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Coroutines Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Coroutines Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Custom exception">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Custom exception</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Dagger dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Dagger dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Dashboard analytics dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Dashboard analytics dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Data class">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Data class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Data structure Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Data structure Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Database Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Database Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Debugging Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Debugging Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Default parameter">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Default parameter</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Dependency Injection dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Dependency Injection dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Deployment aplikasi Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Deployment aplikasi Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Design pattern Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Design pattern Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Desktop application Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Desktop application Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Docker dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Docker dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Documentation Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Documentation Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Double">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Double</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Do while">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Do while</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Dynamic programming dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Dynamic programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="E-commerce app dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">E-commerce app dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Elvis operator">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Elvis operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Encapsulation">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Encapsulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Encryption dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Encryption dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Enum class">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Enum class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Exception handling">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Exception handling</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Exposed ORM dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Exposed ORM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Extension function">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Extension function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="File handling Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">File handling Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Firebase dengan Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Firebase dengan Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Float">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Float</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Flow Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Flow Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="For loop">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">For loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Fragment Android">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Fragment Android</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Fullstack developer Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Fullstack developer Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Fullstack Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Fullstack Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Function Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Function Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Functional programming Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Functional programming Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Game development Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Game development Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Generic Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Generic Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Git dan GitHub dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Git dan GitHub dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Graph">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Graph</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Higher order function">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Higher order function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Hilt dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Hilt dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Hosting backend Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Hosting backend Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="If else">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">If else</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Immutable collection">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Immutable collection</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Infix function">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Infix function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Inheritance">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Inheritance</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Input dan output Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Input dan output Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Instalasi Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Instalasi Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Integer">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Integer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Intent Android">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Intent Android</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Interface">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Interface</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Internal">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Internal</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Inventory system dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Inventory system dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="IoT dasar dengan Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">IoT dasar dengan Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Iterator Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Iterator Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Jetpack Compose dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Jetpack Compose dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="JSON processing">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">JSON processing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="JUnit dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">JUnit dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="JWT dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">JWT dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="KDoc dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">KDoc dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Koin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Koin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Komentar Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Komentar Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Konstanta Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Konstanta Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Korge dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Korge dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Kotlin Compiler">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Kotlin Compiler</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Kotlin JS dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Kotlin JS dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Kotlin Multiplatform dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Kotlin Multiplatform dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Kotlin Native dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Kotlin Native dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Ktor framework dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Ktor framework dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Kubernetes dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Kubernetes dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Lambda expression">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Lambda expression</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="let">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">let</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Linked list">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Linked list</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Linux untuk Kotlin developer">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Linux untuk Kotlin developer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="List">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">List</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="LiveData dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">LiveData dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Location API dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Location API dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Logging dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Logging dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Machine learning dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Machine learning dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Map">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Map</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Maps integration dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Maps integration dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Material Design dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Material Design dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Membaca file">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Membaca file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Menulis file">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Menulis file</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Merge sort">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Merge sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Mobile app Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Mobile app Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Mobile engineer">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Mobile engineer</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="MockK dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">MockK dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Modular architecture dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Modular architecture dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Modern Android development Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Modern Android development Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="MongoDB dengan Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">MongoDB dengan Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Multithreading Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Multithreading Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Mutable collection">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Mutable collection</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="MVC dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">MVC dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="MVVM dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">MVVM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="MySQL dengan Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">MySQL dengan Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Named argument">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Named argument</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Navigation component dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Navigation component dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Notes app Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Notes app Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Null safety Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Null safety Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Nullable type">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Nullable type</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="OAuth dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">OAuth dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="OOP Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">OOP Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Open source Kotlin project">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Open source Kotlin project</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Operator aritmatika">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Operator aritmatika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Operator logika">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Operator logika</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Operator perbandingan">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Operator perbandingan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="ORM dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">ORM dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Parameter function">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Parameter function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Percabangan">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Percabangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Perulangan">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Perulangan</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Polymorphism">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Polymorphism</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Portfolio project Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Portfolio project Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="PostgreSQL dengan Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">PostgreSQL dengan Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Private">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Private</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Protected">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Protected</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Public">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Public</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Push notification dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Push notification dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Queue">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Queue</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Quick sort">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Quick sort</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Reactive programming dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Reactive programming dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Real-time application dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Real-time application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="RecyclerView dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">RecyclerView dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Refactoring code">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Refactoring code</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Rekursi">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Rekursi</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="REST API Android">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">REST API Android</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="REST API Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">REST API Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Responsive UI Android">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Responsive UI Android</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Retrofit dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Retrofit dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Return value">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Return value</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Room database dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Room database dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="run">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">run</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="RxKotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">RxKotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="SaaS application dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">SaaS application dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Safe call operator">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Safe call operator</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="School management system">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">School management system</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Scope function">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Scope function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Sealed class">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Sealed class</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Searching algorithm">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Searching algorithm</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Secure coding Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Secure coding Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Security Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Security Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Set">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Set</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="SharedPreferences dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">SharedPreferences dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Smart cast">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Smart cast</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Social media app dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Social media app dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Software architecture Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Software architecture Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Software engineering Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Software engineering Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="SOLID principles">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">SOLID principles</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Sorting algorithm">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Sorting algorithm</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Spring Boot dengan Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Spring Boot dengan Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="SQLite Android">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">SQLite Android</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Stack">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Stack</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Startup development Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Startup development Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="String">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">String</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="String manipulation">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">String manipulation</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Struktur dasar Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Struktur dasar Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Super keyword">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Super keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Suspend function">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Suspend function</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Syntax Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Syntax Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="This keyword">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">This keyword</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Tipe data Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Tipe data Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="To-do list Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">To-do list Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Tree">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Tree</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Try catch">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Try catch</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Unit testing Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Unit testing Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Val dan var">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Val dan var</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Variable Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Variable Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Version control dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Version control dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="ViewModel dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">ViewModel dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Volley dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Volley dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Weather app Kotlin">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Weather app Kotlin</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Web development Kotlin dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Web development Kotlin dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="Web scraping dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">Web scraping dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="WebSocket dasar">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">WebSocket dasar</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="When expression">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">When expression</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="While loop">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">While loop</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="with">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">with</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="XML layout Android">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">XML layout Android</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+
+            <div class="materi-card kotlin-card" data-title="XML processing">
+                <span class="mapel-badge">💻 Kotlin</span>
+                <h3 class="card-title">XML processing</h3>
+                <div class="button-group">
+                    <a href="" class="materi-link"><button class="btn-dapatkan">📘 Dapatkan</button></a>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand-section">
+                    <span class="footer-brand">🏬 Noxa Store</span>
+                    <span class="footer-tagline">Belajar Tanpa Batas</span>
+                </div>
+                <div class="footer-info">
+                    <span>© <span id="footerYear">2026</span></span>
+                    <span class="footer-dot">•</span>
+                    <span>Dibangun untuk pembelajaran</span>
+                    <span class="footer-dot">•</span>
+                    <span>v1.0</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            // ==================== THEME ROTATION KOTLIN ====================
+            const colorThemes = ['theme-kotlin-primary', 'theme-kotlin-red', 'theme-kotlin-dark', 'theme-kotlin-light', 'theme-kotlin-soft'];
+            let currentThemeIndex = 0;
+            const bodyEl = document.body;
+
+            function applyNextTheme() {
+                if (!bodyEl) return;
+                colorThemes.forEach(theme => bodyEl.classList.remove(theme));
+                currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+                bodyEl.classList.add(colorThemes[currentThemeIndex]);
+            }
+            setInterval(applyNextTheme, 5000);
+
+            // ==================== KOTLIN GRADIENT ROTATION ====================
+            const kotlinGradien = ['kotlin-gradien-0', 'kotlin-gradien-1', 'kotlin-gradien-2'];
+            let kotlinIndex = 0;
+            let gradientInterval = null;
+
+            function rotateKotlinGradient() {
+                const kotlinCards = document.querySelectorAll('.kotlin-card, .materi-card');
+                if (kotlinCards.length === 0) return;
+                kotlinIndex = (kotlinIndex + 1) % kotlinGradien.length;
+                kotlinCards.forEach(card => {
+                    kotlinGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(kotlinGradien[kotlinIndex]);
+                });
+            }
+            gradientInterval = setInterval(rotateKotlinGradient, 3000);
+
+            // ==================== DOM ELEMENTS ====================
+            const searchInput = document.getElementById('searchInput');
+            const materiContainer = document.getElementById('materiContainer');
+            const resultCounterSpan = document.getElementById('resultCounter');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const shortcutNotifSpan = document.getElementById('shortcutNotif');
+            const refreshBtn = document.getElementById('refreshButton');
+
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.materi-card'));
+            }
+
+            // ==================== UPDATE STATISTIK ====================
+            function updateStatistik() {
+                const allCards = getAllCards();
+                let sudahAda = 0;
+                let belumAda = 0;
+                allCards.forEach(card => {
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    if (teoriHref && teoriHref !== '' && teoriHref !== '#') {
+                        sudahAda++;
+                    } else {
+                        belumAda++;
+                    }
+                });
+                const totalMateri = document.getElementById('totalMateriCount');
+                const materiSudahAda = document.getElementById('materiSudahAda');
+                const materiBelumAda = document.getElementById('materiBelumAda');
+                if (totalMateri) totalMateri.innerText = allCards.length;
+                if (materiSudahAda) materiSudahAda.innerText = sudahAda;
+                if (materiBelumAda) materiBelumAda.innerText = belumAda;
+            }
+
+            // ==================== FILTER MATERI ====================
+            function filterMateri() {
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+                const allCards = getAllCards();
+                let visibleCount = 0;
+
+                allCards.forEach(card => {
+                    const titleAttr = card.getAttribute('data-title');
+                    const titleH3 = card.querySelector('.card-title');
+                    let title = '';
+                    if (titleAttr) title = titleAttr;
+                    else if (titleH3) title = titleH3.innerText || '';
+                    title = title.toLowerCase();
+
+                    const teoriLink = card.querySelector('.button-group .materi-link:first-child');
+                    const teoriHref = teoriLink ? teoriLink.getAttribute('href') : '';
+                    const hasLink = teoriHref && teoriHref !== '' && teoriHref !== '#';
+
+                    const isMatch = searchTerm === '' || title.includes(searchTerm);
+
+                    if (searchTerm === '') {
+                        card.style.display = hasLink ? '' : 'none';
+                        if (hasLink) visibleCount++;
+                    } else {
+                        if (isMatch && (hasLink || searchTerm !== '')) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+
+                let noResultDiv = document.getElementById('customNoResultMsg');
+                if (noResultDiv) {
+                    noResultDiv.remove();
+                    noResultDiv = null;
+                }
+
+                if (visibleCount === 0) {
+                    if (resultCounterSpan) {
+                        if (searchTerm !== '') {
+                            resultCounterSpan.innerHTML = '❌ Materi tidak ditemukan';
+                            resultCounterSpan.style.color = '#EEA0A0';
+                        } else {
+                            resultCounterSpan.innerHTML = '📚 Belum ada materi yang tersedia';
+                            resultCounterSpan.style.color = '#EEA0A0';
+                        }
+                    }
+
+                    if (materiContainer && materiContainer.parentNode) {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.id = 'customNoResultMsg';
+                        msgDiv.className = 'no-result';
+                        if (searchTerm !== '') {
+                            msgDiv.innerHTML = '📚 Materi tidak ditemukan<br><span style="font-size:0.8rem;">Coba kata kunci lain</span>';
+                        } else {
+                            msgDiv.innerHTML = '📚 Belum ada materi yang tersedia<br><span style="font-size:0.8rem;">Materi akan segera ditambahkan</span>';
+                        }
+                        materiContainer.parentNode.insertBefore(msgDiv, materiContainer.nextSibling);
+                    }
+                } else {
+                    if (resultCounterSpan) {
+                        resultCounterSpan.innerHTML = searchTerm !== '' ? `✨ Ditemukan ${visibleCount} materi` : `📚 ${visibleCount} materi Kotlin`;
+                        resultCounterSpan.style.color = '#F9E5E5';
+                    }
+                }
+            }
+
+            // ==================== DEBOUNCE SEARCH ====================
+            let debounceTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(filterMateri, 200);
+                });
+            }
+
+            // ==================== CLEAR BUTTON ====================
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    if (searchInput) searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⌨️ Pencarian dihapus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                });
+            }
+
+            // ==================== UPDATE BUTTON STATES ====================
+            function updateButtonsState() {
+                document.querySelectorAll('.button-group .materi-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    const btn = link.querySelector('button');
+                    if (!btn) return;
+
+                    const preventInvalidClick = (e) => {
+                        if (!href || href === '' || href === '#') e.preventDefault();
+                    };
+
+                    if (!href || href === '' || href === '#') {
+                        btn.style.cursor = 'not-allowed';
+                        btn.style.animation = 'none';
+                        link.removeEventListener('click', preventInvalidClick);
+                        link.addEventListener('click', preventInvalidClick);
+                    } else {
+                        btn.style.cursor = 'pointer';
+                        btn.style.animation = '';
+                        if (!link.getAttribute('target')) link.setAttribute('target', '_blank');
+                        link.removeEventListener('click', preventInvalidClick);
+                    }
+                });
+                updateStatistik();
+            }
+
+            // ==================== KEYBOARD SHORTCUTS ====================
+            window.addEventListener('keydown', (e) => {
+                if (!searchInput) return;
+                if ((e.ctrlKey && e.key === 'k') || (e.ctrlKey && e.key === 'K')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '🔎 Ctrl+K fokus pencarian';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⚡ Shift+F fokus';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1500);
+                    }
+                }
+                if (e.key === 'Escape') {
+                    if (searchInput.value !== '') {
+                        searchInput.value = '';
+                        filterMateri();
+                        if (shortcutNotifSpan) {
+                            shortcutNotifSpan.innerText = '⌨️ Pencarian dibersihkan (ESC)';
+                            setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                        }
+                    } else {
+                        searchInput.blur();
+                    }
+                }
+            });
+
+            // ==================== REFRESH BUTTON ====================
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    if (searchInput) searchInput.value = '';
+                    filterMateri();
+                    const refreshIcon = refreshBtn.querySelector('span');
+                    if (refreshIcon) {
+                        refreshIcon.style.animation = 'spin 0.5s ease';
+                        setTimeout(() => {
+                            refreshIcon.style.animation = '';
+                        }, 500);
+                    }
+                    if (shortcutNotifSpan) {
+                        shortcutNotifSpan.innerText = '⟳ Halaman disegarkan';
+                        setTimeout(() => shortcutNotifSpan.innerText = '', 1200);
+                    }
+                    getAllCards().forEach(card => {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            card.style.transform = '';
+                        }, 200);
+                    });
+                    updateButtonsState();
+                });
+            }
+
+            // ==================== SPIN KEYFRAME ====================
+            if (!document.querySelector('#refreshSpinKeyframe')) {
+                const spinStyle = document.createElement('style');
+                spinStyle.id = 'refreshSpinKeyframe';
+                spinStyle.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+                document.head.appendChild(spinStyle);
+            }
+
+            // ==================== INIT GRADIENT ====================
+            function initKotlinGradient() {
+                const kotlinCards = document.querySelectorAll('.kotlin-card, .materi-card');
+                if (kotlinCards.length === 0) return;
+                kotlinCards.forEach(card => {
+                    kotlinGradien.forEach(gc => card.classList.remove(gc));
+                    card.classList.add(kotlinGradien[0]);
+                });
+                kotlinIndex = 0;
+            }
+
+            // ==================== INITIALIZATION ====================
+            setTimeout(() => {
+                initKotlinGradient();
+                updateButtonsState();
+                filterMateri();
+            }, 100);
+
+            console.log('✅ Noxa Store | Kotlin Programming - Theme Active');
+        })();
+    </script>
+</body>
+
+</html>
